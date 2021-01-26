@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="/Resource/bootstrap-4.5.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+    <!--Librerias Sweet | DataTable-->
+    <link rel="stylesheet" href="/Resource/sweet/sweetalert2.min.css">
+
+    <!--DataTable-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"/>    
+    <link rel="stylesheet" href="/Resource/css/style.min.css">
+
+</head>
+<body>
+
+    <!--Menu Principal-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a id="user" class="navbar-brand" href="index.html">Inicio</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navb">
+            <ul class="navbar-nav mr-auto">                
+                
+                
+                <!-- Audiovisual -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Audiovisual
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Fotoperiodismo</a>
+                        <a class="dropdown-item" href="#">Infografías</a>
+                        <a class="dropdown-item" href="#">Podcast</a>
+                    </div>
+                </li>
+                <!-- Articulos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Articulos
+                    </a>
+                    <div class="dropdown-menu">                        
+                            <a class="dropdown-item" href="#">Artículos de opinión</a>
+                            <a class="dropdown-item ml-3" href="#">Política</a>
+                            <a class="dropdown-item ml-3" href="#">Sociedad</a>
+                            <a class="dropdown-item ml-3" href="#">Tecnología</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Reconstrucción de investigaciones</a>                        
+                        <a class="dropdown-item" href="#">Colaboraciones</a>                        
+                    </div>
+                </li>
+                <!-- Cultura -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Cultura
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Libros</a>
+                        <a class="dropdown-item" href="#">Cine</a>
+                        <a class="dropdown-item" href="#">Historia</a>
+                        <a class="dropdown-item" href="#">Filosofía</a>
+                    </div>
+                </li>
+                <!-- Escritos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Escritos
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Cuentos</a>
+                        <a class="dropdown-item" href="#">Poemas</a>
+                        <a class="dropdown-item" href="#">Aforismos</a>
+                        <a class="dropdown-item" href="#">Experiencias</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+  
+        <form class="form-inline my-2 my-lg-0 text-white">
+            LOGO
+        </form>
+        </div>
+    </nav>
+
+    
+
+    <!--Header Principal-->  
+    <div class="p-md-3 text-white bg-dark text-justify">
+        <div class="col-sm-12 col-md-6 cl-lg-12 offset-md-3">
+            <h1 class="font-italic ">Mimisuelo</h1>
+            <p class="">SUBTITULO</p>            
+        </div>
+    </div>
+
+    
+    
+    <!--Contendor Principal-->
+    <div class="container" style="margin-top: 10px">
+
+       
+    </div>
+
+
+    <!--Librerias Bootstrap | SweetAlert-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="/Resource/bootstrap-4.5.3/js/bootstrap.min.js"></script>
+    <script src="/Resource/sweet/sweetalert2.min.js"></script>
+
+    <!--DataTable-->
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-storage.js"></script>    
+  
+    <!--Configuracion de Firebase -->
+    <script type="text/javascript" src="/Resource/js/config/ConfigFirebase.js"></script>
+    <script type="text/javascript" src="/Resource/js/auth/autenticacion.js"></script>
+    
+    <!--Autenticacion-->
+    <script type="text/javascript" src="/Resource/js/auth/autenticacion.js"></script>
+    
+
+</body>
+</html>
