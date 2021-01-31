@@ -4,7 +4,7 @@ class Autenticacion {
     autenticarEmail(email, password){
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((result) => {
-            location.href = "/views/home.html";            
+            location.href = "/Admin/views/home.html";            
         })
         .catch((error) => {
             var errorCode = error.code;
