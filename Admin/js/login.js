@@ -1,10 +1,10 @@
-import {mensaje} from './mensaje.min.js';
+import {mensaje} from './SweetMessage.js';
 
 //Funcion anonima auto ejecutable
 (function(){
 
     //Variables Firebase
-    firebase.initializeApp(firebaseConfig);
+    /*firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     
     //Validar constantemente si existe usuario Logeado
@@ -14,7 +14,7 @@ import {mensaje} from './mensaje.min.js';
         }else{
             console.log("No hay usuario logeado")
         }
-    })
+    })*/
 
     //INPUTS
     let btnLogin = document.getElementById('btnLogin')
