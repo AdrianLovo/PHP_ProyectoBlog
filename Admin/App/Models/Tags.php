@@ -1,13 +1,13 @@
 <?php
 
-    class Usuario{
+    class Tag{
 
-        private $IdUsuario;
-        private $Email;
-        private $Password;
+		private $IdUsuario;
+		private $Email;
+		private $Password;
         private $UltimoInicio;
         private $UltimoFin;
-        private $Imagen;
+		private $Imagen;
         
         public function __construct($IdUsuario, $Email, $Password, $UltimoInicio, $UltimoFin, $Imagen){
             $this->IdUsuario = $IdUsuario;
@@ -18,7 +18,7 @@
             $this->Imagen = $Imagen;           
         }
 
-        public function getIdUsuario(){
+    	public function getIdUsuario(){
             return $this->IdUsuario;
         }
     
@@ -66,12 +66,6 @@
             $this->Imagen = $Imagen;
         }
 
-        //Metodo para obtener los datos de los atributos en un array
-        public function toArray(){
-            $datos = array($this->IdUsuario, $this->Email, $this->Password, $this->UltimoInicio, $this->UltimoFin, $this->Imagen);
-            return $datos;
-        }
-
         //Metodo toString para mostrar campos de objeto
         public function toString(){
             echo(
@@ -84,5 +78,5 @@
             );
         }
 
-    }
+	}
 

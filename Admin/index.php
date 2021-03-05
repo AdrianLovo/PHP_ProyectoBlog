@@ -23,11 +23,6 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
-        <!--<form class="form-inline my-2 my-lg-0 text-white">
-            LOGO
-        </form>-->
-        </div>
     </nav>
 
     
@@ -67,15 +62,12 @@
 
 
     <!--Librerias Jquery > Bootstrap | SweetAlert-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>-->
     <script src="/Resources/js/jquery-3.3.1.min.js"></script>
     <script src="/Resources/bootstrap-4.5.3/js/bootstrap.min.js"></script>
     <script src="/Resources/sweet/sweetalert2.min.js"></script>   
 
     <!--Controlador JS -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="module" src="/Admin/js/index.js"></script>
-
 
 </body>
 </html>

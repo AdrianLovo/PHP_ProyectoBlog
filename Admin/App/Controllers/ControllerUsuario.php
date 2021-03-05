@@ -14,21 +14,34 @@
             }
         }
 
-    }
+        public function Listar(){
+            $datosTodos = array();
+            $daoUsuario = new DAOusuario();
+    
+            foreach ($daoUsuario->listar() as $usuario) {
+                $temp = $usuario->toArray();
+                $datos = array(
+                    'IdUsuario'     => $temp[0],
+                    'Email' 	    => $temp[1],
+                    'Password' 	    => "",
+                    'UltimoInicio'  => $temp[3],
+                    'UltimoFin'     => $temp[4],
+                    'Imagen'        => $temp[5]
+                );
+                $datosTodos[] = $datos;	
+            }
+            echo json_encode($datosTodos);	
+        }
 
-    // $encriptado = crypt("1234", '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-    // echo($encriptado);
+    }
 
     //Parametros recibidos de JS
     $metodo = isset($_POST['metodo']) ? $_POST['metodo'] : null;
     $email = isset($_POST['Email']) ? $_POST['Email'] : null;
     $password = isset($_POST['Password']) ? $_POST['Password'] : null;
     
-    
+    //Instancia de clases a Utilizar
     $controllerUsuario = new ControllerUsuario();
     $parametro = new Usuario("", $email, $password, "", "", "");    
-    $controllerUsuario->$metodo($parametro);        //Metodo recibido 
-
-
-
     
+    $controllerUsuario->$metodo($parametro);        //Metodo recibido 
