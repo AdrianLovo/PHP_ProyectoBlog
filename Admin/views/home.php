@@ -18,7 +18,7 @@
 
     <!--Menu Principal-->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-        <a id="user" class="navbar-brand" href="index.html">Inicio</a>
+        <a id="user" class="navbar-brand" href="home.php">Inicio</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +29,7 @@
                 
                 <!-- Audiovisual -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbardrop">
+                    <a class="nav-link" href="usuarios.php" id="navbardrop">
                        Admin/Users
                     </a>
                 </li>
@@ -39,15 +39,15 @@
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">
-                       Categorias
+                    <a class="nav-link" href="secciones.php" id="navbardrop">
+                       Secciones
                     </a>                   
                 </li>
                 <li>
                     <a class="nav-link" href="#" id="navbardrop">       
-                       Tags
+                       SubSecciones
                     </a>
-                </li>                
+                </li>               
             </ul>
         </div>
   
@@ -86,9 +86,9 @@
     <script src="/Resources/js/jquery-3.3.1.min.js"></script>
     <script src="/Resources/bootstrap-4.5.3/js/bootstrap.min.js"></script>
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
-
-      <!--Controlador JS -->
-      <script type="module" src="/Admin/js/home.js"></script>
+    
+    <!--Controlador JS -->
+    <script type="module" src="/Admin/js/home.js"></script>
    
 
 </body>

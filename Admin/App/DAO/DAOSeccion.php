@@ -1,9 +1,19 @@
 <?php
 
     require_once("DAO.php");
-    require_once("../Models/Seccion.php");
+    require_once("../Models/Usuario.php");
         
     class DAOSeccion extends DAO{
+
+        public function queryBuscar(){
+            $query = "";
+            return $query;
+        }
+
+        public function metodoBuscar($statement, $parametro){
+            $filas = 0;
+            return $filas;
+        }  
 
         public function queryListar(){
             $query = "SELECT * FROM BlogPHP.Seccion";
@@ -11,29 +21,50 @@
         }
 
         public function metodoListar($resultSet){
-			$arrayDeObjetos = array();
-			if(!empty($resultSet)){
-				foreach($resultSet as $fila){
-					$a = new Seccion($fila[0], $fila[1]);
-					array_push($arrayDeObjetos, $a);
-				}	
-			}	
-			return $arrayDeObjetos;
-		}
+            $arrayDeObjetos = array();
+            if(!empty($resultSet)){
+                foreach($resultSet as $fila){
+                    $tmp = new Seccion($fila[0], $fila[1]);
+                    array_push($arrayDeObjetos, $tmp);
+                }    
+            }
+            return $arrayDeObjetos;
+        }       
 
-        public function queryBuscar(){
-            $query = "";
+        public function queryEliminar(){
+            $query = "DELETE FROM BlogPHP.Seccion WHERE IdSeccion = ?";
             return $query;
-        }	
-        
-        
-        public function metodoBuscar($statement, $parametro){
-            $fila = 0;
-            /*$statement->execute([$parametro->getEmail(), $parametro->getPassword()]);
-            $filas = $statement->rowCount();*/
-            return $filas;
         }
-       
+
+        public function metodoEliminar($statement, $parametro){
+            $statement->execute([$parametro->getIdSeccion()]);
+            $filasAfectadas = $statement->rowCount();          
+            return $filasAfectadas;
+        }
+
+        public function queryAgregar(){
+            $query = "INSERT INTO BlogPHP.Seccion (Nombre) VALUES(?)";            
+            return $query;
+        }
+
+        public function metodoAgregar($statement, $parametro){
+            $datos = $parametro->toArray();
+            $statement->execute([$datos[1]]);            
+        }
+
+        public function queryModificar(){
+            $query = "UPDATE BlogPHP.Seccion SET Nombre=? WHERE IdSeccion=?";
+            return $query;
+        }
+
+        public function metodoModificar($statement, $parametro){
+            $filasAfectadas = 0;
+            $datos = $parametro->toArray();  
+            if($statement->execute([$datos[1], $datos[0]])){
+                $filasAfectadas = $statement->rowCount(); 
+            }
+            return $filasAfectadas;
+        }
 
     }
 

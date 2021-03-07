@@ -8,14 +8,16 @@
         private $UltimoInicio;
         private $UltimoFin;
         private $Imagen;
+        private $Tipo;
         
-        public function __construct($IdUsuario, $Email, $Password, $UltimoInicio, $UltimoFin, $Imagen){
+        public function __construct($IdUsuario, $Email, $Password, $UltimoInicio, $UltimoFin, $Imagen, $Tipo){
             $this->IdUsuario = $IdUsuario;
             $this->Email = $Email;
             $this->Password = $Password;
             $this->UltimoInicio = $UltimoInicio;
             $this->UltimoFin = $UltimoFin;
-            $this->Imagen = $Imagen;           
+            $this->Imagen = $Imagen;        
+            $this->Tipo = $Tipo;   
         }
 
         public function getIdUsuario(){
@@ -66,9 +68,17 @@
             $this->Imagen = $Imagen;
         }
 
+        public function getTipo(){
+            return $this->Tipo;
+        }
+    
+        public function setTipo($Tipo){
+            $this->Tipo = $Tipo;
+        }
+
         //Metodo para obtener los datos de los atributos en un array
         public function toArray(){
-            $datos = array($this->IdUsuario, $this->Email, $this->Password, $this->UltimoInicio, $this->UltimoFin, $this->Imagen);
+            $datos = array($this->IdUsuario, $this->Email, $this->Password, $this->UltimoInicio, $this->UltimoFin, $this->Imagen, $this->Tipo);
             return $datos;
         }
 
@@ -80,7 +90,8 @@
                 "Password: " . $this->Password .
                 "UltimoInicio: " . $this->UltimoInicio .
                 "UltimoFin: " . $this->UltimoFin .
-                "Imagen: " . $this->Imagen 
+                "Imagen: " . $this->Imagen .
+                "Tipo: " . $this->Tipo 
             );
         }
 

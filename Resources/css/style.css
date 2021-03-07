@@ -10,3 +10,8 @@ td.details-edit {
     cursor: pointer;
 }
 
+#imgPrevia, #imgPreviaE {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 5px;
+}

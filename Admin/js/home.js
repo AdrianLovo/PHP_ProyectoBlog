@@ -1,13 +1,14 @@
-import {mensaje} from './SweetMessage.js';
+import {mensaje} from './UtilSweetMessage.js';
 
 //Funcion anonima auto ejecutable
 (function(){
 
-    //Elementos DOM
+    //ELEMENTOS DOM
     let secciones = document.getElementById('secciones');
 
     ListarSecciones();
 
+    //LISTAR SECCIONES
     async function ListarSecciones(){
         const data = new FormData();
         data.append('metodo', 'Listar');
@@ -18,7 +19,7 @@ import {mensaje} from './SweetMessage.js';
                 body: data
             });
             let dataRes = await response.json();
-            
+           
             let nodos = [];
             if(dataRes.length > 0){
                 dataRes.forEach( element => {
@@ -34,6 +35,7 @@ import {mensaje} from './SweetMessage.js';
         }
     }
 
+    //CREAR ELEMENTO SECCIONES
     function crearSeccion(element){
         let seccion = document.createElement("li");    
         seccion.className ="list-group-item d-flex justify-content-between align-items-center";

@@ -14,7 +14,7 @@ import {mensaje} from './SweetMessage.js';
     inputsArray[1].addEventListener('keypress', (event) => event.keyCode == 13 ? ValidaCampos() : '' );    //Enter en input password
 
 
-    //FUNCIONES
+    //VALIDAR CAMPOS
     function ValidaCampos(){
         if(inputsArray[0].value.length > 0 && inputsArray[1].value.length > 0){
             inputsArray.forEach(function(element){   
@@ -26,6 +26,7 @@ import {mensaje} from './SweetMessage.js';
         }
     }
     
+    //AUTENTICAR
     async function Autenticar(Email, Password){
         const data = new FormData();
         data.append('metodo', 'Login');
@@ -36,11 +37,9 @@ import {mensaje} from './SweetMessage.js';
                 method: 'POST',
                 body: data
             });
-            let dataRes = await response.text();      
+            let respuesta = await response.text();   
 
-            //console.log(dataRes);
-            
-            if(dataRes == "1"){
+            if(respuesta == "1"){
                 mensaje('Login', 'success');
                 window.location="/Admin/Views/home.php";
             }else{
