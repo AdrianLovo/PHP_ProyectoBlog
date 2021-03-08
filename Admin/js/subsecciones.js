@@ -16,11 +16,9 @@ import {listarTable, eliminarTable, agregarTable, modificarTable, listarSelect} 
     
     table = await listarTable();
     eliminarTable(table);
-    //Modificar();
-    
     listarSelect(select);
     listarSelect(selectE);
-    
+    Modificar();
 
   
     //AGREGAR
@@ -33,21 +31,23 @@ import {listarTable, eliminarTable, agregarTable, modificarTable, listarSelect} 
 
     //MODIFICAR
     function Modificar(){   
-        /*$('#tablaSubSeccion tbody').on('click', 'td.details-edit', function () {
-            frmSubSeccionE[2].value = table.row($(this).parents('tr')).data().IdSeccion;
-            frmSubSeccionE[1].value = table.row(this).index();
-            frmSubSeccionE[3].value = table.row($(this).parents('tr')).data().Nombre;
-            
+        $('#tablaSubSeccion tbody').on('click', 'td.details-edit', function () {
+            frmSubSeccionE[1].value = table.row(this).index();  
+            frmSubSeccionE[2].value = table.row($(this).parents('tr')).data().SeccionNombre;
+            frmSubSeccionE[3].value = table.row($(this).parents('tr')).data().IdSeccion;
+            frmSubSeccionE[4].value = table.row($(this).parents('tr')).data().IdSubseccion;
+            frmSubSeccionE[5].value = table.row($(this).parents('tr')).data().IdSeccion;
+            frmSubSeccionE[6].value = table.row($(this).parents('tr')).data().SubseccionNombre;
             $("#pills-modificar-tab").removeClass("disabled");        
             $("a[href='#pills-modificar']").tab("show");            
-        });*/
+        });
     }
 
     modificar.addEventListener("click", async (e) => {
-        /*e.preventDefault();  
-        modificarTable();
+        e.preventDefault();  
+        modificarTable(frmSubSeccionE);
         $("#pills-modificar-tab").addClass("disabled");        
-        $("a[href='#pills-listar']").tab("show"); */
+        $("a[href='#pills-listar']").tab("show");
     });    
 
     cancelar.addEventListener('click', function(e){

@@ -44,7 +44,7 @@
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="subsecciones" id="navbardrop">       
+                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
                        SubSecciones
                     </a>
                 </li>                

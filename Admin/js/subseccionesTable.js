@@ -61,15 +61,14 @@ export async function agregarTable(formulario){
     } 
 }
 
-export async function modificarTable(){
-    /*let respuesta = new Array()
-    let fila = frmSeccionE[1].value;
-    console.log("FILA A MODIFICAR ", fila);
-    respuesta = await modificarFetch('../App/Controllers/ControllerSubSeccion.php', frmSeccionE);
+export async function modificarTable(formulario){
+    let respuesta = new Array()
+    let fila = formulario[1].value;
+    respuesta = await modificarFetch('../App/Controllers/ControllerSubSeccion.php', formulario);
         
     if(respuesta.length > 0){
-        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Nombre        
-    }*/
+        $("#tablaSubSeccion").DataTable().cell(fila, 3).data(respuesta[3]);  //Nombre        
+    }
 }
 
 export async function listarSelect(select){

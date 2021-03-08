@@ -77,7 +77,8 @@ export async function modificarFetch(ruta, formulario){
             body: new FormData(formulario)
         })
         let respuesta = await response.json();
-        console.log(respuesta)
+        //let respuesta = await response.text();
+        //console.log(respuesta)
        
         if(respuesta.length > 0){
             formulario.reset();

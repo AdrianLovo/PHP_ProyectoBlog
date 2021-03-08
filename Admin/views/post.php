@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - SubSecciones</title>
+    <title>Blog - Secciones</title>
     
     <!--Icono | Bootstrap | Sweet-->
     <link rel="shortcut icon" href="/Resources/img/favicon.ico">  
@@ -77,13 +77,11 @@
             <!--Listar | Eliminar-->
             <div class="tab-pane fade show active pt-3" id="pills-listar" role="tabpanel" aria-labelledby="pills-listar-tab">
                 
-                <table id="tablaSubSeccion" class="table table-bordered"  data-page-length='10' style="width:100%">
+                <table id="tablaPost" class="table table-bordered"  data-page-length='10' style="width:100%">
                     <thead class="thead-dark">
                         <tr>
-                            <th style="display:none"></th>
-                            <th>Sección Nombre</th>
-                            <th style="display:none"></th>
-                            <th>Subsección Nombre</th>
+                            <th>IdSeccion</th>
+                            <th>Nombre</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -99,17 +97,11 @@
             <div class="tab-pane fade" id="pills-agregar" role="tabpanel" aria-labelledby="pills-agregar-tab">
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
-                    <form method="post" action="" id="frmSubSeccion" autocomplete="off">  
+                    <form method="post" action="" id="frmSeccion" autocomplete="off">  
                         <input type="text" name="metodo" value="Agregar" style="display:none">                      
-                        <input type="text" name="SeccionNombre" id="SeccionNombre" style="display:none">
                         
                         <div class="form-row pt-4">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="Seccion">Seccion</label>
-                                <select id="Seccion" name="Seccion" class="form-control" require>                                  
-                                </select>
-                            </div>                            
-                            <div class="form-group col-md-5">
+                            <div class="form-group col-md-6 offset-md-3">
                                 <label for="Nombre">Nombre</label>
                                 <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="" require>                        
                             </div>                            
@@ -129,23 +121,16 @@
             <div class="tab-pane fade" id="pills-modificar" role="tabpanel" aria-labelledby="pills-modificar-tab">
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
-                    <form method="post" action="" id="frmSubSeccionE" autocomplete="off">  
-                        <input type="text" name="metodo" value="Modificar" style="display:">       
-                        <input type="text" id="FilaE" name="FilaE" style="display:">     
-                        <input type="text" id="SeccionNombreE" name="SeccionNombreE"  style="display:"> 
-                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:">
-                        <input type="text" id="IdSubseccionE" name="IdSubseccionE" value="" style="display:">
+                    <form method="post" action="" id="frmSeccionE" autocomplete="off">  
+                        <input type="text" name="metodo" value="Modificar" style="display:none">       
+                        <input type="text" id="FilaE" name="FilaE" value="" style="display:none">     
+                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:none"> 
                         
                         <div class="form-row pt-4">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="SeccionE">Seccion</label>
-                                <select id="SeccionE" name="SeccionE" class="form-control" require>
-                                </select>
-                            </div>                            
-                            <div class="form-group col-md-5">
-                                <label for="NombreE">Nombre Subsección</label>
-                                <input type="text" class="form-control" id="NombreE" name="NombreE" placeholder="" require>                        
-                            </div> 
+                            <div class="form-group col-md-6 offset-md-3">
+                                <label for="NombreE">Nombre</label>
+                                <input type="text" class="form-control" id="NombreE" name="NombreE">                        
+                            </div>                        
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-5 offset-md-1">
@@ -173,7 +158,7 @@
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
 
     <!--Controlador JS -->
-    <script type="module" src="/Admin/js/subsecciones.js"></script>
+    <script type="module" src="/Admin/js/post.js"></script>
 
 </body>
 </html>

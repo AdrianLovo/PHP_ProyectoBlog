@@ -35,7 +35,7 @@
             $SeccionNombre = isset($_POST['SeccionNombre']) ? $_POST['SeccionNombre'] : null;    
             $Nombre = isset($_POST['Nombre']) ? $_POST['Nombre'] : null;    
             $seccion = new SubSeccion($Seccion, $SeccionNombre, null, $Nombre);
-            $seccion->setIdSeccion($this->daoSubseccion->agregar($seccion));
+            $seccion->setIdSubSeccion($this->daoSubseccion->agregar($seccion));
             
             if($seccion->getIdSeccion() > 0){
                 echo json_encode($seccion->toArray());
@@ -45,16 +45,19 @@
         }
 
         public function Modificar(){            
-            /*$Nombre = isset($_POST['NombreE']) ? $_POST['NombreE'] : null;
-            $IdSeccion = isset($_POST['IdSeccionE']) ? $_POST['IdSeccionE'] : null;            
-            $seccion = new Seccion($IdSeccion, $Nombre);
-            $filas = $this->daoSubseccion->modificar($seccion);   
+            $IdSeccion = isset($_POST['IdSeccionE']) ? $_POST['IdSeccionE'] : null;   
+            $SeccionNombre = isset($_POST['SeccionNombreE']) ? $_POST['SeccionNombreE'] : null;
+            $IdSubseccion = isset($_POST['IdSubseccionE']) ? $_POST['IdSubseccionE'] : null;
+            $SubseccionNombre = isset($_POST['NombreE']) ? $_POST['NombreE'] : null;                        
+            
+            $subseccion = new SubSeccion($IdSeccion, $SeccionNombre, $IdSubseccion, $SubseccionNombre);
+            $filas = $this->daoSubseccion->modificar($subseccion);   
 
             if($filas > 0){
-                echo json_encode($seccion->toArray()); 
+                echo json_encode($subseccion->toArray()); 
             }else{
                 echo json_encode($this->vacio);
-            }*/
+            }
         }
     }
 

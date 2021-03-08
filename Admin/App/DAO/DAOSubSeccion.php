@@ -60,7 +60,7 @@
         public function metodoModificar($statement, $parametro){
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
-            if($statement->execute([$datos[0], $datos[1], $datos[2]])){
+            if($statement->execute([$datos[0], $datos[3], $datos[2]])){
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;
