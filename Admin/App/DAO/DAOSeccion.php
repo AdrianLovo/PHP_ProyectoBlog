@@ -61,6 +61,7 @@
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
             if($statement->execute([$datos[1], $datos[0]])){
+                //var_dump($datos);
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;

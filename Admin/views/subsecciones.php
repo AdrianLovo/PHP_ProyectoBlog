@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Usuarios</title>
+    <title>Blog - SubSecciones</title>
     
     <!--Icono | Bootstrap | Sweet-->
     <link rel="shortcut icon" href="/Resources/img/favicon.ico">  
@@ -44,7 +44,7 @@
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="subsecciones" id="navbardrop">       
+                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
                        SubSecciones
                     </a>
                 </li>                
@@ -77,13 +77,11 @@
             <!--Listar | Eliminar-->
             <div class="tab-pane fade show active pt-3" id="pills-listar" role="tabpanel" aria-labelledby="pills-listar-tab">
                 
-                <table id="tablaUsuario" class="table table-bordered"  data-page-length='10' style="width:100%">
+                <table id="tablaSeccion" class="table table-bordered"  data-page-length='10' style="width:100%">
                     <thead class="thead-dark">
                         <tr>
-                            <th style="width:5%">Id</th>
-                            <th>Email</th>
-                            <th>UltimoInicio</th>
-                            <th>Tipo</th>
+                            <th>IdSeccion</th>
+                            <th>Nombre</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -99,41 +97,19 @@
             <div class="tab-pane fade" id="pills-agregar" role="tabpanel" aria-labelledby="pills-agregar-tab">
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
-                    <form method="post" action="" id="frmUsuario" autocomplete="off">  
+                    <form method="post" action="" id="frmSeccion" autocomplete="off">  
                         <input type="text" name="metodo" value="Agregar" style="display:none">                      
                         
                         <div class="form-row pt-4">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="Email">Email</label>
-                                <input type="email" class="form-control" id="Email" name="Email" placeholder="name@example.com" require>                        
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label for="Password">Password</label>
-                                <input type="password" class="form-control" id="Password" name="Password" placeholder="*****" require>
-                            </div>
+                            <div class="form-group col-md-6 offset-md-3">
+                                <label for="Nombre">Nombre</label>
+                                <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="" require>                        
+                            </div>                            
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-5 offset-md-1">
-                                <label for="Tipo">Tipo</label>
-                                <select id="Tipo" name="Tipo" class="form-control" require>
-                                    <option value="A">Admin</option>
-                                    <option value="U">User</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-5">
-                                <label for="img">Imagen</label>
-                                <input type="file" name="imagen" id="img" accept=".jpg,.png,jpeg" class="form-control">                            
-                            </div>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="/Resources/img/default.png" alt="Vista Previa" id="imgPrevia">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <button class="btn btn-lg btn-primary mt-1" id="agregar" >Agregar</button>                        
+                                <button class="btn btn-lg btn-primary mt-1" id="agregar">Agregar</button>                        
                             </div>
                         </div>
                     </form>
@@ -145,41 +121,17 @@
             <div class="tab-pane fade" id="pills-modificar" role="tabpanel" aria-labelledby="pills-modificar-tab">
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
-                    <form method="post" action="" id="frmUsuarioE" autocomplete="off">  
+                    <form method="post" action="" id="frmSeccionE" autocomplete="off">  
                         <input type="text" name="metodo" value="Modificar" style="display:none">       
-                        <input type="text" id="IdUsuarioE" name="IdUsuarioE" value="" style="display:none"> 
-                        <input type="text" id="ImagenEOld" name="ImagenEOld" value="" style="display:none">                      
                         <input type="text" id="FilaE" name="FilaE" value="" style="display:none">     
+                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:none"> 
                         
                         <div class="form-row pt-4">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="EmailE">Email</label>
-                                <input type="email" class="form-control" id="EmailE" name="EmailE" placeholder="name@example.com">                        
-                            </div>      
-                            <!--<div class="form-group col-md-5">
-                                <label for="PasswordE">Password</label>
-                                <input type="password" class="form-control" id="PasswordE" name="PasswordE" placeholder="*****">
-                            </div>-->   
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="Tipo">Tipo</label>
-                                <select id="TipoE" name="TipoE" class="form-control">
-                                    <option value="A">Admin</option>
-                                    <option value="U">User</option>
-                                </select>
-                            </div>                          
+                            <div class="form-group col-md-6 offset-md-3">
+                                <label for="NombreE">Nombre</label>
+                                <input type="text" class="form-control" id="NombreE" name="NombreE">                        
+                            </div>                        
                         </div>
-
-                        <div class="form-row">           
-                            <div class="form-group col-md-5 offset-md-1">
-                                <label for="imgE">Imagen</label>
-                                <input type="file" name="imagenE" id="imgE" accept=".jpg,.png,jpeg" class="form-control">                            
-                            </div>
-                        </div>
-
-                        <div class="text-center">
-                            <img src="/Resources/img/default.png" alt="Vista Previa" id="imgPreviaE">
-                        </div>
-
                         <div class="form-row">
                             <div class="form-group col-md-5 offset-md-1">
                                 <button class="btn btn-lg btn-primary mt-1" id="modificar">Modificar</button>                        
@@ -206,7 +158,7 @@
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
 
     <!--Controlador JS -->
-    <script type="module" src="/Admin/js/usuarios.js"></script>
+    <script type="module" src="/Admin/js/secciones.js"></script>
 
 </body>
 </html>

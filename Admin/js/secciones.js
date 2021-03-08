@@ -26,8 +26,8 @@ import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccio
     //MODIFICAR
     function Modificar(){   
         $('#tablaSeccion tbody').on('click', 'td.details-edit', function () {
-            frmSeccionE[1].value = table.row($(this).parents('tr')).data().IdSeccion;
-            frmSeccionE[2].value = table.row(this).index();
+            frmSeccionE[2].value = table.row($(this).parents('tr')).data().IdSeccion;
+            frmSeccionE[1].value = table.row(this).index();
             frmSeccionE[3].value = table.row($(this).parents('tr')).data().Nombre;
             
             $("#pills-modificar-tab").removeClass("disabled");        

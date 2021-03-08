@@ -58,12 +58,12 @@ export async function agregarTable(){
 
 export async function modificarTable(){
     let respuesta = new Array()
+    let fila = frmSeccionE[1].value;
+    console.log("FILA A MODIFICAR ", fila);
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);
-
-    console.log("FILA A MODIFICAR" + frmSeccionE[2].value);
         
     if(respuesta.length > 0){
-        $("#tablaSeccion").DataTable().cell( frmSeccionE[3].value , 1).data(respuesta[1]);  //Nombre        
+        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Nombre        
     }
 
 }

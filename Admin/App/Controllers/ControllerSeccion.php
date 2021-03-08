@@ -43,11 +43,10 @@
 
         public function Modificar(){            
             $Nombre = isset($_POST['NombreE']) ? $_POST['NombreE'] : null;
-            $IdSeccion = isset($_POST['IdSeccionE']) ? $_POST['IdSeccionE'] : null;
-            
-            $seccion = new Seccion($IdSeccion, $Nombre);  
-            $filas = $this->daoSeccion->modificar($seccion);                
-            
+            $IdSeccion = isset($_POST['IdSeccionE']) ? $_POST['IdSeccionE'] : null;            
+            $seccion = new Seccion($IdSeccion, $Nombre);
+            $filas = $this->daoSeccion->modificar($seccion);   
+
             if($filas > 0){
                 echo json_encode($seccion->toArray()); 
             }else{

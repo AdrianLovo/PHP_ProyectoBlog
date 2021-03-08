@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Blog - Home</title>
     
     <link rel="shortcut icon" href="/Resources/img/favicon.ico">  
 
@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">
+                    <a class="nav-link" href="post.php" id="navbardrop">
                        Posts
                     </a>                   
                 </li>
@@ -44,7 +44,7 @@
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">       
+                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
                        SubSecciones
                     </a>
                 </li>               

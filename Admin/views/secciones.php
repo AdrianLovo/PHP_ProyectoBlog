@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Usuarios</title>
+    <title>Blog - Secciones</title>
     
     <!--Icono | Bootstrap | Sweet-->
     <link rel="shortcut icon" href="/Resources/img/favicon.ico">  
@@ -34,17 +34,17 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">
+                    <a class="nav-link" href="post.php" id="navbardrop">
                        Posts
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">
+                    <a class="nav-link" href="secciones.php" id="navbardrop">
                        Secciones
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="#" id="navbardrop">       
+                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
                        SubSecciones
                     </a>
                 </li>                
@@ -122,9 +122,9 @@
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
                     <form method="post" action="" id="frmSeccionE" autocomplete="off">  
-                        <input type="text" name="metodo" value="Modificar" style="display:">       
-                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:"> 
-                        <input type="text" id="FilaE" name="FilaE" value="" style="display:">     
+                        <input type="text" name="metodo" value="Modificar" style="display:none">       
+                        <input type="text" id="FilaE" name="FilaE" value="" style="display:none">     
+                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:none"> 
                         
                         <div class="form-row pt-4">
                             <div class="form-group col-md-6 offset-md-3">
