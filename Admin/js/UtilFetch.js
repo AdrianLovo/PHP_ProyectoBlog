@@ -10,6 +10,7 @@ export async function listarFetch(ruta){
             body: data
         });
         let respuesta = await response.json();
+        //let respuesta = await response.text();
         //console.log(respuesta);
         
         if(respuesta.length > 0){
@@ -21,10 +22,10 @@ export async function listarFetch(ruta){
     }
 } 
 
-export async function eliminarFetch(ruta, id){
+export async function eliminarFetch(ruta, columna, id){
     const data = new FormData();
     data.append('metodo', 'Eliminar');
-    data.append('IdSeccion', id);
+    data.append(columna, id);
     
     try{
         let response = await fetch(ruta, {
@@ -53,6 +54,7 @@ export async function agregarFetch(ruta, formulario){
             body: new FormData(formulario)
         })
         let respuesta = await response.json();      
+        //let respuesta = await response.text();      
         //console.log(respuesta);
         
         if(respuesta.length > 0){

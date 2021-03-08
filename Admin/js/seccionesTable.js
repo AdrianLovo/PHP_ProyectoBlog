@@ -39,7 +39,10 @@ export async function listarTable(){
 
 export function eliminarTable(table){
     $('#tablaSeccion tbody').on('click', 'td.details-delete', function () {
-        if(eliminarFetch( "../App/Controllers/ControllerSeccion.php",table.row($(this).parents('tr')).data().IdSeccion)){
+        if(eliminarFetch( 
+            "../App/Controllers/ControllerSeccion.php", "IdSeccion", 
+            table.row($(this).parents('tr')).data().IdSeccion)
+        ){
             table.row($(this).parents('tr')).remove().draw();
         }
     });
@@ -59,7 +62,6 @@ export async function agregarTable(){
 export async function modificarTable(){
     let respuesta = new Array()
     let fila = frmSeccionE[1].value;
-    console.log("FILA A MODIFICAR ", fila);
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);
         
     if(respuesta.length > 0){

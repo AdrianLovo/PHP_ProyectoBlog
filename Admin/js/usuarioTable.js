@@ -43,7 +43,9 @@ export async function listarTable(){
 
 export function eliminarTable(table){
     $('#tablaUsuario tbody').on('click', 'td.details-delete', function () {
-        if(eliminarFetch( "../App/Controllers/ControllerUsuario.php",table.row($(this).parents('tr')).data().IdUsuario)){
+        if(eliminarFetch( 
+            "../App/Controllers/ControllerUsuario.php", "IdUsuario",
+            table.row($(this).parents('tr')).data().IdUsuario)){
             table.row($(this).parents('tr')).remove().draw();
         }
     });
