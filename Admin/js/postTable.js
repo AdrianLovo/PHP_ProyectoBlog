@@ -1,3 +1,4 @@
+import {agregarFetch} from './UtilFetch.js';
 /*import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFetch.js';
 
 export async function listarTable(){
@@ -46,20 +47,20 @@ export function eliminarTable(table){
             table.row($(this).parents('tr')).remove().draw();
         }
     });
-}
+}*/
 
-export async function agregarTable(){
+export async function agregarTable(frmPost){
     let respuesta = new Array()
-    respuesta = await agregarFetch('../App/Controllers/ControllerSeccion.php', frmSeccion);
+    respuesta = await agregarFetch('../App/Controllers/ControllerPost.php', frmPost);
     
-    if(respuesta.length > 0){
+    /*if(respuesta.length > 0){
         $('#tablaSeccion').dataTable().fnAddData([
             { "IdSeccion": respuesta[0], "Nombre": respuesta[1] }
         ]);            
-    }
+    }*/
 }
 
-export async function modificarTable(){
+/*export async function modificarTable(){
     let respuesta = new Array()
     let fila = frmSeccionE[1].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);

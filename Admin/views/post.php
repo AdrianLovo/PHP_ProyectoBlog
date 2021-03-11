@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Secciones</title>
+    <title>Blog - Post</title>
     
-    <!--Icono | Bootstrap | Sweet-->
+    <!--Icono | Bootstrap | Sweet | MyStyle-->
     <link rel="shortcut icon" href="/Resources/img/favicon.ico">  
-    <link rel="stylesheet" href="/Resources/bootstrap-4.5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Resources/sweet/sweetalert2.min.css">
     <link rel="stylesheet" href="/Resources/css/style.min.css">
+    <link rel="stylesheet" href="/Resources/bootstrap-4.5.3/css/bootstrap.min.css">
 
     <!--DataTable-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css"> 
+
+    <!--Summernote-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    
 </head>
 <body>
 
@@ -58,8 +67,9 @@
     </nav>
 
 
+   
     <div class="container col-xl-12 col-lg-12 col-sm-12 col-12">
-        <ul  class="nav nav-tabs mt-5" id="pills-tab" role="tablist">
+        <ul  class="nav nav-tabs mt-3" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="pills-listar-tab" data-toggle="pill" href="#pills-listar" role="tab" aria-controls="pills-listar" aria-selected="true">Listado</a>
             </li>
@@ -77,7 +87,7 @@
             <!--Listar | Eliminar-->
             <div class="tab-pane fade show active pt-3" id="pills-listar" role="tabpanel" aria-labelledby="pills-listar-tab">
                 
-                <table id="tablaPost" class="table table-bordered"  data-page-length='10' style="width:100%">
+                <table id="tablaSeccion" class="table table-bordered"  data-page-length='10' style="width:100%">
                     <thead class="thead-dark">
                         <tr>
                             <th>IdSeccion</th>
@@ -95,70 +105,55 @@
         
             <!--AGREGAR-->
             <div class="tab-pane fade" id="pills-agregar" role="tabpanel" aria-labelledby="pills-agregar-tab">
-                <div class="card mt-3 col-md-10  offset-md-1">
-                    
-                    <form method="post" action="" id="frmSeccion" autocomplete="off">  
-                        <input type="text" name="metodo" value="Agregar" style="display:none">                      
-                        
-                        <div class="form-row pt-4">
-                            <div class="form-group col-md-6 offset-md-3">
-                                <label for="Nombre">Nombre</label>
-                                <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder="" require>                        
-                            </div>                            
-                        </div>
+                <div class="card mt-3 col-md-12">
+
+
+                    <form method="post" action="" id="frmPost" autocomplete="off">  
+                        <input type="text" name="metodo" value="Agregar" style="display:none"> 
 
                         <div class="form-row">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <button class="btn btn-lg btn-primary mt-1" id="agregar">Agregar</button>                        
+                            <div class="form-group col-md-12 mt-3">
+                                <button class="btn btn-primary" id="btn-get-content">Guardar</button> 
+                                <button class="btn btn-dark" id="btn-reset">Reiniciar</button>
                             </div>
                         </div>
+                        
+                        <textarea id="ta-1" name="tab-1"></textarea>  
                     </form>
 
-                </div>                
+                    <div class="form-row">
+                        <div id="resultado" class="form-group col-md-12 mt-3"></div>                                 
+                    </div>        
+                    
+                </div>
             </div>
 
             <!--MODIFICAR-->
             <div class="tab-pane fade" id="pills-modificar" role="tabpanel" aria-labelledby="pills-modificar-tab">
-                <div class="card mt-3 col-md-10  offset-md-1">
-                    
-                    <form method="post" action="" id="frmSeccionE" autocomplete="off">  
-                        <input type="text" name="metodo" value="Modificar" style="display:none">       
-                        <input type="text" id="FilaE" name="FilaE" value="" style="display:none">     
-                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:none"> 
-                        
-                        <div class="form-row pt-4">
-                            <div class="form-group col-md-6 offset-md-3">
-                                <label for="NombreE">Nombre</label>
-                                <input type="text" class="form-control" id="NombreE" name="NombreE">                        
-                            </div>                        
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-5 offset-md-1">
-                                <button class="btn btn-lg btn-primary mt-1" id="modificar">Modificar</button>                        
-                                <button class="btn btn-lg btn-dark mt-1" id="cancelar">Cancelar</button>    
-                            </div>
-                        </div>
-                    </form>
-
-                </div>       
+               
+               
             </div>
 
         </div>
     </div>
 
     
+    
+
 
     <!--DataTable-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script> 
 
     <!--Librerias  Bootstrap | SweetAlert-->
-    <script src="/Resources/bootstrap-4.5.3/js/bootstrap.min.js"></script>
+    <!-- <script src="/Resources/bootstrap-4.5.3/js/bootstrap.min.js"></script> -->
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
 
+    
+
     <!--Controlador JS -->
-    <script type="module" src="/Admin/js/post.js"></script>
+    <script type="module" src="/Admin/js/post.js"></script>  
 
 </body>
 </html>

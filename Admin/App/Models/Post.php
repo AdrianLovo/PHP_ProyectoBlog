@@ -2,23 +2,47 @@
 
     class Post{
 
-		private $idPost;
-		private $idUsuario;
-		private $titulo;
-        private $descripcion;
-        private $UltimoFin;
-		private $Imagen;
+		private $IdPost;
+		private $Contenido;
+		private $Fecha;
+        private $IdUsuario;
+        private $IdSeccion;
+		private $SubSeccion;
         
-        public function __construct($IdUsuario, $Email, $Password, $UltimoInicio, $UltimoFin, $Imagen){
+        public function __construct($IdPost, $Contenido, $Fecha, $IdUsuario, $IdSeccion, $SubSeccion){
+            $this->IdPost = $IdPost;
+            $this->Contenido = $Contenido;
+            $this->Fecha = $Fecha;
             $this->IdUsuario = $IdUsuario;
-            $this->Email = $Email;
-            $this->Password = $Password;
-            $this->UltimoInicio = $UltimoInicio;
-            $this->UltimoFin = $UltimoFin;
-            $this->Imagen = $Imagen;           
+            $this->IdSeccion = $IdSeccion;
+            $this->SubSeccion = $SubSeccion;           
         }
 
-    	public function getIdUsuario(){
+        public function getIDPost(){
+            return $this->IdPost;
+        }
+    
+        public function setDPost($IdPost){
+            $this->IdPost = $IdPost;
+        }
+    
+        public function getContenido(){
+            return $this->Contenido;
+        }
+    
+        public function setContenido($Contenido){
+            $this->Contenido = $Contenido;
+        }
+    
+        public function getFecha(){
+            return $this->Fecha;
+        }
+    
+        public function setFecha($Fecha){
+            $this->Fecha = $Fecha;
+        }
+    
+        public function getIdUsuario(){
             return $this->IdUsuario;
         }
     
@@ -26,45 +50,23 @@
             $this->IdUsuario = $IdUsuario;
         }
     
-        public function getEmail(){
-            return $this->Email;
+        public function getIdSeccion(){
+            return $this->IdSeccion;
         }
     
-        public function setEmail($Email){
-            $this->Email = $Email;
+        public function setIdSeccion($IdSeccion){
+            $this->IdSeccion = $IdSeccion;
         }
     
-        public function getPassword(){
-            return $this->Password;
+        public function getSubSeccion(){
+            return $this->SubSeccion;
         }
     
-        public function setPassword($Password){
-            $this->Password = $Password;
+        public function setSubSeccion($SubSeccion){
+            $this->SubSeccion = $SubSeccion;
         }
-    
-        public function getUltimoInicio(){
-            return $this->UltimoInicio;
-        }
-    
-        public function setUltimoInicio($UltimoInicio){
-            $this->UltimoInicio = $UltimoInicio;
-        }
-    
-        public function getUltimoFin(){
-            return $this->UltimoFin;
-        }
-    
-        public function setUltimoFin($UltimoFin){
-            $this->UltimoFin = $UltimoFin;
-        }
-    
-        public function getImagen(){
-            return $this->Imagen;
-        }
-    
-        public function setImagen($Imagen){
-            $this->Imagen = $Imagen;
-        }
+
+    	
 
         //Metodo toString para mostrar campos de objeto
         public function toString(){

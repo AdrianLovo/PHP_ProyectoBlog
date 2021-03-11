@@ -53,9 +53,9 @@ export async function agregarFetch(ruta, formulario){
             method: 'POST',
             body: new FormData(formulario)
         })
-        let respuesta = await response.json();      
-        //let respuesta = await response.text();      
-        //console.log(respuesta);
+        //let respuesta = await response.json();      
+        let respuesta = await response.text();      
+        console.log(respuesta);
         
         if(respuesta.length > 0){
             mensaje('Registro Agregado', 'success');  
