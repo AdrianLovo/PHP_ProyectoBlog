@@ -1,4 +1,4 @@
-import {agregarFetch} from './UtilFetch.js';
+import {listarFetch, agregarFetch} from './UtilFetch.js';
 /*import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFetch.js';
 
 export async function listarTable(){
@@ -60,6 +60,7 @@ export async function agregarTable(frmPost){
     }*/
 }
 
+
 /*export async function modificarTable(){
     let respuesta = new Array()
     let fila = frmSeccionE[1].value;
@@ -69,3 +70,39 @@ export async function agregarTable(frmPost){
         $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Nombre        
     }
 }*/
+
+export async function listarSecciones(select, ruta, inputNombre){
+    let nodos = [];
+    let lista = new Array();
+    lista = await listarFetch(ruta);
+
+    if(lista.length > 0){
+        inputNombre.value = lista[0].campo;
+        
+        for(let i= 0; i < lista.length; i++){
+            let opt = document.createElement("option");    
+            opt.value = lista[i].IdSeccion;
+            opt.text = lista[i].Nombre;    
+            nodos.push(opt);
+        }
+    }    
+    select.append(...nodos);
+}
+
+export async function listarSubSecciones(select, ruta, inputNombre){
+    let nodos = [];
+    let lista = new Array();
+    lista = await listarFetch(ruta);
+
+    if(lista.length > 0){
+        inputNombre.value = lista[0].campo;
+        
+        for(let i= 0; i < lista.length; i++){
+            let opt = document.createElement("option");    
+            opt.value = lista[i].IdSubseccion;
+            opt.text = lista[i].SubseccionNombre;    
+            nodos.push(opt);
+        }
+    }    
+    select.append(...nodos);
+}

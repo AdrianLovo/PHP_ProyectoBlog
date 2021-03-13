@@ -65,7 +65,7 @@ export async function modificarTable(){
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);
         
     if(respuesta.length > 0){
-        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Nombre        
+        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Actualizar "Nombre" mofificado a tabla
     }
 
 }

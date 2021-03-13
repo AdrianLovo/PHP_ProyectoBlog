@@ -6,14 +6,14 @@
     class DAOUsuario extends DAO{
 
         public function queryBuscar(){
-            $query = "SELECT * FROM BlogPHP.Usuario WHERE Email=? AND Password=? LIMIT 1";
+            $query = "SELECT * FROM BlogPHP.Usuario WHERE Email=? LIMIT 1";
             return $query;
         }
 
         public function metodoBuscar($statement, $parametro){
-            $statement->execute([$parametro->getEmail(), $parametro->getPassword()]);
-            $filas = $statement->rowCount();
-            return $filas;
+            $statement->execute([$parametro->getEmail()]);
+            $resultSet = $statement->fetchAll();
+            return $resultSet;
         }  
 
         public function queryListar(){
@@ -30,7 +30,17 @@
                 }    
             }
             return $arrayDeObjetos;
-        }       
+        }   
+        
+        public function queryListarFiltro($filtro){                       
+            return "";
+        }
+
+        public function metodoListarFiltro($statement, $parametro){
+            $arrayDeObjetos = array();   
+            return $arrayDeObjetos;
+        }   
+
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.Usuario WHERE IdUsuario = ?";

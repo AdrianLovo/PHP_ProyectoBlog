@@ -30,12 +30,20 @@
         }
 
         public function Agregar(){       
-            $Contenido = isset($_POST['tab-1']) ? $_POST['tab-1'] : null;            
-            echo($Contenido);
-            /*$seccion = new Seccion(null, $Nombre);
-            $seccion->setIdSeccion($this->daoSeccion->agregar($seccion));
+            $Titulo = isset($_POST['titulo']) ? $_POST['titulo'] : null;            
+            $Descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;  
+            $Imagen = "";
+            $fecha =  $fecha = date('Y-m-d H:i:s');          
+            $Contenido = isset($_POST['ta-1']) ? $_POST['ta-1'] : null;            
+            $Seccion = isset($_POST['Seccion']) ? $_POST['Seccion'] : null;  
+            $Subseccion = isset($_POST['Subseccion']) ? $_POST['Subseccion'] : null;       
+               
+            $post = new Post(null, $Titulo, $Descripcion, $Imagen, $Contenido, $fecha, 1, $Seccion, $Subseccion);
+            $post->setIdPost($this->daoPost->agregar($post));
             
-            if($seccion->getIdSeccion() > 0){
+            var_dump($post);
+            
+            /*if($seccion->getIdSeccion() > 0){
                 echo json_encode($seccion->toArray());
             }else{
                 echo json_encode($this->vacio);

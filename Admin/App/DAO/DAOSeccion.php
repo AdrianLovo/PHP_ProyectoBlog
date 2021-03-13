@@ -1,5 +1,4 @@
 <?php
-
     require_once("DAO.php");
     require_once("../Models/Seccion.php");
         
@@ -15,6 +14,7 @@
             return $filas;
         }  
 
+        
         public function queryListar(){
             $query = "SELECT * FROM BlogPHP.Seccion";
             return $query;
@@ -25,11 +25,35 @@
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new Seccion($fila[0], $fila[1]);
-                    array_push($arrayDeObjetos, $tmp);
+                    array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
             return $arrayDeObjetos;
         }       
+
+
+        public function queryListarFiltro($filtro){
+            switch ($filtro) {
+                case 0:
+                    return "SELECT * FROM BlogPHP.Seccion WHERE IdSeccion = ?";
+            }            
+            return "";
+        }
+
+        public function metodoListarFiltro($statement, $parametro){
+            $arrayDeObjetos = array();            
+            $statement->execute([$parametro]);
+            $resultSet = $statement->fetchAll();
+            
+            if(!empty($resultSet)){
+                foreach($resultSet as $fila){
+                    $tmp = new Seccion($fila[0], $fila[1]);
+                    array_push($arrayDeObjetos, $tmp->toArray());
+                }    
+            }
+            return $arrayDeObjetos;
+        }       
+
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.Seccion WHERE IdSeccion = ?";
@@ -61,7 +85,6 @@
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
             if($statement->execute([$datos[1], $datos[0]])){
-                //var_dump($datos);
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;

@@ -1,38 +1,21 @@
 <?php
-
     require_once("Conexion.php");
 
     abstract class DAO extends Conexion{
 
-        abstract function queryBuscar();        
-        abstract function metodoBuscar($statement, $parametro);        
         abstract function queryListar();
-        abstract function metodoListar($resultSet);
-        abstract function queryEliminar();        
-        abstract function metodoEliminar($statement, $parametro);        
+        abstract function queryListarFiltro($filtro);
         abstract function queryAgregar();
-        abstract function metodoAgregar($statement, $parametro);
+        abstract function queryBuscar();        
+        abstract function queryEliminar();        
         abstract function queryModificar();
-        abstract function metodoModificar($statement, $parametro);
 
-       /*
-        * Metodo para listar todos los elementos de tabla "X"
-        * @access: public
-        * @return: int de objetos "X" encontrados 
-        */
-        public function buscar($parametro) {
-            $arrayDeObjetos = array();
-            $pdo = $this->conectar();
-            try {
-                $statement = $pdo->prepare($this->queryBuscar());
-                $arrayDeObjetos = $this->metodoBuscar($statement, $parametro);
-                return $arrayDeObjetos;
-            } catch (Exception $e) {
-                echo($e);
-            }finally{
-                $this->desconectar();
-            }
-        }
+        abstract function metodoListar($resultSet);
+        abstract function metodoListarFiltro($statement, $parametro);
+        abstract function metodoAgregar($statement, $parametro);
+        abstract function metodoBuscar($statement, $parametro);        
+        abstract function metodoEliminar($statement, $parametro);        
+        abstract function metodoModificar($statement, $parametro);
 
         /*
         * Metodo para listar todos los elementos de tabla "X"
@@ -52,20 +35,20 @@
                 $this->desconectar();
             }
         }
-        
+
         /*
-        * Metodo para eliminar registrosa de la tabla "X" segun "id"
+        * Metodo para listar todos los elementos de tabla "X" por filtro
         * @access: public
-        * @param:  $parametro (int indicando identificado)        
-         * @return: $filasAfectadas (int de registros eliminados)
-         */
-        public function eliminar($parametro) {
+        * @return: array() de objetos "X" 
+        */
+        public function listarFiltro($filtro, $parametro) {
+            $arrayDeObjetos = array();
             $pdo = $this->conectar();
-            try{
-                $statement = $pdo->prepare($this->queryEliminar());
-                $filasAfectadas = $this->metodoEliminar($statement, $parametro);
-                return $filasAfectadas;
-            }catch(Exception $e){
+            try {
+                $statement = $pdo->prepare($this->queryListarFiltro($filtro));
+                $arrayDeObjetos = $this->metodoListarFiltro($statement, $parametro);
+                return $arrayDeObjetos;
+            }catch (Exception $e) {
                 echo($e);
             }finally{
                 $this->desconectar();
@@ -92,6 +75,43 @@
             }
         }
 
+        /*
+        * Metodo para buscar un registro de tabla "X"
+        * @access: public
+        * @return: int si encuentra registro "X"
+        */
+        public function buscar($parametro) {
+            $arrayDeObjetos = array();
+            $pdo = $this->conectar();
+            try {
+                $statement = $pdo->prepare($this->queryBuscar());
+                $arrayDeObjetos = $this->metodoBuscar($statement, $parametro);
+                return $arrayDeObjetos;
+            } catch (Exception $e) {
+                echo($e);
+            }finally{
+                $this->desconectar();
+            }
+        }
+        
+        /*
+        * Metodo para eliminar registrosa de la tabla "X" segun "id"
+        * @access: public
+        * @param:  $parametro (int indicando identificado)        
+         * @return: $filasAfectadas (int de registros eliminados)
+         */
+        public function eliminar($parametro) {
+            $pdo = $this->conectar();
+            try{
+                $statement = $pdo->prepare($this->queryEliminar());
+                $filasAfectadas = $this->metodoEliminar($statement, $parametro);
+                return $filasAfectadas;
+            }catch(Exception $e){
+                echo($e);
+            }finally{
+                $this->desconectar();
+            }
+        }
 
         /*
         * Metodo para modificar registrosa de la tabla "X" segun "id"
@@ -111,5 +131,5 @@
                 $this->desconectar();
             }
         }
-
+      
     }

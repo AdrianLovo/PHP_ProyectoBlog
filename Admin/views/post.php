@@ -107,18 +107,57 @@
             <div class="tab-pane fade" id="pills-agregar" role="tabpanel" aria-labelledby="pills-agregar-tab">
                 <div class="card mt-3 col-md-12">
 
-
                     <form method="post" action="" id="frmPost" autocomplete="off">  
                         <input type="text" name="metodo" value="Agregar" style="display:none"> 
+                        <input type="text" name="InputSeccion" id="InputSeccion" style="display:none">
+                        <input type="text" name="InputSubseccion" id="InputSubseccion" style="display:none">    
+                        
+
+                        <div class="form-row pt-4">
+                            <div class="form-group col-md-5 offset-md-1">
+                                <label for="titulo">Titulo</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="" require>                        
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="img">Imagen Portada</label>
+                                <input type="file" name="imagen" id="img" accept=".jpg,.png,jpeg" class="form-control">                            
+                            </div>
+                           
+                        </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-12 mt-3">
-                                <button class="btn btn-primary" id="btn-get-content">Guardar</button> 
-                                <button class="btn btn-dark" id="btn-reset">Reiniciar</button>
+                            <div class="form-group col-md-10 offset-md-1">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="" require>
+                            </div>                            
+                        </div>    
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5 offset-md-1">
+                                <label for="Seccion">Seccion</label>
+                                <select id="Seccion" name="Seccion" class="form-control" require>
+                                </select>
                             </div>
-                        </div>
+                            <div class="form-group col-md-5">
+                                <label for="Subseccion">SubSeccion</label>
+                                <select id="Subseccion" name="Subseccion" class="form-control" require>
+                                </select>
+                            </div>                           
+                        </div>                                        
                         
-                        <textarea id="ta-1" name="tab-1"></textarea>  
+                        <div class="form-row">
+                            <div class="form-group col-md-10 offset-md-1">
+                                <textarea id="ta-1" name="ta-1"></textarea> 
+                            </div> 
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4 offset-md-1">
+                                <button class="btn btn-primary" id="agregar">Agregar</button> 
+                                <button class="btn btn-dark" id="reiniciar">Reiniciar</button>
+                            </div>  
+                        </div>
+
                     </form>
 
                     <div class="form-row">

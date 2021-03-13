@@ -1,68 +1,13 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {agregarTable} from './postTable.js';
-/*import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesTable.js';
-
-(async function(){
-   
-    //INSTANCIAS | ELEMENTOS DOM
-    let table;  
-    let agregar = document.getElementById('agregar');
-    let cancelar = document.getElementById('cancelar');    
-    let modificar = document.getElementById('modificar');    
-    let frmSeccion = document.getElementById("frmSeccion");
-    let frmSeccionE = document.getElementById('frmSeccionE');
-    
-    table = await listarTable();
-    eliminarTable(table);
-    Modificar();
-
-  
-    //AGREGAR
-    agregar.addEventListener("click", async (e) => {
-        e.preventDefault();
-        agregarTable(frmSeccion);
-        $("a[href='#pills-listar']").tab("show");
-    });
-
-    //MODIFICAR
-    function Modificar(){   
-        $('#tablaSeccion tbody').on('click', 'td.details-edit', function () {
-            frmSeccionE[2].value = table.row($(this).parents('tr')).data().IdSeccion;
-            frmSeccionE[1].value = table.row(this).index();
-            frmSeccionE[3].value = table.row($(this).parents('tr')).data().Nombre;
-            
-            $("#pills-modificar-tab").removeClass("disabled");        
-            $("a[href='#pills-modificar']").tab("show");            
-        });
-    }
-
-    modificar.addEventListener("click", async (e) => {
-        e.preventDefault();  
-        modificarTable();
-        $("#pills-modificar-tab").addClass("disabled");        
-        $("a[href='#pills-listar']").tab("show"); 
-    });    
-
-    cancelar.addEventListener('click', function(e){
-        e.preventDefault();
-        frmSeccionE.reset();
-        $("#pills-modificar-tab").addClass("disabled");        
-        $("a[href='#pills-listar']").tab("show");    
-    });
-
- 
-
-})();*/
-
+import {agregarTable, listarSecciones} from './postTable.js';
+//import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesTable.js';
 
 (function() {
-	let resultado = document.getElementById("resultado");
-    let frmPost = document.getElementById("frmPost");
 
     let $sumNote = $("#ta-1")
 		.summernote({
             placeholder: 'Write your content here',
-            height: 600,
+            height: 250,
 			callbacks: { 
                 onPaste: function(e,x,d) { 
                     $sumNote.code(($($sumNote.code()).find("font").remove())); 
@@ -78,31 +23,27 @@ import {agregarTable} from './postTable.js';
 			}
 	}).data("summernote");
 
-	//get
-	$("#btn-get-content").on("click", function() {
-		var contenido =$($sumNote.code());	
-        for(let i= 0; i < contenido.length; i++){
-            console.log(contenido[i]);
-        }
-	    var x = contenido.find("font").remove();		
-		$("#content").text($("#ta-1").val());
-	});
-
-    //reset
-	$("#btn-reset").on("click", function() {
-	    $sumNote.reset();
-		$("#content").empty();
-
-        /*var div = document.getElementById('resultado');
-        while (div.firstChild) {
-            div.removeChild(div.firstChild);
-        }*/
-	});
+    //BOTONES
+    let agregar = document.getElementById("agregar");
+    let reiniciar = document.getElementById("reiniciar");
+   
+    //INPUTS
+    let SelectSeccion = document.getElementById('Seccion');
+    let SelectSubseccion = document.getElementById('Subseccion');    
+    let InputSeccion = document.getElementById('InputSeccion');    
+    let InputSubseccion = document.getElementById('InputSubseccion');    
+    let frmPost = document.getElementById("frmPost");
+    let resultado = document.getElementById("resultado");
 
 
+    listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion, 'IdSeccion', 1);
+    //listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion);
 
-    let agregar = document.getElementById("btn-get-content");
-    let reiniciar = document.getElementById("btn-reset");
+
+    SelectSeccion.addEventListener('change', function(){
+        console.log(SelectSeccion.options[SelectSeccion.selectedIndex].value);
+        console.log(SelectSeccion.options[SelectSeccion.selectedIndex].innerText);
+    })
 
     agregar.addEventListener('click', async function(e){
         e.preventDefault();
@@ -111,6 +52,12 @@ import {agregarTable} from './postTable.js';
     
     reiniciar.addEventListener('click', function(e){
         e.preventDefault();
+        $sumNote.reset();
+		$("#content").empty();
+         /*var div = document.getElementById('resultado');
+            while (div.firstChild) {
+            div.removeChild(div.firstChild);
+        }*/
     })
     
    

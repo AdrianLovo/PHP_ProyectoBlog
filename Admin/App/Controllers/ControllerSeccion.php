@@ -15,11 +15,7 @@
 
         public function Listar(){
             $datosTodos = array();    
-            foreach ($this->daoSeccion->listar() as $seccion) {
-                $temp = $seccion->toArray();
-                $datos = array( 'IdSeccion' => $temp[0], 'Nombre' => $temp[1] );
-                $datosTodos[] = $datos;	
-            }
+            $datosTodos = $this->daoSeccion->listar();
             echo json_encode($datosTodos);	
         }
 
@@ -53,6 +49,12 @@
                 echo json_encode($this->vacio);
             }
         }
+
+        public function ListarFiltro($filtro, $parametro){
+            $datosTodos = array();    
+            $datosTodos = $this->daoSeccion->listarFiltro($filtro, $parametro);
+            echo json_encode($datosTodos);	
+        }
     }
 
     
@@ -61,4 +63,7 @@
     
     //Instancia de clases a Utilizar
     $controllerSeccion = new ControllerSeccion();
-    $controllerSeccion->$metodo();        //Metodo recibido 
+    $controllerSeccion->$metodo();        //Metodo recibido
+
+    
+

@@ -5,44 +5,35 @@ import {mensaje} from './UtilSweetMessage.js';
 
     //ELEMENTOS DOM
     let secciones = document.getElementById('secciones');
+    let salir = document.getElementById('salir');
 
-    ListarSecciones();
 
-    //LISTAR SECCIONES
-    async function ListarSecciones(){
+    //EVENTOS
+    salir.addEventListener('click', function(e){
+        e.preventDefault();
+        Salir();
+    })
+
+    //SALIR
+    async function Salir(){
         const data = new FormData();
-        data.append('metodo', 'Listar');
+        data.append('metodo', 'Salir');
         
         try{
-            let response = await fetch('../App/Controllers/ControllerSeccion.php', {
+            let response = await fetch('../App/Controllers/Controller.php', {
                 method: 'POST',
                 body: data
             });
-            let dataRes = await response.json();
-           
-            let nodos = [];
-            if(dataRes.length > 0){
-                dataRes.forEach( element => {
-                    nodos.push(crearSeccion(element));                           
-                });
-                secciones.append(...nodos);
-            }else{
-                mensaje('No existen secciones agregadas', 'error');  	 	    
-            }
+            let respuesta = await response.text();
 
+            if(respuesta == "ok"){
+                window.location="/Admin/index.php";                
+            }           
         }catch(error){
             mensaje('Error para conectarse al servidor', 'error');  	
         }
     }
-
-    //CREAR ELEMENTO SECCIONES
-    function crearSeccion(element){
-        let seccion = document.createElement("li");    
-        seccion.className ="list-group-item d-flex justify-content-between align-items-center";
-        seccion.innerHTML = element.Nombre;
-        return seccion;
-    }
-    
+   
 })();
 
 

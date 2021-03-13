@@ -43,13 +43,13 @@
         }
 
         public function queryAgregar(){
-            $query = "INSERT INTO BlogPHP.Seccion (Nombre) VALUES(?)";            
+            $query = "INSERT INTO BlogPHP.Post (Titulo, Descripcion, ImagenPortada, Contenido, Fecha, IdUsuario, IdSeccion, SubSeccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";            
             return $query;
         }
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([$datos[1]]);            
+            $statement->execute([ $datos[1], $datos[2], $datos[3], $datos[4], $datos[5], $datos[6], $datos[7], $datos[8] ]);                
         }
 
         public function queryModificar(){

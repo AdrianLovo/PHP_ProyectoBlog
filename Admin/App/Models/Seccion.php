@@ -4,7 +4,7 @@
 
 		private $IdSeccion;
 		private $Nombre;
-		
+       
         public function __construct($IdSeccion, $Nombre){
             $this->IdSeccion = $IdSeccion;
             $this->Nombre = $Nombre;           
@@ -36,7 +36,10 @@
 
         //Metodo para obtener los datos de los atributos en un array
 		public function toArray(){
-			$datos = array($this->IdSeccion, $this->Nombre);
+			$datos = array(
+                'IdSeccion' => $this->IdSeccion, 
+                'Nombre' => $this->Nombre
+            );
 			return $datos;
 		}
 

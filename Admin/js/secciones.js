@@ -1,9 +1,9 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesTable.js';
+import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesFunciones.js';
 
 (async function(){
    
-    //INSTANCIAS | ELEMENTOS DOM
+    //ELEMENTOS DOM
     let table;  
     let agregar = document.getElementById('agregar');
     let cancelar = document.getElementById('cancelar');    
@@ -48,7 +48,5 @@ import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccio
         $("#pills-modificar-tab").addClass("disabled");        
         $("a[href='#pills-listar']").tab("show");    
     });
-
- 
 
 })();

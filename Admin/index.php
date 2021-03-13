@@ -34,25 +34,19 @@
               <div class="card-body">
                 <h5 class="card-title text-center">Iniciar Sesion</h5>
 
-                <div class="form-signin">
-                  <div class="form-label-group">
-                    <label for="inputEmail">Correo Electronico</label>
-                    <input id="inputEmail" type="email" class="form-control data" placeholder="Email address" required autofocus>
-                  </div>
-    
-                  <div class="form-label-group">
-                    <label for="inputPassword">Contraseña</label>
-                    <input id="inputPassword" type="password" class="form-control data" placeholder="Password" required>
-                  </div>
-    
-                  <div class="custom-control custom-checkbox p-2">
-                      <center>
-                          <input type="checkbox" class="custom-control-input" id="customCheck1">
-                          <label class="custom-control-label data" for="customCheck1">Recordar Contraseña</label>
-                      </center>
-                  </div>
-                  <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button">Ingresar</button>                        
-                </div>
+
+                	<div class="form-signin">
+					<div class="form-label-group">
+						<label for="inputEmail">Correo Electronico</label>
+						<input id="inputEmail" type="email" class="form-control data" placeholder="Email address" required autofocus>
+					</div>
+		
+					<div class="form-label-group mb-3">
+						<label for="inputPassword">Contraseña</label>
+						<input id="inputPassword" type="password" class="form-control data" placeholder="Password" required>
+					</div>
+					<button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="button">Ingresar</button>                        
+					</div>
 
               </div>
             </div>

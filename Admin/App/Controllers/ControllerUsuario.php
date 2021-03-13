@@ -13,15 +13,19 @@
             $this->vacio = array();
         }
        
-        public function Login(){
+        public function Login(){            
             $email = isset($_POST['Email']) ? $_POST['Email'] : null;
-            $password = isset($_POST['Password']) ? $_POST['Password'] : null;
-            
-            $usuario = new Usuario("", $email, $password, "", "", "", "");
-            $rows = $this->daoUsuario->buscar($usuario);
-            if($rows > 0){				
-                $_SESSION['activo']  = true;
-                echo($rows);
+            $password = isset($_POST['Password']) ? $_POST['Password'] : null;   
+            $encriptar = password_hash($password, PASSWORD_DEFAULT);   
+            $usuario = new Usuario("", $email, $password, "", "", "", "");            
+
+            $row = $this->daoUsuario->buscar($usuario);
+            if(password_verify($password, $row[0][2] )){			
+                session_start();	
+                $_SESSION['IdUsuario'] = $row[0][0];
+                $_SESSION['Email'] = $row[0][1];
+                $_SESSION['Tipo'] = $row[0][6];
+                echo("ok"); 
             }
         }
 
