@@ -1,13 +1,14 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, eliminarTable, agregarTable, modificarTable, listarSelect} from './subseccionesTable.js';
+import {listarTable, eliminarTable, agregarTable, modificarTable, listarSelect} from './subseccionesFunciones.js';
 
 (async function(){
    
-    //INSTANCIAS | ELEMENTOS DOM
+    //ELEMENTOS DOM
     let table;  
     let select = document.getElementById('Seccion');
     let selectE = document.getElementById('SeccionE');
     let SeccionNombre = document.getElementById('SeccionNombre');    
+    let salir = document.getElementById('salir');
     let agregar = document.getElementById('agregar');
     let cancelar = document.getElementById('cancelar');    
     let modificar = document.getElementById('modificar');    
@@ -57,6 +58,29 @@ import {listarTable, eliminarTable, agregarTable, modificarTable, listarSelect} 
         $("a[href='#pills-listar']").tab("show");
     });
 
-     
+    //SALIR
+    salir.addEventListener('click', function(e){
+        e.preventDefault();
+        Salir();
+    })
+
+    async function Salir(){
+        const data = new FormData();
+        data.append('metodo', 'Salir');
+        
+        try{
+            let response = await fetch('../App/Controllers/Controller.php', {
+                method: 'POST',
+                body: data
+            });
+            let respuesta = await response.text();
+
+            if(respuesta == "ok"){
+                window.location="/Admin/index.php";                
+            }           
+        }catch(error){
+            mensaje('Error para conectarse al servidor', 'error');  	
+        }
+    }
 
 })();

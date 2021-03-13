@@ -1,23 +1,23 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuarioTable.js';
+import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuarioFunciones.js';
 
 (async function(){
    
-    //INSTANCIAS | ELEMENTOS DOM
+    //ELEMENTOS DOM
     let table;  
     let img = document.getElementById('img');   
+    let salir = document.getElementById('salir');
     let agregar = document.getElementById('agregar');
     let cancelar = document.getElementById('cancelar');    
     let modificar = document.getElementById('modificar');    
     let imgPrevia = document.getElementById('imgPrevia');
     let frmUsuario = document.getElementById("frmUsuario");
     let frmUsuarioE = document.getElementById('frmUsuarioE');
+
     
     table = await listarTable();
     eliminarTable(table);
-    Modificar();
-
-  
+    Modificar();  
     
    
     //AGREGAR
@@ -95,6 +95,31 @@ import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuari
             }
         }
     });
+
+    //SALIR
+    salir.addEventListener('click', function(e){
+        e.preventDefault();
+        Salir();
+    })
+
+    async function Salir(){
+        const data = new FormData();
+        data.append('metodo', 'Salir');
+        
+        try{
+            let response = await fetch('../App/Controllers/Controller.php', {
+                method: 'POST',
+                body: data
+            });
+            let respuesta = await response.text();
+
+            if(respuesta == "ok"){
+                window.location="/Admin/index.php";                
+            }           
+        }catch(error){
+            mensaje('Error para conectarse al servidor', 'error');  	
+        }
+    }
 
    
 

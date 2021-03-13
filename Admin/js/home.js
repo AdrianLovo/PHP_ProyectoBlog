@@ -8,13 +8,12 @@ import {mensaje} from './UtilSweetMessage.js';
     let salir = document.getElementById('salir');
 
 
-    //EVENTOS
+    //SALIR
     salir.addEventListener('click', function(e){
         e.preventDefault();
         Salir();
     })
-
-    //SALIR
+    
     async function Salir(){
         const data = new FormData();
         data.append('metodo', 'Salir');

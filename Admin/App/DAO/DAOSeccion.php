@@ -4,14 +4,10 @@
         
     class DAOSeccion extends DAO{
 
-        public function queryBuscar(){
-            $query = "";
-            return $query;
+        public function queryBuscarPorId(){
         }
 
-        public function metodoBuscar($statement, $parametro){
-            $filas = 0;
-            return $filas;
+        public function metodoBuscarPorId($statement, $parametro){
         }  
 
         
@@ -73,7 +69,7 @@
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([$datos[1]]);            
+            $statement->execute([$datos['Nombre']]);            
         }
 
         public function queryModificar(){
@@ -84,7 +80,7 @@
         public function metodoModificar($statement, $parametro){
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
-            if($statement->execute([$datos[1], $datos[0]])){
+            if($statement->execute([$datos['Nombre'], $datos['IdSeccion']])){
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;

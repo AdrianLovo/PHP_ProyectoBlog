@@ -5,12 +5,12 @@
         
     class DAOUsuario extends DAO{
 
-        public function queryBuscar(){
+        public function queryBuscarPorId(){
             $query = "SELECT * FROM BlogPHP.Usuario WHERE Email=? LIMIT 1";
             return $query;
         }
 
-        public function metodoBuscar($statement, $parametro){
+        public function metodoBuscarPorId($statement, $parametro){
             $statement->execute([$parametro->getEmail()]);
             $resultSet = $statement->fetchAll();
             return $resultSet;
@@ -26,19 +26,16 @@
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new Usuario($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
-                    array_push($arrayDeObjetos, $tmp);
+                    array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
             return $arrayDeObjetos;
         }   
         
         public function queryListarFiltro($filtro){                       
-            return "";
         }
 
         public function metodoListarFiltro($statement, $parametro){
-            $arrayDeObjetos = array();   
-            return $arrayDeObjetos;
         }   
 
 
@@ -60,7 +57,7 @@
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([$datos[1], $datos[2], $datos[3], $datos[5], $datos[6]]);            
+            $statement->execute([$datos['Email'], $datos['Password'], $datos['UltimoInicio'], $datos['Imagen'], $datos['Tipo']]);            
         }
 
         public function queryModificar(){
@@ -71,7 +68,7 @@
         public function metodoModificar($statement, $parametro){
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
-            if($statement->execute([$datos[1],$datos[6], $datos[5], $datos[0]])){
+            if($statement->execute([$datos['Email'],$datos['Tipo'], $datos['Imagen'], $datos['IdUsuario']])){
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;

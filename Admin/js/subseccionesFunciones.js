@@ -54,9 +54,9 @@ export async function agregarTable(formulario){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerSubSeccion.php', formulario);
     
-    if(respuesta.length > 0){
+    if(respuesta.constructor.length > 0){
         $('#tablaSubSeccion').dataTable().fnAddData([
-            { "IdSeccion": respuesta[0], "SeccionNombre": respuesta[1], "IdSubseccion": respuesta[2], "SubseccionNombre": respuesta[3] }
+            { "IdSeccion": respuesta.IdSeccion, "SeccionNombre": respuesta.SeccionNombre, "IdSubseccion": respuesta.IdSubseccion, "SubseccionNombre": respuesta.SubseccionNombre }
         ]);            
     } 
 }
@@ -66,8 +66,8 @@ export async function modificarTable(formulario){
     let fila = formulario[1].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerSubSeccion.php', formulario);
         
-    if(respuesta.length > 0){
-        $("#tablaSubSeccion").DataTable().cell(fila, 3).data(respuesta[3]);  //Nombre        
+    if(respuesta.constructor.length > 0){
+        $("#tablaSubSeccion").DataTable().cell(fila, 3).data(respuesta.SubseccionNombre); 
     }
 }
 

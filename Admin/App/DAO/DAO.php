@@ -6,14 +6,14 @@
         abstract function queryListar();
         abstract function queryListarFiltro($filtro);
         abstract function queryAgregar();
-        abstract function queryBuscar();        
+        abstract function queryBuscarPorId();        
         abstract function queryEliminar();        
         abstract function queryModificar();
 
         abstract function metodoListar($resultSet);
         abstract function metodoListarFiltro($statement, $parametro);
         abstract function metodoAgregar($statement, $parametro);
-        abstract function metodoBuscar($statement, $parametro);        
+        abstract function metodoBuscarPorId($statement, $parametro);        
         abstract function metodoEliminar($statement, $parametro);        
         abstract function metodoModificar($statement, $parametro);
 
@@ -80,12 +80,12 @@
         * @access: public
         * @return: int si encuentra registro "X"
         */
-        public function buscar($parametro) {
+        public function buscarPorId($parametro) {
             $arrayDeObjetos = array();
             $pdo = $this->conectar();
             try {
-                $statement = $pdo->prepare($this->queryBuscar());
-                $arrayDeObjetos = $this->metodoBuscar($statement, $parametro);
+                $statement = $pdo->prepare($this->queryBuscarPorId());
+                $arrayDeObjetos = $this->metodoBuscarPorId($statement, $parametro);
                 return $arrayDeObjetos;
             } catch (Exception $e) {
                 echo($e);

@@ -5,14 +5,10 @@
         
     class DAOSubSeccion extends DAO{
 
-        public function queryBuscar(){
-            $query = "";
-            return $query;
+        public function queryBuscarPorId(){
         }
 
-        public function metodoBuscar($statement, $parametro){
-            $filas = 0;
-            return $filas;
+        public function metodoBuscarPorId($statement, $parametro){
         }  
 
         public function queryListar(){
@@ -25,11 +21,17 @@
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new SubSeccion($fila[0], $fila[1], $fila[2], $fila[3]);
-                    array_push($arrayDeObjetos, $tmp);
+                    array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
             return $arrayDeObjetos;
         }       
+
+        public function queryListarFiltro($filtro){            
+        }
+
+        public function metodoListarFiltro($statement, $parametro){
+        }   
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.SubSeccion WHERE IdSubSeccion = ?";
@@ -49,7 +51,7 @@
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([$datos[0], $datos[3]]);            
+            $statement->execute([$datos['IdSeccion'], $datos['SubseccionNombre']]);            
         }
 
         public function queryModificar(){
@@ -60,7 +62,7 @@
         public function metodoModificar($statement, $parametro){
             $filasAfectadas = 0;
             $datos = $parametro->toArray();  
-            if($statement->execute([$datos[0], $datos[3], $datos[2]])){
+            if($statement->execute([$datos['IdSeccion'], $datos['SubseccionNombre'], $datos['IdSubseccion']])){
                 $filasAfectadas = $statement->rowCount(); 
             }
             return $filasAfectadas;

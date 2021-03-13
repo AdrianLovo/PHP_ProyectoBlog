@@ -55,21 +55,24 @@ export async function agregarTable(){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerUsuario.php', frmUsuario);
 
-    if(respuesta.length > 0){
+    if(respuesta.constructor.length > 0){
         $('#tablaUsuario').dataTable().fnAddData([
-            { "IdUsuario": respuesta[0], "Email": respuesta[1], "UltimoInicio": respuesta[3], "Tipo": respuesta[6], "Imagen": respuesta[5] }
+            { "IdUsuario": respuesta.IdUsuario, "Email": respuesta.Email, "UltimoInicio": respuesta.UltimoInicio, "Tipo": respuesta.Tipo, "Imagen": respuesta.Imagen }
         ]);            
     }
 }
 
 export async function modificarTable(){
     let respuesta = new Array()
+    let fila = frmUsuarioE[3].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerUsuario.php', frmUsuarioE);
+
+    console.log("FILA ", fila);
         
-    if(respuesta.length > 0){
-        $("#tablaUsuario").DataTable().cell( frmUsuarioE[1].value , 1).data(respuesta[1]);  //email
-        $("#tablaUsuario").DataTable().cell( frmUsuarioE[1].value , 3).data(respuesta[6]);  //tipo
-        $("#tablaUsuario").DataTable().cell( frmUsuarioE[1].value , 6).data(respuesta[5]);  //imagen        
+    if(respuesta.constructor.length > 0){
+        $("#tablaUsuario").DataTable().cell( fila, 1).data(respuesta.Email);  
+        $("#tablaUsuario").DataTable().cell( fila, 3).data(respuesta.Tipo);  
+        $("#tablaUsuario").DataTable().cell( fila, 6).data(respuesta.Imagen);          
     }
 
 }

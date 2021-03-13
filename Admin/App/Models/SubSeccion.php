@@ -59,7 +59,12 @@
 
         //Metodo para obtener los datos de los atributos en un array
 		public function toArray(){
-			$datos = array($this->IdSeccion, $this->SeccionNombre, $this->IdSubseccion, $this->SubseccionNombre );
+			$datos = array(
+                'IdSeccion' => $this->IdSeccion, 
+                'SeccionNombre' => $this->SeccionNombre, 
+                'IdSubseccion' => $this->IdSubseccion, 
+                'SubseccionNombre' => $this->SubseccionNombre 
+            );
 			return $datos;
 		}
 

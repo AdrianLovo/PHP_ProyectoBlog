@@ -52,9 +52,9 @@ export async function agregarTable(){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerSeccion.php', frmSeccion);
     
-    if(respuesta.length > 0){
+    if(respuesta.constructor.length > 0){
         $('#tablaSeccion').dataTable().fnAddData([
-            { "IdSeccion": respuesta[0], "Nombre": respuesta[1] }
+            { "IdSeccion": respuesta.IdSeccion, "Nombre": respuesta.Nombre }
         ]);            
     }
 }
@@ -64,8 +64,8 @@ export async function modificarTable(){
     let fila = frmSeccionE[1].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);
         
-    if(respuesta.length > 0){
-        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[1]);  //Actualizar "Nombre" mofificado a tabla
+    if(respuesta.constructor.length > 0){
+        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta.Nombre);  //Actualizar "Nombre" mofificado a tabla
     }
 
 }

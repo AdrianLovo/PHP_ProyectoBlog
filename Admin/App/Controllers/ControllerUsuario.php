@@ -19,7 +19,7 @@
             $encriptar = password_hash($password, PASSWORD_DEFAULT);   
             $usuario = new Usuario("", $email, $password, "", "", "", "");            
 
-            $row = $this->daoUsuario->buscar($usuario);
+            $row = $this->daoUsuario->buscarPorId($usuario);
             if(password_verify($password, $row[0][2] )){			
                 session_start();	
                 $_SESSION['IdUsuario'] = $row[0][0];
@@ -31,12 +31,8 @@
 
         public function Listar(){
             $datosTodos = array();    
-            foreach ($this->daoUsuario->listar() as $usuario) {
-                $temp = $usuario->toArray();
-                $datos = array( 'IdUsuario' => $temp[0], 'Email' => $temp[1], 'Password' => "", 'UltimoInicio' => $temp[3], 'UltimoFin' => $temp[4], 'Imagen' => $temp[5], 'Tipo' => $temp[6] );
-                $datosTodos[] = $datos;	
-            }
-            echo json_encode($datosTodos);	
+            $datosTodos = $this->daoUsuario->listar();
+            echo json_encode($datosTodos);	          	
         }
 
         public function Eliminar(){
@@ -53,6 +49,7 @@
             $nombre = isset($_FILES['imagen']['name']) ? $_FILES['imagen']['name'] : null;
             $nombreTemp = isset($_FILES['imagen']['tmp_name']) ? $_FILES['imagen']['tmp_name'] : null;
             $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";
+            $Password = password_hash($Password, PASSWORD_DEFAULT);
             
             $usuario = new Usuario(null, $Email, $Password, $fecha, null, $destino, $Tipo);
             $usuario->setIdUsuario($this->daoUsuario->agregar($usuario));

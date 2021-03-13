@@ -1,3 +1,10 @@
+<?php
+    session_start();	
+	if(!$_SESSION["IdUsuario"]){		
+		header("location:../index.php");        
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,25 +36,30 @@
                 
                 <!-- Audiovisual -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="usuarios.php" id="navbardrop">
+                    <a class="nav-link" href="usuarios.php">
                        Admin/Users
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="post.php" id="navbardrop">
+                    <a class="nav-link" href="post.php">
                        Posts
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="secciones.php" id="navbardrop">
+                    <a class="nav-link" href="secciones.php">
                        Secciones
                     </a>                   
                 </li>
                 <li>
-                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
+                    <a class="nav-link" href="subsecciones.php">       
                        SubSecciones
                     </a>
-                </li>                
+                </li>   
+                <li>
+                    <a class="nav-link" href="" id="salir">       
+                       Salir
+                    </a>
+                </li>             
             </ul>
         </div>
   
@@ -130,11 +142,11 @@
                 <div class="card mt-3 col-md-10  offset-md-1">
                     
                     <form method="post" action="" id="frmSubSeccionE" autocomplete="off">  
-                        <input type="text" name="metodo" value="Modificar" style="display:">       
-                        <input type="text" id="FilaE" name="FilaE" style="display:">     
-                        <input type="text" id="SeccionNombreE" name="SeccionNombreE"  style="display:"> 
-                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:">
-                        <input type="text" id="IdSubseccionE" name="IdSubseccionE" value="" style="display:">
+                        <input type="text" name="metodo" value="Modificar" style="display:none">       
+                        <input type="text" id="FilaE" name="FilaE" style="display:none">     
+                        <input type="text" id="SeccionNombreE" name="SeccionNombreE"  style="display:none"> 
+                        <input type="text" id="IdSeccionE" name="IdSeccionE" value="" style="display:none">
+                        <input type="text" id="IdSubseccionE" name="IdSubseccionE" value="" style="display:none">
                         
                         <div class="form-row pt-4">
                             <div class="form-group col-md-5 offset-md-1">

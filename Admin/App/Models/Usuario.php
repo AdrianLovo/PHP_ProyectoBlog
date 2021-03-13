@@ -78,7 +78,15 @@
 
         //Metodo para obtener los datos de los atributos en un array
         public function toArray(){
-            $datos = array($this->IdUsuario, $this->Email, $this->Password, $this->UltimoInicio, $this->UltimoFin, $this->Imagen, $this->Tipo);
+            $datos = array(
+                'IdUsuario' => $this->IdUsuario, 
+                'Email' => $this->Email, 
+                'Password' => $this->Password, 
+                'UltimoInicio' => $this->UltimoInicio, 
+                'UltimoFin' => $this->UltimoFin, 
+                'Imagen' => $this->Imagen, 
+                'Tipo' => $this->Tipo
+            );
             return $datos;
         }
 
