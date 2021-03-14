@@ -2,7 +2,7 @@
    
     require_once("../DAO/DAOSubSeccion.php");
     require_once("../Models/SubSeccion.php");
-
+  
     class ControllerSubSeccion{
 
         private $daoSubseccion;

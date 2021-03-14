@@ -1,3 +1,10 @@
+<?php
+    session_start();	
+	if(!$_SESSION["IdUsuario"]){		
+		header("location:../index.php");        
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,32 +41,15 @@
   
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">                
-                
-                
-                <!-- Audiovisual -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="usuarios.php" id="navbardrop">
-                       Admin/Users
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="post.php" id="navbardrop">
-                       Posts
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="secciones.php" id="navbardrop">
-                       Secciones
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="subsecciones.php" id="navbardrop">       
-                       SubSecciones
-                    </a>
-                </li>                
+                <?php
+                    if($_SESSION['Tipo'] == 'A'){
+                        include_once('menu/menu_admin.php');
+                    }else{
+                        include_once('menu/menu_user.php');
+                    }                    
+                ?>           
             </ul>
-        </div>
-  
+        </div>  
             <!--<form class="form-inline my-2 my-lg-0 text-white">
                 LOGO
             </form>-->
@@ -87,17 +77,25 @@
             <!--Listar | Eliminar-->
             <div class="tab-pane fade show active pt-3" id="pills-listar" role="tabpanel" aria-labelledby="pills-listar-tab">
                 
-                <table id="tablaSeccion" class="table table-bordered"  data-page-length='10' style="width:100%">
+                <table id="tablaPost" class="table table-bordered"  data-page-length='10' style="width:100%">
                     <thead class="thead-dark">
                         <tr>
-                            <th>IdSeccion</th>
-                            <th>Nombre</th>
+                            <th>IdPost</th>
+                            <th>Titulo</th>
+                            <th></th>
+                            <th></th>
+                            <th>Fecha</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>EmailUsuario</th>
+                            <th>NombreSeccion</th>
+                            <th>NombreSubSeccion</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                
+                    <tbody>                
                     </tbody>        
                 </table>   
 

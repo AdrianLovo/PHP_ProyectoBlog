@@ -2,7 +2,7 @@
    
     require_once("../DAO/DAOSeccion.php");
     require_once("../Models/Seccion.php");
-
+  
     class ControllerSeccion{
 
         private $daoSeccion;

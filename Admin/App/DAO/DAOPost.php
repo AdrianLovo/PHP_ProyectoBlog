@@ -5,31 +5,54 @@
         
     class DAOPost extends DAO{
 
-        public function queryBuscar(){
-            // $query = "";
-            // return $query;
+        public function queryBuscarPorId(){
         }
 
-        public function metodoBuscar($statement, $parametro){
-            // $filas = 0;
-            // return $filas;
+        public function metodoBuscarPorId($statement, $parametro){
         }  
 
         public function queryListar(){
-            // $query = "SELECT * FROM BlogPHP.Seccion";
-            // return $query;
+            $query = "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion";
+            return $query;
+        }
+       
+        public function metodoListar($resultSet){
+            $arrayDeObjetos = array();
+            if(!empty($resultSet)){
+                foreach($resultSet as $fila){
+                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion']);
+                    array_push($arrayDeObjetos, $tmp->toArray());
+                }    
+            }
+            return $arrayDeObjetos;
+        }       
+
+        public function queryListarFiltro($filtro){
+            switch ($filtro) {
+                case 0:
+                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email, C.Nombre, D.Nombre FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdUsuario = ?";
+            }            
+            return "";
         }
 
-        public function metodoListar($resultSet){
-            // $arrayDeObjetos = array();
-            // if(!empty($resultSet)){
-            //     foreach($resultSet as $fila){
-            //         $tmp = new Seccion($fila[0], $fila[1]);
-            //         array_push($arrayDeObjetos, $tmp);
-            //     }    
-            // }
-            // return $arrayDeObjetos;
-        }       
+        public function metodoListarFiltro($statement, $parametro){
+            /*
+             $arrayDeObjetos = array();            
+            $statement->execute([$parametro]);
+            $resultSet = $statement->fetchAll();
+            
+            if(!empty($resultSet)){
+                foreach($resultSet as $fila){
+                    $tmp = new Seccion($fila[0], $fila[1]);
+                    array_push($arrayDeObjetos, $tmp->toArray());
+                }    
+            }
+            return $arrayDeObjetos;
+            */
+        }     
+
+
+
 
         public function queryEliminar(){
             // $query = "DELETE FROM BlogPHP.Seccion WHERE IdSeccion = ?";
@@ -43,7 +66,7 @@
         }
 
         public function queryAgregar(){
-            $query = "INSERT INTO BlogPHP.Post (Titulo, Descripcion, ImagenPortada, Contenido, Fecha, IdUsuario, IdSeccion, SubSeccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";            
+            $query = "INSERT INTO BlogPHP.Post (Titulo, Descripcion, ImagenPortada, Contenido, Fecha, IdUsuario, IdSeccion, IdSubSeccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";            
             return $query;
         }
 

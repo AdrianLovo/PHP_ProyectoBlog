@@ -2,7 +2,7 @@
    
     require_once("../DAO/DAOUsuario.php");
     require_once("../Models/Usuario.php");
-
+    	
     class ControllerUsuario{
 
         private $daoUsuario;
@@ -20,8 +20,8 @@
             $usuario = new Usuario("", $email, $password, "", "", "", "");            
 
             $row = $this->daoUsuario->buscarPorId($usuario);
-            if(password_verify($password, $row[0][2] )){			
-                session_start();	
+            if(password_verify($password, $row[0][2] )){	
+                session_start();		
                 $_SESSION['IdUsuario'] = $row[0][0];
                 $_SESSION['Email'] = $row[0][1];
                 $_SESSION['Tipo'] = $row[0][6];

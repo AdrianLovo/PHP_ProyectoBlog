@@ -1,3 +1,10 @@
+<?php
+    session_start();	
+	if(!$_SESSION["IdUsuario"]){		
+		header("location:../index.php");        
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,34 +32,13 @@
   
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">                
-                
-                
-                <!-- Audiovisual -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="usuarios.php">
-                       Admin/Users
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="post.php">
-                       Posts
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="secciones.php">
-                       Secciones
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="subsecciones.php">       
-                       SubSecciones
-                    </a>
-                </li>   
-                <li>
-                    <a class="nav-link" href="" id="salir">       
-                       Salir
-                    </a>
-                </li>               
+                <?php
+                    if($_SESSION['Tipo'] == 'A'){
+                        include_once('menu/menu_admin.php');
+                    }else{
+                        include_once('menu/menu_user.php');
+                    }                    
+                ?>               
             </ul>
         </div>
   

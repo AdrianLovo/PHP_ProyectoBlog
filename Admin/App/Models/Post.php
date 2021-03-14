@@ -10,9 +10,13 @@
 		private $Fecha;
         private $IdUsuario;
         private $IdSeccion;
-		private $SubSeccion;
+		private $IdSubSeccion;
+        private $EmailUsuario;
+        private $NombreSeccion;
+        private $NombreSubSeccion;
+
         
-        public function __construct($IdPost, $Titulo, $Descripcion, $ImagenPortada, $Contenido, $Fecha, $IdUsuario, $IdSeccion, $SubSeccion){
+        public function __construct($IdPost, $Titulo, $Descripcion, $ImagenPortada, $Contenido, $Fecha, $IdUsuario, $IdSeccion, $IdSubSeccion, $EmailUsuario, $NombreSeccion, $NombreSubSeccion){
             $this->IdPost = $IdPost;
             $this->Titulo = $Titulo;
             $this->Descripcion = $Descripcion;
@@ -21,7 +25,10 @@
             $this->Fecha = $Fecha;
             $this->IdUsuario = $IdUsuario;
             $this->IdSeccion = $IdSeccion;
-            $this->SubSeccion = $SubSeccion;
+            $this->IdSubSeccion = $IdSubSeccion;
+            $this->EmailUsuario = $EmailUsuario;
+            $this->NombreSeccion = $NombreSeccion;
+            $this->NombreSubSeccion = $NombreSubSeccion;
         }
 
         public function getIdPost(){
@@ -88,32 +95,72 @@
             $this->IdSeccion = $IdSeccion;
         }
     
-        public function getSubSeccion(){
-            return $this->SubSeccion;
+        public function getIdSubSeccion(){
+            return $this->IdSubSeccion;
         }
     
-        public function setSubSeccion($SubSeccion){
-            $this->SubSeccion = $SubSeccion;
+        public function setIdSubSeccion($IdSubSeccion){
+            $this->IdSubSeccion = $IdSubSeccion;
+        }
+    
+        public function getEmailUsuario(){
+            return $this->EmailUsuario;
+        }
+    
+        public function setEmailUsuario($EmailUsuario){
+            $this->EmailUsuario = $EmailUsuario;
+        }
+    
+        public function getNombreSeccion(){
+            return $this->NombreSeccion;
+        }
+    
+        public function setNombreSeccion($NombreSeccion){
+            $this->NombreSeccion = $NombreSeccion;
+        }
+    
+        public function getNombreSubSeccion(){
+            return $this->NombreSubSeccion;
+        }
+    
+        public function setNombreSubSeccion($NombreSubSeccion){
+            $this->NombreSubSeccion = $NombreSubSeccion;
         }
 
         //Metodo para obtener los datos de los atributos en un array
 		public function toArray(){
-			$datos = array($this->IdPost, $this->Titulo, $this->Descripcion, $this->ImagenPortada, $this->Contenido, $this->Fecha, $this->IdUsuario, $this->IdSeccion, $this->SubSeccion);
+			$datos = array(
+                'IdPost' => $this->IdPost, 
+                'Titulo' => $this->Titulo, 
+                'Descripcion' => $this->Descripcion, 
+                'ImagenPortada' => $this->ImagenPortada, 
+                'Contenido' => $this->Contenido, 
+                'Fecha' => $this->Fecha, 
+                'IdUsuario' => $this->IdUsuario, 
+                'IdSeccion' => $this->IdSeccion, 
+                'IdSubSeccion' => $this->IdSubSeccion,
+                'EmailUsuario' => $this->EmailUsuario,
+                'NombreSeccion' => $this->NombreSeccion,
+                'NombreSubSeccion' => $this->NombreSubSeccion,  
+            );
 			return $datos;
 		}    	
 
         //Metodo toString para mostrar campos de objeto
         public function toString(){
             echo(
-                "IdPost: " . $this->IdPost .
-                "Titulo: " . $this->Titulo .
-                "Descripcion: " . $this->Descripcion .
-                "ImagenPortada: " . $this->ImagenPortada .
-                "Contenido: " . $this->Contenido .
-                "Fecha: " . $this->Fecha .
-                "IdUsuario: " . $this->IdUsuario .
-                "IdSeccion: " . $this->IdSeccion .
-                "SubSeccion: " . $this->SubSeccion
+                'IdPost' . $this->IdPost . 
+                'Titulo' . $this->Titulo .
+                'Descripcion' . $this->Descripcion .
+                'ImagenPortada' . $this->ImagenPortada .
+                'Contenido' . $this->Contenido .
+                'Fecha' . $this->Fecha .
+                'IdUsuario' . $this->IdUsuario .
+                'IdSeccion' . $this->IdSeccion .
+                'IdSubSeccion' . $this->IdSubSeccion .
+                'EmailUsuario' . $this->EmailUsuario .
+                'NombreSeccion' . $this->NombreSeccion .
+                'NombreSubSeccion' . $this->NombreSubSeccion
             );
         }
 

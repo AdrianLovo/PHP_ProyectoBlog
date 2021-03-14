@@ -32,37 +32,15 @@
   
         <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">                
-                
-                
-                <!-- Audiovisual -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="usuarios.php" id="">
-                       Admin/Users
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="post.php" id="">
-                       Posts
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="secciones.php" id="">
-                       Secciones
-                    </a>                   
-                </li>
-                <li>
-                    <a class="nav-link" href="subsecciones.php" id="">       
-                       SubSecciones
-                    </a>
-                </li>               
-                <li>
-                    <a class="nav-link" href="" id="salir">       
-                       Salir
-                    </a>
-                </li>  
+                <?php
+                    if($_SESSION['Tipo'] == 'A'){
+                        include_once('menu/menu_admin.php');
+                    }else{
+                        include_once('menu/menu_user.php');
+                    }                    
+                ?>
             </ul>
-        </div>
-  
+        </div>  
             <!--<form class="form-inline my-2 my-lg-0 text-white">
                 LOGO
             </form>-->

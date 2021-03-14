@@ -1,11 +1,11 @@
 <?php
-   
+    
     require_once("../DAO/DAOPost.php");
     require_once("../Models/Post.php");
-
+    
     class ControllerPost{
 
-        private $daoSeccion;
+        private $daoPost;
         private $vacio;
         
         public function __construct(){
@@ -14,13 +14,17 @@
         }
 
         public function Listar(){
-            // $datosTodos = array();    
-            // foreach ($this->daoSeccion->listar() as $seccion) {
-            //     $temp = $seccion->toArray();
-            //     $datos = array( 'IdSeccion' => $temp[0], 'Nombre' => $temp[1] );
-            //     $datosTodos[] = $datos;	
-            // }
-            // echo json_encode($datosTodos);	
+            session_start();
+            $datosTodos = array();                
+            if($_SESSION['Tipo'] == 'A'){   //Mostrar Todo
+                //echo("Mostrar TODO");
+                $datosTodos = $this->daoPost->listar();
+            }else{
+                //echo("Mostrar Por Usuario");
+                $IdUsuario = $_SESSION['IdUsuario'];     //Mostrar por IdUsuario
+                $datosTodos = $this->daoPost->listarFiltro();
+            }            
+            echo json_encode($datosTodos);	
         }
 
         public function Eliminar(){

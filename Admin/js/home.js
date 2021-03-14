@@ -1,7 +1,7 @@
 import {mensaje} from './UtilSweetMessage.js';
 
 //Funcion anonima auto ejecutable
-(function(){
+(async function(){
 
     //ELEMENTOS DOM
     let secciones = document.getElementById('secciones');
@@ -10,11 +10,13 @@ import {mensaje} from './UtilSweetMessage.js';
 
     //SALIR
     salir.addEventListener('click', function(e){
+        console.log("salir");
         e.preventDefault();
         Salir();
     })
     
     async function Salir(){
+        console.log("salir");
         const data = new FormData();
         data.append('metodo', 'Salir');
         

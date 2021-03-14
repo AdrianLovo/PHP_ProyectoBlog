@@ -1,5 +1,5 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuarioFunciones.js';
+import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuariosFunciones.js';
 
 (async function(){
    
@@ -119,8 +119,6 @@ import {listarTable, eliminarTable, agregarTable, modificarTable} from './usuari
         }catch(error){
             mensaje('Error para conectarse al servidor', 'error');  	
         }
-    }
-
-   
+    }   
 
 })();

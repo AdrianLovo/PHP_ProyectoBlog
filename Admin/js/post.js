@@ -1,8 +1,8 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {agregarTable, listarSecciones} from './postTable.js';
+import {listarTable, agregarTable, listarSecciones} from './postFunciones.js';
 //import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesTable.js';
 
-(function() {
+(async function() {
 
     let $sumNote = $("#ta-1")
 		.summernote({
@@ -28,6 +28,7 @@ import {agregarTable, listarSecciones} from './postTable.js';
     let reiniciar = document.getElementById("reiniciar");
    
     //INPUTS
+    let table;
     let SelectSeccion = document.getElementById('Seccion');
     let SelectSubseccion = document.getElementById('Subseccion');    
     let InputSeccion = document.getElementById('InputSeccion');    
@@ -35,12 +36,14 @@ import {agregarTable, listarSecciones} from './postTable.js';
     let frmPost = document.getElementById("frmPost");
     let resultado = document.getElementById("resultado");
 
+    table = await listarTable();
 
-    listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion, 'IdSeccion', 1);
+
+    //listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion, 'IdSeccion', 1);
     //listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion);
 
 
-    SelectSeccion.addEventListener('change', function(){
+    /*SelectSeccion.addEventListener('change', function(){
         console.log(SelectSeccion.options[SelectSeccion.selectedIndex].value);
         console.log(SelectSeccion.options[SelectSeccion.selectedIndex].innerText);
     })
@@ -54,11 +57,38 @@ import {agregarTable, listarSecciones} from './postTable.js';
         e.preventDefault();
         $sumNote.reset();
 		$("#content").empty();
-         /*var div = document.getElementById('resultado');
+        var div = document.getElementById('resultado');
             while (div.firstChild) {
             div.removeChild(div.firstChild);
-        }*/
-    })
+        }
+    })*/
+
+
     
+
+    //SALIR
+    salir.addEventListener('click', function(e){
+        e.preventDefault();
+        Salir();
+    })
+
+    async function Salir(){
+        const data = new FormData();
+        data.append('metodo', 'Salir');
+        
+        try{
+            let response = await fetch('../App/Controllers/Controller.php', {
+                method: 'POST',
+                body: data
+            });
+            let respuesta = await response.text();
+
+            if(respuesta == "ok"){
+                window.location="/Admin/index.php";                
+            }           
+        }catch(error){
+            mensaje('Error para conectarse al servidor', 'error');  	
+        }
+    }
    
 })();

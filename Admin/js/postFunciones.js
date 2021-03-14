@@ -1,17 +1,26 @@
 import {listarFetch, agregarFetch} from './UtilFetch.js';
-/*import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFetch.js';
+/*import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFetch.js';*/
 
 export async function listarTable(){
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerSeccion.php');
+    lista = await listarFetch('../App/Controllers/ControllerPost.php');
 
-    let table = $('#tablaSeccion').DataTable({
+    let table = $('#tablaPost').DataTable({
         data: lista,
         
         "columns": [               
-            //Mostrados
+            //Mostrados7
+            { "data": "IdPost" },
+            { "data": "Titulo" },
+            { "data": "Descripcion" },
+            { "data": "ImagenPortada" },
+            { "data": "Fecha" },
+            { "data": "IdUsuario" },
             { "data": "IdSeccion" },
-            { "data": "Nombre" },
+            { "data": "IdSubSeccion" },
+            { "data": "EmailUsuario" },
+            { "data": "NombreSeccion" },
+            { "data": "NombreSubSeccion" },
             {
                 "className": 'details-delete',
                 "orderable": false,
@@ -28,7 +37,7 @@ export async function listarTable(){
         "order": [[0, 'asc']],
         "columnDefs": [
             {
-                "targets": [],
+                "targets": [2,3,5,6,7],
                 "visible": false,
                 "searchable": false
             }
@@ -38,7 +47,7 @@ export async function listarTable(){
     return table;
 }
 
-export function eliminarTable(table){
+/*export function eliminarTable(table){
     $('#tablaSeccion tbody').on('click', 'td.details-delete', function () {
         if(eliminarFetch( 
             "../App/Controllers/ControllerSeccion.php", "IdSeccion", 
