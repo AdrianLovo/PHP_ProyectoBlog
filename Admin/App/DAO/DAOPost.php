@@ -30,39 +30,34 @@
         public function queryListarFiltro($filtro){
             switch ($filtro) {
                 case 0:
-                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email, C.Nombre, D.Nombre FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdUsuario = ?";
+                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdUsuario = ?";
             }            
             return "";
         }
 
         public function metodoListarFiltro($statement, $parametro){
-            /*
-             $arrayDeObjetos = array();            
+            $arrayDeObjetos = array();            
             $statement->execute([$parametro]);
             $resultSet = $statement->fetchAll();
             
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
-                    $tmp = new Seccion($fila[0], $fila[1]);
+                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion']);
                     array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
-            return $arrayDeObjetos;
-            */
+            return $arrayDeObjetos;            
         }     
 
-
-
-
         public function queryEliminar(){
-            // $query = "DELETE FROM BlogPHP.Seccion WHERE IdSeccion = ?";
-            // return $query;
+            $query = "DELETE FROM BlogPHP.Post WHERE IdPost = ?";
+            return $query;
         }
 
         public function metodoEliminar($statement, $parametro){
-            // $statement->execute([$parametro->getIdSeccion()]);
-            // $filasAfectadas = $statement->rowCount();          
-            // return $filasAfectadas;
+            $statement->execute([$parametro->getIdPost()]);
+            $filasAfectadas = $statement->rowCount();          
+            return $filasAfectadas;
         }
 
         public function queryAgregar(){
@@ -72,7 +67,7 @@
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([ $datos[1], $datos[2], $datos[3], $datos[4], $datos[5], $datos[6], $datos[7], $datos[8] ]);                
+            $statement->execute([ $datos['Titulo'], $datos['Descripcion'], $datos['ImagenPortada'], $datos['Contenido'], $datos['Fecha'], $datos['IdUsuario'], $datos['IdSeccion'], $datos['IdSubSeccion'] ]);                
         }
 
         public function queryModificar(){

@@ -105,8 +105,8 @@ export async function listarFiltroFetch(ruta, filtro, parametro){
             body: data
         });
         let respuesta = await response.json();
+        //let filas = respuesta.length;
         //let respuesta = await response.text();
-        let filas = respuesta.length;
         //console.log(respuesta);
         
         if(respuesta.length > 0){

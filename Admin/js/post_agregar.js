@@ -1,8 +1,9 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, agregarTable, eliminarTable, modificarTable, listarSecciones, listarSubSecciones} from './postFunciones.js';
+import {agregarTable, listarSecciones, listarSubSecciones} from './post_agregarFunciones.js';
 
 (async function() {
 
+    //SUMMERNOTE
     let $sumNote = $("#ta-1")
 		.summernote({
             placeholder: 'Write your content here',
@@ -26,32 +27,33 @@ import {listarTable, agregarTable, eliminarTable, modificarTable, listarSeccione
     let agregar = document.getElementById("agregar");
     let reiniciar = document.getElementById("reiniciar");
    
-    //INPUTS
-    let table;
+    //INPUTS    
     let SelectSeccion = document.getElementById('Seccion');
     let SelectSubseccion = document.getElementById('Subseccion');    
     let InputSeccion = document.getElementById('InputSeccion');    
     let InputSubseccion = document.getElementById('InputSubseccion');    
     let frmPost = document.getElementById("frmPost");
     let resultado = document.getElementById("resultado");
-
-    //table = await listarTable();
+   
     listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion);
     listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, 1);
 
 
+    //AGREGAR
+    agregar.addEventListener('click', async function(e){
+        e.preventDefault();
+        agregarTable(frmPost);
+        $sumNote.reset();
+		$("#content").empty();
+    })  
+    
+    //SELECT
     SelectSeccion.addEventListener('change', function(){
         while (SelectSubseccion.firstChild) {
             SelectSubseccion.removeChild(SelectSubseccion.firstChild);
         }
         listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, SelectSeccion.options[SelectSeccion.selectedIndex].value);        
     })
-
-    /*agregar.addEventListener('click', async function(e){
-        e.preventDefault();
-        agregarTable(frmPost);
-    })*/
-    
 
     //REINICIAR
     reiniciar.addEventListener('click', function(e){
