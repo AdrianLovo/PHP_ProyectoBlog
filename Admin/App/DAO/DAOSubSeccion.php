@@ -27,10 +27,26 @@
             return $arrayDeObjetos;
         }       
 
-        public function queryListarFiltro($filtro){            
+        public function queryListarFiltro($filtro){    
+            switch ($filtro) {
+                case 0:
+                    return "SELECT  A.IdSeccion, B.Nombre, A.IdSubseccion, A.Nombre  FROM BlogPHP.SubSeccion A  INNER JOIN BlogPHP.seccion B ON A.IdSeccion = B.IdSeccion WHERE A.IdSeccion=?";
+            }            
+            return "";
         }
 
         public function metodoListarFiltro($statement, $parametro){
+            $arrayDeObjetos = array();            
+            $statement->execute([$parametro]);
+            $resultSet = $statement->fetchAll();
+            
+            if(!empty($resultSet)){
+                foreach($resultSet as $fila){
+                    $tmp = new SubSeccion($fila[0], $fila[1], $fila[2], $fila[3]);
+                    array_push($arrayDeObjetos, $tmp->toArray());
+                }    
+            }
+            return $arrayDeObjetos;
         }   
 
         public function queryEliminar(){

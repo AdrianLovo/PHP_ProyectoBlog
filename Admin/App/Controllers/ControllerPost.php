@@ -17,10 +17,8 @@
             session_start();
             $datosTodos = array();                
             if($_SESSION['Tipo'] == 'A'){   //Mostrar Todo
-                //echo("Mostrar TODO");
                 $datosTodos = $this->daoPost->listar();
             }else{
-                //echo("Mostrar Por Usuario");
                 $IdUsuario = $_SESSION['IdUsuario'];     //Mostrar por IdUsuario
                 $datosTodos = $this->daoPost->listarFiltro();
             }            

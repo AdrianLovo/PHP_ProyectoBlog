@@ -55,6 +55,7 @@
             $datosTodos = $this->daoSeccion->listarFiltro($filtro, $parametro);
             echo json_encode($datosTodos);	
         }
+        
     }
 
     

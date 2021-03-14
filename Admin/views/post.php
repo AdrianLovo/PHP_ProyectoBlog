@@ -82,12 +82,12 @@
                         <tr>
                             <th>IdPost</th>
                             <th>Titulo</th>
-                            <th></th>
-                            <th></th>
+                            <th style="display:none"></th>
+                            <th style="display:none"></th>
                             <th>Fecha</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th style="display:none"></th>
+                            <th style="display:none"></th>
+                            <th style="display:none"></th>
                             <th>EmailUsuario</th>
                             <th>NombreSeccion</th>
                             <th>NombreSubSeccion</th>

@@ -19,6 +19,14 @@
             echo json_encode($datosTodos);	
         }
 
+        public function ListarFiltro(){
+            $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;
+            $parametro = isset($_POST['parametro']) ? $_POST['parametro'] : null;
+            $datosTodos = array();    
+            $datosTodos = $this->daoSubseccion->ListarFiltro($filtro, $parametro);    
+            echo json_encode($datosTodos);	
+        }
+
         public function Eliminar(){
             $IdSubseccion = isset($_POST['IdSubSeccion']) ? $_POST['IdSubSeccion'] : null;
             $subseccion = new SubSeccion(null, null, $IdSubseccion, null);            
@@ -55,6 +63,7 @@
                 echo json_encode($this->vacio);
             }
         }
+
     }
 
     

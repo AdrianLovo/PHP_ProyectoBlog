@@ -1,6 +1,5 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, agregarTable, listarSecciones} from './postFunciones.js';
-//import {listarTable, eliminarTable, agregarTable, modificarTable} from './seccionesTable.js';
+import {listarTable, agregarTable, eliminarTable, modificarTable, listarSecciones, listarSubSecciones} from './postFunciones.js';
 
 (async function() {
 
@@ -36,35 +35,34 @@ import {listarTable, agregarTable, listarSecciones} from './postFunciones.js';
     let frmPost = document.getElementById("frmPost");
     let resultado = document.getElementById("resultado");
 
-    table = await listarTable();
+    //table = await listarTable();
+    listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion);
+    listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, 1);
 
 
-    //listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion, 'IdSeccion', 1);
-    //listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion);
-
-
-    /*SelectSeccion.addEventListener('change', function(){
-        console.log(SelectSeccion.options[SelectSeccion.selectedIndex].value);
-        console.log(SelectSeccion.options[SelectSeccion.selectedIndex].innerText);
+    SelectSeccion.addEventListener('change', function(){
+        while (SelectSubseccion.firstChild) {
+            SelectSubseccion.removeChild(SelectSubseccion.firstChild);
+        }
+        listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, SelectSeccion.options[SelectSeccion.selectedIndex].value);        
     })
 
-    agregar.addEventListener('click', async function(e){
+    /*agregar.addEventListener('click', async function(e){
         e.preventDefault();
         agregarTable(frmPost);
-    })
+    })*/
     
+
+    //REINICIAR
     reiniciar.addEventListener('click', function(e){
         e.preventDefault();
         $sumNote.reset();
 		$("#content").empty();
         var div = document.getElementById('resultado');
-            while (div.firstChild) {
+        while (div.firstChild) {
             div.removeChild(div.firstChild);
         }
-    })*/
-
-
-    
+    })    
 
     //SALIR
     salir.addEventListener('click', function(e){
