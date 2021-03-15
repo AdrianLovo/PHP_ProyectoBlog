@@ -1,5 +1,5 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarTable, eliminarTable} from './post_listarFunciones.js';
+import {listarTable, eliminarTable, modificarTable} from './post_listarFunciones.js';
 
 (async function() {
 
@@ -11,6 +11,7 @@ import {listarTable, eliminarTable} from './post_listarFunciones.js';
     let table;
     table = await listarTable();
     eliminarTable(table);
+    modificarTable(table);
 
     //SALIR
     salir.addEventListener('click', function(e){

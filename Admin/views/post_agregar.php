@@ -71,12 +71,11 @@
                     <div class="form-group col-md-5 offset-md-1">
                         <label for="titulo">Titulo</label>
                         <input type="text" class="form-control" id="titulo" name="titulo" placeholder="" require>                        
-                    </div>
+                    </div>                   
                     <div class="form-group col-md-5">
                         <label for="img">Imagen Portada</label>
                         <input type="file" name="imagen" id="img" accept=".jpg,.png,jpeg" class="form-control">                            
-                    </div>
-                    
+                    </div>                    
                 </div>
 
                 <div class="form-row">
@@ -87,17 +86,24 @@
                 </div>    
 
                 <div class="form-row">
-                    <div class="form-group col-md-5 offset-md-1">
+                    <div class="form-group col-md-4 offset-md-1">
                         <label for="Seccion">Seccion</label>
                         <select id="Seccion" name="Seccion" class="form-control" require>
                         </select>
                     </div>
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-4">
                         <label for="Subseccion">SubSeccion</label>
                         <select id="Subseccion" name="Subseccion" class="form-control" require>
                         </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Estado">Estado</label>
+                        <select id="Estado" name="Estado" class="form-control" require>
+                            <option value="0">Pendiente</option>
+                            <option value="1">Publicado</option>
+                        </select>
                     </div>                           
-                </div>                                        
+                </div>                                                       
                 
                 <div class="form-row">
                     <div class="form-group col-md-10 offset-md-1">

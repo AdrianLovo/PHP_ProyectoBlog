@@ -20,6 +20,7 @@ export async function listarTable(){
             { "data": "EmailUsuario" },
             { "data": "NombreSeccion" },
             { "data": "NombreSubSeccion" },
+            { "data": "Estado" },
             {
                 "className": 'details-delete',
                 "orderable": false,
@@ -57,3 +58,13 @@ export async function eliminarTable(table){
         }
     });
 }
+
+export async function modificarTable(table){
+    $('#tablaPost tbody').on('click', 'td.details-edit', function () {
+        console.log(table.row($(this).parents('tr')).data().IdPost);
+        let IdPost = table.row($(this).parents('tr')).data().IdPost;
+        let IdSeccion = table.row($(this).parents('tr')).data().IdSeccion;        
+        window.location="/Admin/Views/post_modificar.php?IdPost="+IdPost+"&IdSeccion="+IdSeccion;        
+    });
+}
+

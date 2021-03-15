@@ -12,7 +12,7 @@
         }  
 
         public function queryListar(){
-            $query = "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion";
+            $query = "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion";
             return $query;
         }
        
@@ -20,7 +20,7 @@
             $arrayDeObjetos = array();
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
-                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion']);
+                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
                     array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
@@ -30,7 +30,7 @@
         public function queryListarFiltro($filtro){
             switch ($filtro) {
                 case 0:
-                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdUsuario = ?";
+                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado, A.Contenido   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdPost = ?";
             }            
             return "";
         }
@@ -42,7 +42,7 @@
             
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
-                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion']);
+                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], $fila['Contenido'], $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
                     array_push($arrayDeObjetos, $tmp->toArray());
                 }    
             }
@@ -61,28 +61,33 @@
         }
 
         public function queryAgregar(){
-            $query = "INSERT INTO BlogPHP.Post (Titulo, Descripcion, ImagenPortada, Contenido, Fecha, IdUsuario, IdSeccion, IdSubSeccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";            
+            $query = "INSERT INTO BlogPHP.Post (Titulo, Descripcion, ImagenPortada, Contenido, Fecha, IdUsuario, IdSeccion, IdSubSeccion, Estado) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";            
             return $query;
         }
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([ $datos['Titulo'], $datos['Descripcion'], $datos['ImagenPortada'], $datos['Contenido'], $datos['Fecha'], $datos['IdUsuario'], $datos['IdSeccion'], $datos['IdSubSeccion'] ]);                
+            $statement->execute([ $datos['Titulo'], $datos['Descripcion'], $datos['ImagenPortada'], $datos['Contenido'], $datos['Fecha'], $datos['IdUsuario'], $datos['IdSeccion'], $datos['IdSubSeccion'], $datos['Estado'] ]);                
         }
 
         public function queryModificar(){
-            // $query = "UPDATE BlogPHP.Seccion SET Nombre=? WHERE IdSeccion=?";
-            // return $query;
+            $query = "UPDATE BlogPHP.Post SET Titulo=?, Descripcion=?, ImagenPortada=?, Contenido=?, Fecha=?, IdUsuario=?, IdSeccion=?, IdSubSeccion=?, Estado=? WHERE IdPost=?";
+            return $query;
         }
 
         public function metodoModificar($statement, $parametro){
-            // $filasAfectadas = 0;
-            // $datos = $parametro->toArray();  
-            // if($statement->execute([$datos[1], $datos[0]])){
-            //     //var_dump($datos);
-            //     $filasAfectadas = $statement->rowCount(); 
-            // }
-            // return $filasAfectadas;
+            $filasAfectadas = 0;
+            $datos = $parametro->toArray();  
+            
+            if($statement->execute([
+                $datos['Titulo'], $datos['Descripcion'], $datos['ImagenPortada'], $datos['Contenido'], $datos['Fecha'], $datos['IdUsuario'], $datos['IdSeccion'], $datos['IdSubSeccion'], $datos['Estado'], $datos['IdPost']
+                ])){
+                var_dump($datos);
+                $filasAfectadas = $statement->rowCount(); 
+            }
+           
+            
+            return $filasAfectadas;
         }
 
     }

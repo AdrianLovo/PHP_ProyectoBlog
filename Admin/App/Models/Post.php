@@ -14,9 +14,10 @@
         private $EmailUsuario;
         private $NombreSeccion;
         private $NombreSubSeccion;
+        private $Estado;
 
         
-        public function __construct($IdPost, $Titulo, $Descripcion, $ImagenPortada, $Contenido, $Fecha, $IdUsuario, $IdSeccion, $IdSubSeccion, $EmailUsuario, $NombreSeccion, $NombreSubSeccion){
+        public function __construct($IdPost, $Titulo, $Descripcion, $ImagenPortada, $Contenido, $Fecha, $IdUsuario, $IdSeccion, $IdSubSeccion, $EmailUsuario, $NombreSeccion, $NombreSubSeccion, $Estado){
             $this->IdPost = $IdPost;
             $this->Titulo = $Titulo;
             $this->Descripcion = $Descripcion;
@@ -29,6 +30,7 @@
             $this->EmailUsuario = $EmailUsuario;
             $this->NombreSeccion = $NombreSeccion;
             $this->NombreSubSeccion = $NombreSubSeccion;
+            $this->Estado = $Estado;
         }
 
         public function getIdPost(){
@@ -127,6 +129,14 @@
             $this->NombreSubSeccion = $NombreSubSeccion;
         }
 
+        public function getEstado(){
+            return $this->IdPost;
+        }
+    
+        public function setEstado($Estado){
+            $this->Estado = $Estado;
+        }
+
         //Metodo para obtener los datos de los atributos en un array
 		public function toArray(){
 			$datos = array(
@@ -142,6 +152,7 @@
                 'EmailUsuario' => $this->EmailUsuario,
                 'NombreSeccion' => $this->NombreSeccion,
                 'NombreSubSeccion' => $this->NombreSubSeccion,  
+                'Estado' => $this->Estado,
             );
 			return $datos;
 		}    	
@@ -160,7 +171,8 @@
                 'IdSubSeccion' . $this->IdSubSeccion .
                 'EmailUsuario' . $this->EmailUsuario .
                 'NombreSeccion' . $this->NombreSeccion .
-                'NombreSubSeccion' . $this->NombreSubSeccion
+                'NombreSubSeccion' . $this->NombreSubSeccion .
+                'Estado' . $this->Estado
             );
         }
 

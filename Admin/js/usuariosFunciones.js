@@ -66,8 +66,6 @@ export async function modificarTable(){
     let respuesta = new Array()
     let fila = frmUsuarioE[3].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerUsuario.php', frmUsuarioE);
-
-    console.log("FILA ", fila);
         
     if(respuesta.constructor.length > 0){
         $("#tablaUsuario").DataTable().cell( fila, 1).data(respuesta.Email);  

@@ -12,7 +12,6 @@ export async function listarSecciones(select, ruta, inputNombre){
 
     if(lista.length > 0){
         inputNombre.value = lista[0].campo;
-        
         for(let i= 0; i < lista.length; i++){
             let opt = document.createElement("option");    
             opt.value = lista[i].IdSeccion;

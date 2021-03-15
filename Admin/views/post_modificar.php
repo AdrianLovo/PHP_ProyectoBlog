@@ -60,9 +60,82 @@
    
     <div class="container col-xl-12 col-lg-12 col-sm-12 col-12">        
         <div class="container mt-3">
-           
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta voluptatem similique dolorem optio, quam quidem incidunt et facere quaerat, possimus itaque dignissimos doloremque quia vel deleniti quis labore iste minima.
 
+            <?php
+                $IdPost = isset($_GET['IdPost']) ? $_GET['IdPost'] : ''; 
+                $IdSeccion = isset($_GET['IdSeccion']) ? $_GET['IdSeccion'] : ''; 
+            ?>
+                
+            <form method="post" action="" id="frmPost" autocomplete="off">  
+                <div class="form-row">
+                    <div class="form-group col-md-10 offset-md-1">
+                        <input type="text" name="IdPost" id="IdPost" value="<?php echo($IdPost); ?>" style="display:">
+                        <input type="text" name="metodo" value="Modificar" style="display:"> 
+                        <input type="text" name="InputSeccion" id="InputSeccion" value="<?php echo($IdSeccion); ?>" style="display:">
+                        <input type="text" name="InputSubseccion" id="InputSubseccion" style="display:">    
+                    </div>
+                </div>                
+
+                
+
+                <div class="form-row pt-4">
+                    <div class="form-group col-md-5 offset-md-1">
+                        <label for="titulo">Titulo</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="" require>                        
+                    </div>                   
+                    <div class="form-group col-md-5">
+                        <label for="img">Imagen Portada</label>
+                        <input type="file" name="imagen" id="img" accept=".jpg,.png,jpeg" class="form-control">                            
+                    </div>                    
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-10 offset-md-1">
+                        <label for="descripcion">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="" require>
+                    </div>                            
+                </div>    
+
+                <div class="form-row">
+                    <div class="form-group col-md-4 offset-md-1">
+                        <label for="Seccion">Seccion</label>
+                        <select id="Seccion" name="Seccion" class="form-control" require>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Subseccion">SubSeccion</label>
+                        <select id="Subseccion" name="Subseccion" class="form-control" require>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="Estado">Estado</label>
+                        <select id="Estado" name="Estado" class="form-control" require>
+                            <option value="0">Pendiente</option>
+                            <option value="1">Publicado</option>
+                        </select>
+                    </div>                           
+                </div>                                                       
+                
+                <div class="form-row">
+                    <div class="form-group col-md-10 offset-md-1">
+                        <textarea id="ta-1" name="ta-1"></textarea> 
+                    </div> 
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8 offset-md-1">
+                        <button class="btn btn-primary" id="modificar">Modificar</button> 
+                        <button class="btn btn-dark" id="reiniciar">Borrar Contenido</button>
+                    </div>  
+                    <div class="form-group col-md-2 offset-md-1">
+                        <button class="btn btn-dark" id="cancelar">Cancelar</button>
+                    </div>
+                </div>
+
+            </form>
+
+                       
+           
         </div>
     </div>
 

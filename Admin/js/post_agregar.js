@@ -66,6 +66,24 @@ import {agregarTable, listarSecciones, listarSubSecciones} from './post_agregarF
         }
     })    
 
+    //IMAGENES 
+    img.addEventListener('change', (e) => {
+        let file = e.target.files[0];
+        let img = URL.createObjectURL(file);
+        let sizeByte = file.size;
+        let siezekiloByte = parseInt(sizeByte / 1024);
+        
+        if (!(/\.(jpg|png|gif)$/i).test(file.name)) {
+            mensaje('Tipo de archivo NO Admitido', 'error');        
+        }else{
+            if(siezekiloByte > 1024){
+                mensaje('Tamaño maximo de archivo 1MB', 'error');        
+            }else{
+                mensaje('Imagen Cargada', 'success');
+            }
+        }
+    });
+
     //SALIR
     salir.addEventListener('click', function(e){
         e.preventDefault();
