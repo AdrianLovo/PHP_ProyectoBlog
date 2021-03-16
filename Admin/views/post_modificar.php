@@ -69,14 +69,12 @@
             <form method="post" action="" id="frmPost" autocomplete="off">  
                 <div class="form-row">
                     <div class="form-group col-md-10 offset-md-1">
-                        <input type="text" name="IdPost" id="IdPost" value="<?php echo($IdPost); ?>" style="display:">
-                        <input type="text" name="metodo" value="Modificar" style="display:"> 
-                        <input type="text" name="InputSeccion" id="InputSeccion" value="<?php echo($IdSeccion); ?>" style="display:">
-                        <input type="text" name="InputSubseccion" id="InputSubseccion" style="display:">    
+                        <input type="text" name="IdPost" id="IdPost" value="<?php echo($IdPost); ?>" style="display:none">
+                        <input type="text" name="metodo" value="Modificar" style="display:none"> 
+                        <input type="text" name="InputSeccion" id="InputSeccion" value="<?php echo($IdSeccion); ?>" style="display:none">
+                        <input type="text" name="InputSubseccion" id="InputSubseccion" style="display:none">    
                     </div>
-                </div>                
-
-                
+                </div>                          
 
                 <div class="form-row pt-4">
                     <div class="form-group col-md-5 offset-md-1">

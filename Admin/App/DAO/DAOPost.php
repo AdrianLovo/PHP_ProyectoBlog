@@ -82,7 +82,6 @@
             if($statement->execute([
                 $datos['Titulo'], $datos['Descripcion'], $datos['ImagenPortada'], $datos['Contenido'], $datos['Fecha'], $datos['IdUsuario'], $datos['IdSeccion'], $datos['IdSubSeccion'], $datos['Estado'], $datos['IdPost']
                 ])){
-                var_dump($datos);
                 $filasAfectadas = $statement->rowCount(); 
             }
            

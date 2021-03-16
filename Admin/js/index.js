@@ -43,7 +43,7 @@ import {mensaje} from './UtilSweetMessage.js';
                 mensaje('Login', 'success');
                 setTimeout(
                     function(){ 
-                        window.location="/Admin/Views/home.php";
+                        window.location="/Admin/views/home.php";
                 }, 1000);               
             }else{
                 mensaje('Los datos ingresados son incorrectos', 'error'); 

@@ -1,8 +1,10 @@
 import {mensaje} from './UtilSweetMessage.js';
 
-export async function listarFetch(ruta){
+export async function listarFetch(ruta, filtro, parametro){
     const data = new FormData();
     data.append('metodo', 'Listar');
+    data.append('filtro', filtro);
+    data.append('parametro', parametro);
     
     try{
         let response = await fetch(ruta, {
@@ -55,9 +57,9 @@ export async function agregarFetch(ruta, formulario){
         })
         let respuesta = await response.json();      
         //let respuesta = await response.text();      
-        //console.log(respuesta);        
+        //console.log(respuesta.length);        
         
-        if(respuesta.constructor.length > 0){
+        if(respuesta.length > 0){
             mensaje('Registro Agregado', 'success');  
             formulario.reset();  
             return respuesta;              
@@ -80,7 +82,7 @@ export async function modificarFetch(ruta, formulario){
         //let respuesta = await response.text();
         //console.log(respuesta)
        
-        if(respuesta.constructor.length > 0){
+        if(respuesta.length > 0){
             formulario.reset();
             mensaje('Registro Modificado', 'success');
            return respuesta;
@@ -93,29 +95,30 @@ export async function modificarFetch(ruta, formulario){
     }
 }
 
-export async function listarFiltroFetch(ruta, filtro, parametro){
-    const data = new FormData();
-    data.append('filtro', filtro);
-    data.append('parametro', parametro);
-    data.append('metodo', 'ListarFiltro');
+// export async function listarFiltroFetch(ruta, filtro, parametro){
+//     const data = new FormData();
+//     data.append('filtro', filtro);
+//     data.append('parametro', parametro);
+//     data.append('metodo', 'ListarFiltro');
     
-    try{
-        let response = await fetch(ruta, {
-            method: 'POST',
-            body: data
-        });
-        let respuesta = await response.json();
-        //let respuesta = await response.text();
-        //console.log(respuesta);
+//     try{
+//         let response = await fetch(ruta, {
+//             method: 'POST',
+//             body: data
+//         });
+//         let respuesta = await response.json();
+//         //let respuesta = await response.text();
+//         //console.log(respuesta);
         
-        if(respuesta.length > 0){
-            return respuesta;
-        }else{
-            mensaje('No existen registro para la Seccion', 'error');
-            return respuesta;   
-        }
-    }catch(error){
-        mensaje('Error para conectarse al servidor', 'error');  
-        return null;	
-    }
-} 
+//         if(respuesta.length > 0){
+//             return respuesta;
+//         }else{
+//             mensaje('No existen registro para la Seccion', 'error');
+//             return respuesta;   
+//         }
+//     }catch(error){
+//         mensaje('Error para conectarse al servidor', 'error');  
+//         return null;	
+//     }
+// } 
+

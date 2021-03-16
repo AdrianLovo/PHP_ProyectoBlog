@@ -4,6 +4,10 @@
         
     class DAOSeccion extends DAO{
 
+        public function __construct(){
+            $this->datos = array();
+        }
+
         public function queryBuscarPorId(){
         }
 
@@ -11,44 +15,36 @@
         }  
 
         
-        public function queryListar(){
-            $query = "SELECT * FROM BlogPHP.Seccion";
-            return $query;
-        }
-
-        public function metodoListar($resultSet){
-            $arrayDeObjetos = array();
-            if(!empty($resultSet)){
-                foreach($resultSet as $fila){
-                    $tmp = new Seccion($fila[0], $fila[1]);
-                    array_push($arrayDeObjetos, $tmp->toArray());
-                }    
-            }
-            return $arrayDeObjetos;
-        }       
-
-
-        public function queryListarFiltro($filtro){
+        public function queryListar($filtro){
             switch ($filtro) {
-                case 0:
-                    return "SELECT * FROM BlogPHP.Seccion WHERE IdSeccion = ?";
+                case '':
+                    return "SELECT * FROM BlogPHP.Seccion";
             }            
             return "";
         }
 
-        public function metodoListarFiltro($statement, $parametro){
-            $arrayDeObjetos = array();            
-            $statement->execute([$parametro]);
-            $resultSet = $statement->fetchAll();
-            
+        public function metodoListar($statement, $parametro){
+            if($parametro != null && $parametro != ''){
+                $statement->execute([$parametro]);
+            }else{
+                $statement->execute();
+            }
+            $resultSet = $statement->fetchAll();            
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new Seccion($fila[0], $fila[1]);
-                    array_push($arrayDeObjetos, $tmp->toArray());
+                    array_push($this->datos, $tmp->toArray());
                 }    
             }
-            return $arrayDeObjetos;
+            return $this->datos;
         }       
+
+
+        public function queryListarFiltro($filtro){           
+        }
+
+        public function metodoListarFiltro($statement, $parametro){
+        }
 
 
         public function queryEliminar(){
@@ -69,7 +65,7 @@
 
         public function metodoAgregar($statement, $parametro){
             $datos = $parametro->toArray();
-            $statement->execute([$datos['Nombre']]);            
+            $statement->execute([$datos['Nombre']]);
         }
 
         public function queryModificar(){

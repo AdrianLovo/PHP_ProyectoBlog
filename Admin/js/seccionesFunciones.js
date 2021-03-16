@@ -2,7 +2,7 @@ import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFe
 
 export async function listarTable(){
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerSeccion.php');
+    lista = await listarFetch('../App/Controllers/ControllerSeccion.php', '', '');
 
     let table = $('#tablaSeccion').DataTable({
         data: lista,
@@ -52,9 +52,9 @@ export async function agregarTable(){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerSeccion.php', frmSeccion);
     
-    if(respuesta.constructor.length > 0){
+    if(respuesta.length > 0){
         $('#tablaSeccion').dataTable().fnAddData([
-            { "IdSeccion": respuesta.IdSeccion, "Nombre": respuesta.Nombre }
+            { "IdSeccion": respuesta[0]['IdSeccion'], "Nombre": respuesta[0]['Nombre'] }
         ]);            
     }
 }
@@ -64,8 +64,8 @@ export async function modificarTable(){
     let fila = frmSeccionE[1].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerSeccion.php', frmSeccionE);
         
-    if(respuesta.constructor.length > 0){
-        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta.Nombre);  //Actualizar "Nombre" mofificado a tabla
+    if(respuesta.length > 0){
+        $("#tablaSeccion").DataTable().cell(fila, 1).data(respuesta[0]['Nombre']);  //Actualizar "Nombre" mofificado a tabla
     }
 
 }

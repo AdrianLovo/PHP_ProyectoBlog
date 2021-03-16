@@ -5,7 +5,6 @@ export async function cargarPost(frm, ruta, filtro, parametro, summernot){
     lista = await listarFiltroFetch(ruta, filtro, parametro);
 
     if(lista.length > 0){
-        //frmPost[1].value = 
         frmPost[2].value = lista[0]['NombreSeccion'];
         frmPost[3].value = lista[0]['NombreSubSeccion']
         frmPost[4].value = lista[0]['Titulo'];     
@@ -21,10 +20,11 @@ export async function cargarPost(frm, ruta, filtro, parametro, summernot){
 export async function modificarPost(frmPost, summernot){
     let respuesta = new Array()
     respuesta = await modificarFetch('../App/Controllers/ControllerPost.php', frmPost);  
-    /*if(respuesta.length > 0){
+    
+    if(respuesta.constructor.length > 0){
         summernot.reset();
 		$("#content").empty();
-    } */ 
+    }
 }
 
 export async function listarSecciones(select, ruta, inputNombre){

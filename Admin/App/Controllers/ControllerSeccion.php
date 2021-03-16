@@ -10,13 +10,14 @@
         
         public function __construct(){
             $this->daoSeccion = new DaoSeccion();
-            $this->vacio = array();
+            $this->datos = array();
         }
 
         public function Listar(){
-            $datosTodos = array();    
-            $datosTodos = $this->daoSeccion->listar();
-            echo json_encode($datosTodos);	
+            $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;
+            $parametro = isset($_POST['parametro']) ? $_POST['parametro'] : null;
+            $this->datos = $this->daoSeccion->listar($filtro, $parametro);
+            echo json_encode($this->datos);	
         }
 
         public function Eliminar(){
@@ -31,9 +32,10 @@
             $seccion->setIdSeccion($this->daoSeccion->agregar($seccion));
             
             if($seccion->getIdSeccion() > 0){
-                echo json_encode($seccion->toArray());
+                array_push($this->datos, $seccion->toArray());
+                echo json_encode($this->datos);
             }else{
-                echo json_encode($this->vacio);
+                echo json_encode($this->datos);
             }
         }
 
@@ -44,16 +46,11 @@
             $filas = $this->daoSeccion->modificar($seccion);   
 
             if($filas > 0){
-                echo json_encode($seccion->toArray()); 
+                array_push($this->datos, $seccion->toArray());
+                echo json_encode($this->datos); 
             }else{
                 echo json_encode($this->vacio);
             }
-        }
-
-        public function ListarFiltro($filtro, $parametro){
-            $datosTodos = array();    
-            $datosTodos = $this->daoSeccion->listarFiltro($filtro, $parametro);
-            echo json_encode($datosTodos);	
         }
         
     }

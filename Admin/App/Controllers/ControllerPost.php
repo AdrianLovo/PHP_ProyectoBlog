@@ -67,12 +67,17 @@
             $Seccion = isset($_POST['Seccion']) ? $_POST['Seccion'] : null;  
             $Subseccion = isset($_POST['Subseccion']) ? $_POST['Subseccion'] : null; 
             $Descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;  
+            $NombreSeccion = isset($_POST['InputSeccion']) ? $_POST['InputSeccion'] : null;  
+            $NombreSubSeccion = isset($_POST['InputSubseccion']) ? $_POST['InputSubseccion'] : null;  
 
             $nombre = isset($_FILES['imagen']['name']) ? $_FILES['imagen']['name'] : null;
             $nombreTemp = isset($_FILES['imagen']['tmp_name']) ? $_FILES['imagen']['tmp_name'] : null;
             $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";
+
+            
+            
                
-            $post = new Post($IdPost, $Titulo, $Descripcion, $destino, $Contenido, $fecha, $IdUsuario, $Seccion, $Subseccion, null, null, null, $Estado);     
+            $post = new Post($IdPost, $Titulo, $Descripcion, $destino, $Contenido, $fecha, $IdUsuario, $Seccion, $Subseccion, null, $NombreSeccion, $NombreSubSeccion, $Estado);     
             $filas = $this->daoPost->modificar($post);   
             
             if($filas > 0){
