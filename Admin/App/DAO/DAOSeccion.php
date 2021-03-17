@@ -7,13 +7,6 @@
         public function __construct(){
             $this->datos = array();
         }
-
-        public function queryBuscarPorId(){
-        }
-
-        public function metodoBuscarPorId($statement, $parametro){
-        }  
-
         
         public function queryListar($filtro){
             switch ($filtro) {
@@ -37,15 +30,17 @@
                 }    
             }
             return $this->datos;
-        }       
-
-
-        public function queryListarFiltro($filtro){           
+        }     
+        
+        public function queryAgregar(){
+            $query = "INSERT INTO BlogPHP.Seccion (Nombre) VALUES(?)";            
+            return $query;
         }
 
-        public function metodoListarFiltro($statement, $parametro){
+        public function metodoAgregar($statement, $parametro){
+            $datos = $parametro->toArray();
+            $statement->execute([$datos['Nombre']]);
         }
-
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.Seccion WHERE IdSeccion = ?";
@@ -56,16 +51,6 @@
             $statement->execute([$parametro->getIdSeccion()]);
             $filasAfectadas = $statement->rowCount();          
             return $filasAfectadas;
-        }
-
-        public function queryAgregar(){
-            $query = "INSERT INTO BlogPHP.Seccion (Nombre) VALUES(?)";            
-            return $query;
-        }
-
-        public function metodoAgregar($statement, $parametro){
-            $datos = $parametro->toArray();
-            $statement->execute([$datos['Nombre']]);
         }
 
         public function queryModificar(){
@@ -81,6 +66,12 @@
             }
             return $filasAfectadas;
         }
+
+        public function queryBuscarPorId(){
+        }
+
+        public function metodoBuscarPorId($statement, $parametro){
+        }  
 
     }
 

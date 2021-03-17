@@ -1,4 +1,4 @@
-import {listarFetch, listarFiltroFetch, agregarFetch, modificarFetch, eliminarFetch} from './UtilFetch.js';
+import {listarFetch, agregarFetch, modificarFetch, eliminarFetch} from './UtilFetch.js';
 
 export async function agregarTable(frmPost){
     let respuesta = new Array()
@@ -8,10 +8,10 @@ export async function agregarTable(frmPost){
 export async function listarSecciones(select, ruta, inputNombre){
     let nodos = [];
     let lista = new Array();
-    lista = await listarFetch(ruta);
+    lista = await listarFetch(ruta, '', '');
 
     if(lista.length > 0){
-        inputNombre.value = lista[0].campo;
+        inputNombre.value = lista[0].Nombre;
         for(let i= 0; i < lista.length; i++){
             let opt = document.createElement("option");    
             opt.value = lista[i].IdSeccion;
@@ -25,10 +25,10 @@ export async function listarSecciones(select, ruta, inputNombre){
 export async function listarSubSecciones(select, ruta, inputNombre, filtro, parametro){
     let nodos = [];
     let lista = new Array();
-    lista = await listarFiltroFetch(ruta, filtro, parametro);
+    lista = await listarFetch(ruta, filtro, parametro);
 
     if(lista.length > 0){
-        inputNombre.value = lista[0].campo;        
+        inputNombre.value = lista[0].SubseccionNombre;        
         for(let i= 0; i < lista.length; i++){
             let opt = document.createElement("option");    
             opt.value = lista[i].IdSubseccion;

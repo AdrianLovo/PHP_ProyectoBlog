@@ -36,7 +36,7 @@ import {agregarTable, listarSecciones, listarSubSecciones} from './post_agregarF
     let resultado = document.getElementById("resultado");
    
     listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion);
-    listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, 1);
+    listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 'IdSeccion', 1);
 
 
     //AGREGAR
@@ -52,7 +52,7 @@ import {agregarTable, listarSecciones, listarSubSecciones} from './post_agregarF
         while (SelectSubseccion.firstChild) {
             SelectSubseccion.removeChild(SelectSubseccion.firstChild);
         }
-        listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, SelectSeccion.options[SelectSeccion.selectedIndex].value);        
+        listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 'IdSeccion', SelectSeccion.options[SelectSeccion.selectedIndex].value);        
     })
 
     //REINICIAR

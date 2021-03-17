@@ -6,11 +6,11 @@
     class ControllerUsuario{
 
         private $daoUsuario;
-        private $vacio;
+        private $datos;
         
         public function __construct(){
             $this->daoUsuario = new DAOUsuario();
-            $this->vacio = array();
+            $this->datos = array();
         }
        
         public function Login(){            
@@ -31,7 +31,9 @@
 
         public function Listar(){
             $datosTodos = array();    
-            $datosTodos = $this->daoUsuario->listar();
+            $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;
+            $parametro = isset($_POST['parametro']) ? $_POST['parametro'] : null;
+            $datosTodos = $this->daoUsuario->listar($filtro, $parametro);
             echo json_encode($datosTodos);	          	
         }
 
@@ -56,9 +58,10 @@
             
             if($usuario->getIdUsuario() > 0){
                 $nombre != "" ? move_uploaded_file($nombreTemp, $destino) : null;
-                echo json_encode($usuario->toArray());
+                array_push($this->datos, $usuario->toArray());
+                echo json_encode($this->datos);
             }else{
-                echo json_encode($this->vacio);
+                echo json_encode($this->datos);
             }
         }
 
@@ -78,9 +81,10 @@
             
             if($filas > 0){
                 $nombre != "" ? move_uploaded_file($nombreTemp, $destino) : null;
-                echo json_encode($usuario->toArray()); 
+                array_push($this->datos, $usuario->toArray());
+                echo json_encode($this->datos); 
             }else{
-                echo json_encode($this->vacio);
+                echo json_encode($this->datos);
             }
         }
     }

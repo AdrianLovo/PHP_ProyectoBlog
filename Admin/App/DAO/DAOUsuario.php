@@ -5,6 +5,10 @@
         
     class DAOUsuario extends DAO{
 
+        public function __construct(){
+            $this->datos = array();
+        }
+
         public function queryBuscarPorId(){
             $query = "SELECT * FROM BlogPHP.Usuario WHERE Email=? LIMIT 1";
             return $query;
@@ -16,29 +20,30 @@
             return $resultSet;
         }  
 
-        public function queryListar(){
-            $query = "SELECT * FROM BlogPHP.Usuario";
-            return $query;
+        public function queryListar($filtro){
+            switch ($filtro) {
+                case '':
+                    return "SELECT * FROM BlogPHP.Usuario ORDER BY IdUsuario ASC";
+            }            
+            return "";
         }
 
-        public function metodoListar($resultSet){
-            $arrayDeObjetos = array();
+        public function metodoListar($statement, $parametro){
+            if($parametro != ''){
+                $statement->execute([$parametro]);
+            }else{
+                $statement->execute();
+            }
+            $resultSet = $statement->fetchAll();            
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new Usuario($fila[0], $fila[1], $fila[2], $fila[3], $fila[4], $fila[5], $fila[6]);
-                    array_push($arrayDeObjetos, $tmp->toArray());
+                    array_push($this->datos, $tmp->toArray());
                 }    
             }
-            return $arrayDeObjetos;
+            return $this->datos;
         }   
-        
-        public function queryListarFiltro($filtro){                       
-        }
-
-        public function metodoListarFiltro($statement, $parametro){
-        }   
-
-
+               
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.Usuario WHERE IdUsuario = ?";
             return $query;

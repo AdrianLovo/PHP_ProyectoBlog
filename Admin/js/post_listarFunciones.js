@@ -1,8 +1,8 @@
-import {listarFetch, listarFiltroFetch, agregarFetch, modificarFetch, eliminarFetch} from './UtilFetch.js';
+import {listarFetch, agregarFetch, modificarFetch, eliminarFetch} from './UtilFetch.js';
 
 export async function listarTable(){
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerPost.php');
+    lista = await listarFetch('../App/Controllers/ControllerPost.php', '', '');
 
     let table = $('#tablaPost').DataTable({
         data: lista,
@@ -48,8 +48,7 @@ export async function listarTable(){
 }
 
 export async function eliminarTable(table){
-    $('#tablaPost tbody').on('click', 'td.details-delete', function () {
-        
+    $('#tablaPost tbody').on('click', 'td.details-delete', function () {        
         if(eliminarFetch( 
             "../App/Controllers/ControllerPost.php", "IdPost", 
             table.row($(this).parents('tr')).data().IdPost)

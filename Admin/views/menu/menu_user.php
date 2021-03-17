@@ -7,7 +7,7 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="post_listar.php">Listar</a>
                 <a class="dropdown-item" href="post_agregar.php">Agregar</a>
-                <a class="dropdown-item" href="post_modificar.php">Modificar</a>
+                <a class="dropdown-item disabled" href="post_modificar.php">Modificar</a>
             </div>
         </li>
         <li>

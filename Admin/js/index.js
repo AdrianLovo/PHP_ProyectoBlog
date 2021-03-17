@@ -37,7 +37,8 @@ import {mensaje} from './UtilSweetMessage.js';
                 method: 'POST',
                 body: data
             });
-            let respuesta = await response.text();   
+            let respuesta = await response.text();
+            //console.log(respuesta);
 
             if(respuesta == "ok"){
                 mensaje('Login', 'success');
@@ -50,8 +51,7 @@ import {mensaje} from './UtilSweetMessage.js';
                 setTimeout(
                     function(){ 
                         window.location.reload(); 
-                }, 1000);
-                
+                }, 1000);                
             }
         }catch(error){
             mensaje('Error para conectarse al servidor', 'error');  	

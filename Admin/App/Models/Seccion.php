@@ -25,14 +25,6 @@
         public function setNombre($Nombre){
             $this->Nombre = $Nombre;
         }
-    
-        //Metodo toString para mostrar campos de objeto
-        public function toString(){
-            echo(
-                "IdSeccion: " . $this->IdSeccion .
-                "Nombre: " . $this->Nombre 
-            );
-        }
 
         //Metodo para obtener los datos de los atributos en un array
 		public function toArray(){
@@ -42,6 +34,15 @@
             );
 			return $datos;
 		}
+    
+        //Metodo toString para mostrar campos de objeto
+        public function toString(){
+            echo(
+                "IdSeccion: " . $this->IdSeccion .
+                "Nombre: " . $this->Nombre 
+            );
+        }
+       
 
 	}
 

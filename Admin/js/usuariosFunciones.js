@@ -2,7 +2,7 @@ import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFe
 
 export async function listarTable(){
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerUsuario.php');
+    lista = await listarFetch('../App/Controllers/ControllerUsuario.php', '', '');
 
     let table = $('#tablaUsuario').DataTable({
         data: lista,
@@ -28,7 +28,7 @@ export async function listarTable(){
             //Ocultos
             { "data": "Imagen" }
         ],
-        "order": [[1, 'asc']],
+        "order": [[0, 'asc']],
         "columnDefs": [
             {
                 "targets": [6],
@@ -55,9 +55,9 @@ export async function agregarTable(){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerUsuario.php', frmUsuario);
 
-    if(respuesta.constructor.length > 0){
+    if(respuesta.length > 0){
         $('#tablaUsuario').dataTable().fnAddData([
-            { "IdUsuario": respuesta.IdUsuario, "Email": respuesta.Email, "UltimoInicio": respuesta.UltimoInicio, "Tipo": respuesta.Tipo, "Imagen": respuesta.Imagen }
+            { "IdUsuario": respuesta[0]['IdUsuario'], "Email": respuesta[0]['Email'], "UltimoInicio": respuesta[0]['UltimoInicio'], "Tipo": respuesta[0]['Tipo'], "Imagen": respuesta[0]['Imagen'] }
         ]);            
     }
 }
@@ -67,10 +67,10 @@ export async function modificarTable(){
     let fila = frmUsuarioE[3].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerUsuario.php', frmUsuarioE);
         
-    if(respuesta.constructor.length > 0){
-        $("#tablaUsuario").DataTable().cell( fila, 1).data(respuesta.Email);  
-        $("#tablaUsuario").DataTable().cell( fila, 3).data(respuesta.Tipo);  
-        $("#tablaUsuario").DataTable().cell( fila, 6).data(respuesta.Imagen);          
+    if(respuesta.length > 0){
+        $("#tablaUsuario").DataTable().cell( fila, 1).data(respuesta[0]['Email']);  
+        $("#tablaUsuario").DataTable().cell( fila, 3).data(respuesta[0]['Tipo']);  
+        $("#tablaUsuario").DataTable().cell( fila, 6).data(respuesta[0]['Imagen']);          
     }
 
 }

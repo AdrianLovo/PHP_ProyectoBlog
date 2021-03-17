@@ -5,49 +5,66 @@
         
     class DAOPost extends DAO{
 
+        public function __construct(){
+            $this->datos = array();
+        }
+
         public function queryBuscarPorId(){
         }
 
         public function metodoBuscarPorId($statement, $parametro){
         }  
 
-        public function queryListar(){
-            $query = "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion";
-            return $query;
-        }
-       
-        public function metodoListar($resultSet){
-            $arrayDeObjetos = array();
-            if(!empty($resultSet)){
-                foreach($resultSet as $fila){
-                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
-                    array_push($arrayDeObjetos, $tmp->toArray());
-                }    
-            }
-            return $arrayDeObjetos;
-        }       
+        public function queryListar($filtro){
+            $IdUsuario = $_SESSION['IdUsuario'];
+            $Tipo = $_SESSION['Tipo'];
 
-        public function queryListarFiltro($filtro){
-            switch ($filtro) {
-                case 0:
-                    return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado, A.Contenido   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdPost = ?";
-            }            
+            if($Tipo == 'A'){       //ADMIN
+                switch ($filtro) {
+                    case '':
+                        return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion";
+                    case 'IdPost':
+                        return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado, A.Contenido   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdPost = ?";                    
+                    
+                }            
+            }else{                  //USER
+                switch ($filtro) {
+                    case '':
+                        return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado  FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdUsuario=".$IdUsuario;
+                    case 'IdPost':
+                        return "SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha, A.IdUsuario, A.IdSeccion, A.IdSubSeccion, B.Email AS EmailUsuario, C.Nombre AS NombreSeccion, D.Nombre AS NombreSubSeccion, A.Estado, A.Contenido   FROM BlogPHP.post A INNER JOIN BlogPHP.Usuario B ON A.IdUsuario = B.IdUsuario INNER JOIN BlogPHP.Seccion C ON A.IdSeccion = C.IdSeccion INNER JOIN BlogPHP.SubSeccion D ON A.IdSubSeccion = D.IdSubSeccion WHERE A.IdPost = ? AND A.IdUsuario=".$IdUsuario;                    
+                    
+                }            
+            }
+
+
+            
             return "";
         }
-
-        public function metodoListarFiltro($statement, $parametro){
-            $arrayDeObjetos = array();            
-            $statement->execute([$parametro]);
-            $resultSet = $statement->fetchAll();
-            
-            if(!empty($resultSet)){
-                foreach($resultSet as $fila){
-                    $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], $fila['Contenido'], $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
-                    array_push($arrayDeObjetos, $tmp->toArray());
-                }    
+       
+        public function metodoListar($statement, $parametro){
+            if($parametro != ''){
+               $statement->execute([$parametro]);
+               $resultSet = $statement->fetchAll();            
+                if(!empty($resultSet)){
+                    foreach($resultSet as $fila){
+                        $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], $fila['Contenido'], $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
+                        array_push($this->datos, $tmp->toArray());
+                    }    
+                }
+            }else{
+                $statement->execute();
+                $resultSet = $statement->fetchAll();            
+                if(!empty($resultSet)){
+                    foreach($resultSet as $fila){
+                        $tmp = new Post($fila['IdPost'], $fila['Titulo'], $fila['Descripcion'], $fila['ImagenPortada'], '', $fila['Fecha'], $fila['IdUsuario'], $fila['IdSeccion'], $fila['IdSubSeccion'], $fila['EmailUsuario'], $fila['NombreSeccion'], $fila['NombreSubSeccion'], $fila['Estado']);
+                        array_push($this->datos, $tmp->toArray());
+                    }    
+                }
             }
-            return $arrayDeObjetos;            
-        }     
+            
+            return $this->datos;
+        }               
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.Post WHERE IdPost = ?";

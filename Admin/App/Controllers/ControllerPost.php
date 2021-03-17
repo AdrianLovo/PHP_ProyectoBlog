@@ -6,22 +6,18 @@
     class ControllerPost{
 
         private $daoPost;
-        private $vacio;
+        private $datos;
         
         public function __construct(){
             $this->daoPost = new DAOPost();
-            $this->vacio = array();
+            $this->datos = array();
         }
 
         public function Listar(){
-            $datosTodos = array();                
-            if($_SESSION['Tipo'] == 'A'){   //Mostrar Todo
-                $datosTodos = $this->daoPost->listar();
-            }else{
-                $IdUsuario = $_SESSION['IdUsuario'];     //Mostrar por IdUsuario
-                $datosTodos = $this->daoPost->listarFiltro(0, $IdUsuario);
-            }            
-            echo json_encode($datosTodos);	
+            $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;  
+            $parametro = isset($_POST['parametro']) ? $_POST['parametro'] : null;
+            $datos = $this->daoPost->listar($filtro, $parametro);
+            echo json_encode($datos);	
         }
 
         public function Eliminar(){
@@ -39,8 +35,7 @@
             $Estado = isset($_POST['Estado']) ? $_POST['Estado'] : null;       
             $Seccion = isset($_POST['Seccion']) ? $_POST['Seccion'] : null;  
             $Subseccion = isset($_POST['Subseccion']) ? $_POST['Subseccion'] : null; 
-            $Descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;  
-
+            $Descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;
             $nombre = isset($_FILES['imagen']['name']) ? $_FILES['imagen']['name'] : null;
             $nombreTemp = isset($_FILES['imagen']['tmp_name']) ? $_FILES['imagen']['tmp_name'] : null;
             $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";
@@ -50,7 +45,9 @@
             
             if($post->getIdPost() > 0){
                 $nombre != "" ? move_uploaded_file($nombreTemp, $destino) : null;
-                echo json_encode($post->toArray());
+                array_push($this->datos, $post->toArray());
+                echo json_encode($this->datos);
+                
             }else{
                 echo json_encode($this->vacio);
             }
@@ -69,32 +66,22 @@
             $Descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : null;  
             $NombreSeccion = isset($_POST['InputSeccion']) ? $_POST['InputSeccion'] : null;  
             $NombreSubSeccion = isset($_POST['InputSubseccion']) ? $_POST['InputSubseccion'] : null;  
-
             $nombre = isset($_FILES['imagen']['name']) ? $_FILES['imagen']['name'] : null;
             $nombreTemp = isset($_FILES['imagen']['tmp_name']) ? $_FILES['imagen']['tmp_name'] : null;
-            $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";
-
-            
-            
+            $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";            
                
             $post = new Post($IdPost, $Titulo, $Descripcion, $destino, $Contenido, $fecha, $IdUsuario, $Seccion, $Subseccion, null, $NombreSeccion, $NombreSubSeccion, $Estado);     
             $filas = $this->daoPost->modificar($post);   
             
             if($filas > 0){
                 $nombre != "" ? move_uploaded_file($nombreTemp, $destino) : null;
-                echo json_encode($post->toArray()); 
+                array_push($this->datos, $post->toArray());
+                echo json_encode($this->datos);
             }else{
                 echo json_encode($this->vacio);
             }
         }
 
-        public function ListarFiltro(){   
-            $filtro = isset($_POST['filtro']) ? $_POST['filtro'] : null;
-            $parametro = isset($_POST['parametro']) ? $_POST['parametro'] : null;         
-            $datosTodos = array();    
-            $datosTodos = $this->daoPost->listarFiltro($filtro, $parametro);
-            echo json_encode($datosTodos);	
-        }
     }
 
     

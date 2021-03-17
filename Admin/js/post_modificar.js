@@ -36,14 +36,14 @@ import {cargarPost, listarSecciones, listarSubSecciones, modificarPost} from './
     let SelectSubseccion = document.getElementById('Subseccion');
 
     listarSecciones(SelectSeccion, '../App/Controllers/ControllerSeccion.php', InputSeccion);
-    listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, InputSeccion.value);
+    listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 'IdSeccion', InputSeccion.value);
     
     if(IdPost.value != ''){
-        cargarPost(frmPost, '../App/Controllers/ControllerPost.php', 0, IdPost.value, $sumNote);
+        cargarPost(frmPost, '../App/Controllers/ControllerPost.php', 'IdPost', IdPost.value, $sumNote);
     }
     
   
-    //AGREGAR
+    //MODIFICAR
     modificar.addEventListener("click", async (e) => {
         e.preventDefault();
         modificarPost(frmPost, $sumNote);        
@@ -55,7 +55,7 @@ import {cargarPost, listarSecciones, listarSubSecciones, modificarPost} from './
         while (SelectSubseccion.firstChild) {
             SelectSubseccion.removeChild(SelectSubseccion.firstChild);
         }
-        listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 0, SelectSeccion.options[SelectSeccion.selectedIndex].value);        
+        listarSubSecciones(SelectSubseccion, '../App/Controllers/ControllerSubSeccion.php', InputSubseccion, 'IdSeccion', SelectSeccion.options[SelectSeccion.selectedIndex].value);        
     })
      
     //IMAGENES 
@@ -76,8 +76,8 @@ import {cargarPost, listarSecciones, listarSubSecciones, modificarPost} from './
         }
     });
 
-     //REINICIAR
-     reiniciar.addEventListener('click', function(e){
+    //REINICIAR
+    reiniciar.addEventListener('click', function(e){
         e.preventDefault();
         $sumNote.reset();
 		$("#content").empty();
@@ -88,7 +88,6 @@ import {cargarPost, listarSecciones, listarSubSecciones, modificarPost} from './
         e.preventDefault();
         window.location="/Admin/views/post_listar.php"; 
     })   
-
     
     //SALIR
     salir.addEventListener('click', function(e){

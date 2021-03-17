@@ -13,7 +13,7 @@ export async function listarFetch(ruta, filtro, parametro){
         });
         let respuesta = await response.json();
         //let respuesta = await response.text();
-        //console.log(respuesta);
+        console.log(respuesta);
         
         if(respuesta.length > 0){
             return respuesta;
@@ -57,7 +57,7 @@ export async function agregarFetch(ruta, formulario){
         })
         let respuesta = await response.json();      
         //let respuesta = await response.text();      
-        //console.log(respuesta.length);        
+        //console.log(respuesta);        
         
         if(respuesta.length > 0){
             mensaje('Registro Agregado', 'success');  
@@ -80,7 +80,7 @@ export async function modificarFetch(ruta, formulario){
         })
         let respuesta = await response.json();
         //let respuesta = await response.text();
-        //console.log(respuesta)
+        //console.log(respuesta.length);
        
         if(respuesta.length > 0){
             formulario.reset();
@@ -95,30 +95,5 @@ export async function modificarFetch(ruta, formulario){
     }
 }
 
-// export async function listarFiltroFetch(ruta, filtro, parametro){
-//     const data = new FormData();
-//     data.append('filtro', filtro);
-//     data.append('parametro', parametro);
-//     data.append('metodo', 'ListarFiltro');
-    
-//     try{
-//         let response = await fetch(ruta, {
-//             method: 'POST',
-//             body: data
-//         });
-//         let respuesta = await response.json();
-//         //let respuesta = await response.text();
-//         //console.log(respuesta);
-        
-//         if(respuesta.length > 0){
-//             return respuesta;
-//         }else{
-//             mensaje('No existen registro para la Seccion', 'error');
-//             return respuesta;   
-//         }
-//     }catch(error){
-//         mensaje('Error para conectarse al servidor', 'error');  
-//         return null;	
-//     }
-// } 
+
 

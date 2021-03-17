@@ -5,49 +5,42 @@
         
     class DAOSubSeccion extends DAO{
 
+        public function __construct(){
+            $this->datos = array();
+        }
+
         public function queryBuscarPorId(){
         }
 
         public function metodoBuscarPorId($statement, $parametro){
         }  
 
-        public function queryListar(){
-            $query = "SELECT  A.IdSeccion, B.Nombre, A.IdSubseccion, A.Nombre  FROM BlogPHP.SubSeccion A  INNER JOIN BlogPHP.seccion B ON A.IdSeccion = B.IdSeccion";
-            return $query;
-        }
-
-        public function metodoListar($resultSet){
-            $arrayDeObjetos = array();
-            if(!empty($resultSet)){
-                foreach($resultSet as $fila){
-                    $tmp = new SubSeccion($fila[0], $fila[1], $fila[2], $fila[3]);
-                    array_push($arrayDeObjetos, $tmp->toArray());
-                }    
-            }
-            return $arrayDeObjetos;
-        }       
-
-        public function queryListarFiltro($filtro){    
+        public function queryListar($filtro){
             switch ($filtro) {
-                case 0:
-                    return "SELECT  A.IdSeccion, B.Nombre, A.IdSubseccion, A.Nombre  FROM BlogPHP.SubSeccion A  INNER JOIN BlogPHP.seccion B ON A.IdSeccion = B.IdSeccion WHERE A.IdSeccion=?";
+                case '':
+                    return "SELECT  A.IdSeccion, B.Nombre, A.IdSubseccion, A.Nombre  FROM BlogPHP.SubSeccion A  INNER JOIN BlogPHP.seccion B ON A.IdSeccion = B.IdSeccion";
+                case 'IdSeccion':
+                    return "SELECT  A.IdSeccion, B.Nombre, A.IdSubseccion, A.Nombre  FROM BlogPHP.SubSeccion A  INNER JOIN BlogPHP.seccion B ON A.IdSeccion = B.IdSeccion WHERE A.IdSeccion = ?"; 
             }            
             return "";
         }
 
-        public function metodoListarFiltro($statement, $parametro){
-            $arrayDeObjetos = array();            
-            $statement->execute([$parametro]);
-            $resultSet = $statement->fetchAll();
-            
+        public function metodoListar($statement, $parametro){
+            if($parametro != ''){
+                $statement->execute([$parametro]);
+            }else{
+                $statement->execute();
+            }
+
+            $resultSet = $statement->fetchAll();            
             if(!empty($resultSet)){
                 foreach($resultSet as $fila){
                     $tmp = new SubSeccion($fila[0], $fila[1], $fila[2], $fila[3]);
-                    array_push($arrayDeObjetos, $tmp->toArray());
+                    array_push($this->datos, $tmp->toArray());
                 }    
             }
-            return $arrayDeObjetos;
-        }   
+            return $this->datos;
+        }             
 
         public function queryEliminar(){
             $query = "DELETE FROM BlogPHP.SubSeccion WHERE IdSubSeccion = ?";

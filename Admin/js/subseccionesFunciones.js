@@ -2,7 +2,7 @@ import {listarFetch, eliminarFetch, agregarFetch, modificarFetch} from './UtilFe
 
 export async function listarTable(){
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerSubSeccion.php');
+    lista = await listarFetch('../App/Controllers/ControllerSubSeccion.php', '', '');
 
     let table = $('#tablaSubSeccion').DataTable({
         data: lista,
@@ -54,9 +54,9 @@ export async function agregarTable(formulario){
     let respuesta = new Array()
     respuesta = await agregarFetch('../App/Controllers/ControllerSubSeccion.php', formulario);
     
-    if(respuesta.constructor.length > 0){
+    if(respuesta.length > 0){
         $('#tablaSubSeccion').dataTable().fnAddData([
-            { "IdSeccion": respuesta.IdSeccion, "SeccionNombre": respuesta.SeccionNombre, "IdSubseccion": respuesta.IdSubseccion, "SubseccionNombre": respuesta.SubseccionNombre }
+            { "IdSeccion": respuesta[0]['IdSeccion'], "SeccionNombre": respuesta[0]['SeccionNombre'], "IdSubseccion": respuesta[0]['IdSubseccion'], "SubseccionNombre": respuesta[0]['SubseccionNombre'] }
         ]);            
     } 
 }
@@ -66,23 +66,22 @@ export async function modificarTable(formulario){
     let fila = formulario[1].value;
     respuesta = await modificarFetch('../App/Controllers/ControllerSubSeccion.php', formulario);
         
-    if(respuesta.constructor.length > 0){
-        $("#tablaSubSeccion").DataTable().cell(fila, 3).data(respuesta.SubseccionNombre); 
+    if(respuesta.length > 0){
+        $("#tablaSubSeccion").DataTable().cell(fila, 3).data(respuesta[0]['SubseccionNombre']); 
     }
 }
 
 export async function listarSelect(select){
     let nodos = [];
     let lista = new Array();
-    lista = await listarFetch('../App/Controllers/ControllerSeccion.php');
+    lista = await listarFetch('../App/Controllers/ControllerSeccion.php', '', '');
 
     if(lista.length > 0){
-        SeccionNombre.value = lista[0].Nombre;
-        
+        SeccionNombre.value = lista[0].Nombre;        
         for(let i= 0; i < lista.length; i++){
             let opt = document.createElement("option");    
-            opt.value = lista[i].IdSeccion;
-            opt.text = lista[i].Nombre;    
+            opt.value = lista[i]['IdSeccion'];
+            opt.text = lista[i]['Nombre'];    
             nodos.push(opt);
         }
     }    

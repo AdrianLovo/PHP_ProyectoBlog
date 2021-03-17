@@ -1,8 +1,8 @@
-import {listarFiltroFetch, modificarFetch, listarFetch} from './UtilFetch.js';
+import {modificarFetch, listarFetch} from './UtilFetch.js';
 
 export async function cargarPost(frm, ruta, filtro, parametro, summernot){
     let lista = new Array();
-    lista = await listarFiltroFetch(ruta, filtro, parametro);
+    lista = await listarFetch(ruta, filtro, parametro);
 
     if(lista.length > 0){
         frmPost[2].value = lista[0]['NombreSeccion'];
@@ -20,17 +20,18 @@ export async function cargarPost(frm, ruta, filtro, parametro, summernot){
 export async function modificarPost(frmPost, summernot){
     let respuesta = new Array()
     respuesta = await modificarFetch('../App/Controllers/ControllerPost.php', frmPost);  
-    
-    if(respuesta.constructor.length > 0){
+  
+    if(respuesta.length > 0){
         summernot.reset();
 		$("#content").empty();
+        setTimeout(function(){ window.location="/Admin/views/post_listar.php"; }, 700); 
     }
 }
 
 export async function listarSecciones(select, ruta, inputNombre){
     let nodos = [];
     let lista = new Array();
-    lista = await listarFetch(ruta);
+    lista = await listarFetch(ruta, '', '');
 
     if(lista.length > 0){
         inputNombre.value = lista[0].Nombre;
@@ -47,7 +48,7 @@ export async function listarSecciones(select, ruta, inputNombre){
 export async function listarSubSecciones(select, ruta, inputNombre, filtro, parametro){
     let nodos = [];
     let lista = new Array();
-    lista = await listarFiltroFetch(ruta, filtro, parametro);
+    lista = await listarFetch(ruta, filtro, parametro);
 
     if(lista.length > 0){
         inputNombre.value = lista[0].SubseccionNombre;        
