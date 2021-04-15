@@ -28,3 +28,7 @@ td.details-edit {
     align-items: end;
     justify-content: center;
 }
+
+img{
+    border-radius: 5px;
+}

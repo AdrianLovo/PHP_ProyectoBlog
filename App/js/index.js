@@ -2,7 +2,7 @@ import {mensaje} from './UtilSweetMessage.js';
 import {listarPaginasFetch, listarCardsFetch} from './UtilFetch.js';
 
 //VARIABLES GLOBALES
-let NUMEROPORPAGINA = 5;
+let NUMEROPORPAGINA = 6;
 let TOTALPAGINAS;
 
 (async function() {
@@ -117,45 +117,51 @@ function mostrarPost(totalPost, divPost){
 
     let elementos = [];
     let contenedor = document.createElement('div');
-    contenedor.className = "row alignCenter";
+    contenedor.className = "row justify-content-center";
     
     for(let i =0; i < totalPost.length; i++){
         let div = document.createElement('div');
-        div.className="card col-3 col-sm-6 col-md-4 col-lg-3 col-xl-3 mr-4 mt-4";
+        div.className="card col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3 mt-2 mr-2";
         
         let divBody = document.createElement('div');
         let h5 = document.createElement('h5');
         let p = document.createElement('p');
         let pTime = document.createElement('p');
         let small = document.createElement('small');
+        
         divBody.className = "card-body";
+        
         p.className = "card-text";
+        p.innerText = resumenDescripcion(totalPost[i]["Descripcion"]); 
+        p.style.cursor="pointer";
+        
         h5.className = "card-title";
+        h5.innerText = totalPost[i]["Titulo"];
+        h5.style.cursor="pointer";
+        
         pTime.className = "card-text";
         small.className = "text-muted";
-        
-        
-        
-        
-        
-        h5.innerText = totalPost[i]["Titulo"];
-        p.innerText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus laborum omnis hic, delectus";
         small.innerText = "Created at: " + totalPost[i]["Fecha"];
+                
         pTime.appendChild(small);
         divBody.appendChild(h5);
         divBody.appendChild(p);
-        divBody.appendChild(pTime);        
-        
+        divBody.appendChild(pTime);                
         
         let img = document.createElement('img');
-        img.className = "alignCenter"
-        img.style.width="250px";
-        img.style.minWidth="250px";
-        img.style.height="140px";
-        img.style.minHeight="140px";
+        let divImg = document.createElement('div');
+        divImg.className = "container alignCenter mt-1";
+        divImg.style.cursor="pointer";
+        img.className="row justify-content-center"
+        img.style.width="270px";
+        img.style.minWidth="270px";
+        //img.style.height="140px";
+        //img.style.minHeight="140px";
         img.alt = totalPost[i]["Titulo"];
         img.src = totalPost[i]["ImagenPortada"];
-        div.appendChild(img);
+        divImg.appendChild(img);
+
+        div.appendChild(divImg);
         div.appendChild(divBody);
         contenedor.appendChild(div);
     }
@@ -200,4 +206,15 @@ function reiniciarPost(){
     let contenedor = divCards.lastChild;
     contenedor.remove();
     loading.style.display="inline";
+}
+
+
+//RESUMEN Descripcion
+function resumenDescripcion(descripcion){
+    if(descripcion.length > 180){
+        let resumen = descripcion.substring(0, 180) + "...";
+        return resumen;
+    }else{
+        return descripcion;
+    }
 }

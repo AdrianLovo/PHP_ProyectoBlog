@@ -20,7 +20,7 @@
         }
 
         function calcularPaginas(){
-            $query = $this->connect()->query('SELECT COUNT(*) AS total FROM BlogPHP.Post');
+            $query = $this->connect()->query('SELECT COUNT(*) AS total FROM BlogPHP.Post A WHERE A.Estado=1');
             $this->numeroResultados = $query->fetch(PDO::FETCH_OBJ)->total;
             $this->totalPaginas = round($this->numeroResultados / $this->resultadosPorPagina);  
 

@@ -4760,7 +4760,9 @@ input[type="button"].btn-block {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   min-height: 1px;
-  padding: 1.25rem;
+  /*padding: 1.25rem;*/
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .card-title {
@@ -4832,7 +4834,7 @@ input[type="button"].btn-block {
 .card-img-bottom {
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  width: 100%;
+  width: 100%;  
 }
 
 .card-img,

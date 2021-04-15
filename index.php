@@ -92,14 +92,12 @@
     <div class="pt-12">
         <!--Header Principal-->  
         <div class="p-md-3 text-dark bg-light text-justify">
-            <div class="col-sm-12 col-md-6 cl-lg-12 offset-md-3">
+            <div class="col-sm-12 col-md-5 cl-lg-12 offset-md-3">
                 <h1 class="font-italic ">Mimisuelo.com</h1>
                 <p class="">SUBTITULO</p>            
             </div>
         </div>
     </div>
-    
-
     
     
     <!--Contendor Principal-->
@@ -116,7 +114,7 @@
             </div>
         </div>
               
-        <div id="divPost" class=""> 
+        <div id="divPost" class="container"> 
         </div>  
 
     </div>
