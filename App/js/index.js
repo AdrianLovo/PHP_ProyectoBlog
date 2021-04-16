@@ -1,5 +1,5 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarPaginasFetch, listarCardsFetch} from './UtilFetch.js';
+import {listarPaginasFetch, listarPostFetch} from './UtilFetch.js';
 
 //VARIABLES GLOBALES
 let NUMEROPORPAGINA = 6;
@@ -53,8 +53,7 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
     aPrevius.className='page-link';
     aPrevius.innerText = 'Previous';
     aPrevius.id = parseInt(pagina) - 1;
-    aPrevius.addEventListener('click', anterior);
-        
+    aPrevius.addEventListener('click', anterior);        
 
     //GENERAR TODOS
     for(let i=1; i <= totalPaginas; i++){
@@ -107,14 +106,12 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
     //MOSTRAR POST
     reiniciarPost();
     let listaPost = new Array();
-    let totalPost = await listarCardsFetch('../App/Controllers/PostController.php', 'Post', 'Post', NUMEROPORPAGINA, pagina);  
+    let totalPost = await listarPostFetch('../App/Controllers/PostController.php', 'Post', 'Post', NUMEROPORPAGINA, pagina);  
     mostrarPost(totalPost, divPost); 
 }
 
 //MOSTRAR POST
 function mostrarPost(totalPost, divPost){
-    console.log("Total ", totalPost.length);
-
     let elementos = [];
     let contenedor = document.createElement('div');
     contenedor.className = "row justify-content-center";
@@ -122,6 +119,8 @@ function mostrarPost(totalPost, divPost){
     for(let i =0; i < totalPost.length; i++){
         let div = document.createElement('div');
         div.className="card col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3 mt-2 mr-2";
+        div.id=totalPost[i]["IdPost"];
+        div.addEventListener('click', cargarPost);        
         
         let divBody = document.createElement('div');
         let h5 = document.createElement('h5');
@@ -155,8 +154,6 @@ function mostrarPost(totalPost, divPost){
         img.className="row justify-content-center"
         img.style.width="270px";
         img.style.minWidth="270px";
-        //img.style.height="140px";
-        //img.style.minHeight="140px";
         img.alt = totalPost[i]["Titulo"];
         img.src = totalPost[i]["ImagenPortada"];
         divImg.appendChild(img);
@@ -169,7 +166,6 @@ function mostrarPost(totalPost, divPost){
     divPost.append(contenedor);
     loading.style.display="none";
 }
-
 
 //CAMBIO PAGINA SELECCIONADA CLICK
 function cambioPagina(){
@@ -208,7 +204,6 @@ function reiniciarPost(){
     loading.style.display="inline";
 }
 
-
 //RESUMEN Descripcion
 function resumenDescripcion(descripcion){
     if(descripcion.length > 180){
@@ -217,4 +212,13 @@ function resumenDescripcion(descripcion){
     }else{
         return descripcion;
     }
+}
+
+//CARGAR POST
+function cargarPost(){
+    window.location="post.php?post="+this.id;
+}
+
+function recargarPost(){
+    console.log(this.id);
 }

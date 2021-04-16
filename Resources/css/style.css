@@ -29,6 +29,10 @@ td.details-edit {
     justify-content: center;
 }
 
+.hide{
+    display: none;
+}
+
 img{
     border-radius: 5px;
 }

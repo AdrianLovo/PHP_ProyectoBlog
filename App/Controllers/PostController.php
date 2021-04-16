@@ -55,7 +55,7 @@
             $arrayDeObjetos = array();
 
             if(!$this->error){
-                $query = $this->connect()->prepare('SELECT * FROM BlogPHP.Post A WHERE A.Estado=1  LIMIT :pos, :n');
+                $query = $this->connect()->prepare('SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1  LIMIT :pos, :n');
                 $query->execute(['pos' => $this->indice, 'n' => $this->resultadosPorPagina]);
 
                 foreach($query as $post){
@@ -64,7 +64,6 @@
                         "Titulo" => $post['Titulo'],
                         "Descripcion" => $post['Descripcion'],
                         "ImagenPortada" => $post['ImagenPortada'],
-                        "Contenido" => $post['Contenido'],
                         "Fecha" => $post['Fecha'],
                         "Titulo" => $post['Titulo']
                     ];
