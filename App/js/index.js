@@ -1,27 +1,35 @@
 import {mensaje} from './UtilSweetMessage.js';
-import {listarPaginasFetch, listarPostFetch} from './UtilFetch.js';
+import {listarFetch, listarPaginasFetch, listarPostFetch} from './UtilFetch.js';
 
-//VARIABLES GLOBALES
-let NUMEROPORPAGINA = 6;
+//VARIABLES GLOBALES-MENU
+let SECCION = [];
+let REPETIDOS = {};
+
+//VARIABLES GLOBALES-POST
 let TOTALPAGINAS;
+let NUMEROPORPAGINA = 6;
+let SECCION_ACTUAL=0;
+let SUBSECCION_ACTUAL='';
 
 (async function() {
+    cargarMenu();
+    
     let pagina = 1;
     let divPaginas = document.getElementById('divPaginas');
     let divPost = document.getElementById('divPost');  
     let loading = document.getElementById('loading');
-
-    //MOSTRAR PAGINADO
-    console.log("Iniciando");
-    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', 'Post', NUMEROPORPAGINA, pagina);    
+    
+    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, pagina);    
     TOTALPAGINAS = totalPaginas;
-    mostrarPaginado(divPaginas, totalPaginas, pagina);
+    mostrarPaginado(divPaginas, totalPaginas, pagina, SECCION_ACTUAL, SUBSECCION_ACTUAL);
+
 })();
 
 
 
-//MOSTRAR PAGINADO
-async function mostrarPaginado(divPaginas, totalPaginas, pagina){
+/********************************************FUNCIONES POST*******************************************/
+//MOSTRAR PAGINADO Y CARGAR POST
+async function mostrarPaginado(divPaginas, totalPaginas, pagina, seccion, subseccion){
     let elementos = [];
     let ul = document.createElement('ul');
     let contenedor = document.createElement('div');
@@ -70,7 +78,7 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
     ul.appendChild(liPrevius);
 
     //SIN RESUMIR ELEMENTOS     12345
-    if(totalPaginas < 6){
+    if(totalPaginas <= 6){
         for(let i=0; i < elementos.length; i++){
             ul.appendChild(elementos[i]);
         }    
@@ -78,9 +86,9 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
 
     //RESUMIR ELEMENTOS         12345...N
     if(totalPaginas > 6){
-        if((elementos.length - RANGO - pagina) > 0){    //Orden Normal
+        if((elementos.length - NUMEROPORPAGINA - pagina) > 0){    //Orden Normal
             let x = (0 + parseInt(pagina) -1);
-            let y = (RANGO - 1 + parseInt(pagina));
+            let y = (NUMEROPORPAGINA - 1 + parseInt(pagina));
 
             for(let j=x; j < y ; j++ ){
                 ul.appendChild(elementos[j]);
@@ -92,7 +100,7 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
             ul.appendChild(elementos[0]);
             ul.appendChild(liVacio);
 
-            let x = (elementos.length - RANGO - 1);
+            let x = (elementos.length - NUMEROPORPAGINA - 1);
             for(let j=x; j < elementos.length ; j++ ){
                 ul.appendChild(elementos[j]);
             }
@@ -106,8 +114,14 @@ async function mostrarPaginado(divPaginas, totalPaginas, pagina){
     //MOSTRAR POST
     reiniciarPost();
     let listaPost = new Array();
-    let totalPost = await listarPostFetch('../App/Controllers/PostController.php', 'Post', 'Post', NUMEROPORPAGINA, pagina);  
-    mostrarPost(totalPost, divPost); 
+    let totalPost = await listarPostFetch('../App/Controllers/PostController.php', 'Post', seccion, subseccion, NUMEROPORPAGINA, pagina);
+    
+    if(totalPost != 0){
+        mostrarPost(totalPost, divPost);
+    }else{
+        contenedorVacio(divPost);        
+    }
+   
 }
 
 //MOSTRAR POST
@@ -120,7 +134,7 @@ function mostrarPost(totalPost, divPost){
         let div = document.createElement('div');
         div.className="card col-10 col-sm-10 col-md-5 col-lg-5 col-xl-3 mt-2 mr-2";
         div.id=totalPost[i]["IdPost"];
-        div.addEventListener('click', cargarPost);        
+        div.addEventListener('click', redireccionarPost);        
         
         let divBody = document.createElement('div');
         let h5 = document.createElement('h5');
@@ -131,7 +145,7 @@ function mostrarPost(totalPost, divPost){
         divBody.className = "card-body";
         
         p.className = "card-text";
-        p.innerText = resumenDescripcion(totalPost[i]["Descripcion"]); 
+        p.innerText = totalPost[i]["Descripcion"]; 
         p.style.cursor="pointer";
         
         h5.className = "card-title";
@@ -167,17 +181,17 @@ function mostrarPost(totalPost, divPost){
     loading.style.display="none";
 }
 
-//CAMBIO PAGINA SELECCIONADA CLICK
+//CAMBIO PAGINA CLICK
 function cambioPagina(){
     reiniciarPaginado(divPaginas);
-    mostrarPaginado(divPaginas, TOTALPAGINAS, this.id);
+    mostrarPaginado(divPaginas, TOTALPAGINAS, this.id, '', '');
 }
 
 //CAMBIO PAGINA SIGUIENTE
 function siguiente(){
     if(parseInt(this.id) > 0 && parseInt(this.id) <= TOTALPAGINAS){
         reiniciarPaginado(divPaginas);
-        mostrarPaginado(divPaginas, TOTALPAGINAS, this.id);                
+        mostrarPaginado(divPaginas, TOTALPAGINAS, this.id, SECCION_ACTUAL, SUBSECCION_ACTUAL);                
     }
 }
 
@@ -185,7 +199,7 @@ function siguiente(){
 function anterior(){
     if(parseInt(this.id) > 0 && parseInt(this.id) < TOTALPAGINAS){
         reiniciarPaginado(divPaginas);
-        mostrarPaginado(divPaginas, TOTALPAGINAS, this.id);        
+        mostrarPaginado(divPaginas, TOTALPAGINAS, this.id, SECCION_ACTUAL, SUBSECCION_ACTUAL);        
     }
 }
 
@@ -196,29 +210,115 @@ function reiniciarPaginado(){
     contenedor.remove();
 }
 
-//BORRAR POST
+//BORRAR POSTS
 function reiniciarPost(){
     let divCards = document.getElementById('divPost');
     let contenedor = divCards.lastChild;
     contenedor.remove();
-    loading.style.display="inline";
+    loading.style.display="inline";    
 }
 
-//RESUMEN Descripcion
-function resumenDescripcion(descripcion){
-    if(descripcion.length > 180){
-        let resumen = descripcion.substring(0, 180) + "...";
-        return resumen;
-    }else{
-        return descripcion;
-    }
+//RECARGAR POSTS POR SUBSECCION
+async function recargarSubseccion(){
+    SECCION_ACTUAL = "";
+    SUBSECCION_ACTUAL= this.id;
+
+    reiniciarPaginado(divPaginas);
+    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);
+    TOTALPAGINAS = totalPaginas;
+    mostrarPaginado(divPaginas, TOTALPAGINAS, 1, SECCION_ACTUAL, SUBSECCION_ACTUAL);
+    //mostrarPaginado(divPaginas, totalPaginas, pagina, SECCION_ACTUAL, SUBSECCION_ACTUAL);
 }
 
-//CARGAR POST
-function cargarPost(){
+//RECARGAR POST POR SECCION
+async function recargarSeccion(){
+    SECCION_ACTUAL = this.id;
+    SUBSECCION_ACTUAL= "";
+
+    reiniciarPaginado(divPaginas);
+    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);    
+    TOTALPAGINAS = totalPaginas;
+    mostrarPaginado(divPaginas, TOTALPAGINAS, SECCION_ACTUAL, SECCION_ACTUAL, SUBSECCION_ACTUAL);
+}
+
+//REDIRECCIONAR POST
+function redireccionarPost(){
     window.location="post.php?post="+this.id;
 }
 
-function recargarPost(){
-    console.log(this.id);
+//CREAR CONTENEDOR VACIO
+function contenedorVacio(){
+    loading.style.display="none";
+    let contenedor = document.createElement('div');
+    divPost.append(contenedor);
+}
+
+
+
+/********************************************FUNCIONES MENU*******************************************/
+//CARGAR MENU
+async function cargarMenu(){
+    let menu = document.getElementById('menu');
+    let listaMenu = await listarFetch('../App/Controllers/MenuController.php', 'Listar'); 
+
+    for(let i=0; i < listaMenu.length; i++){
+        SECCION.push(listaMenu[i]['Seccion']);
+    }
+
+    SECCION.forEach(function(numero){ REPETIDOS[numero] = (REPETIDOS[numero] || 0) + 1; });
+    
+    for (let seccion in REPETIDOS){
+        let li = crearMenu(seccion, REPETIDOS[seccion], listaMenu);
+        menu.appendChild(li);   
+    }
+}
+
+//CREAR MENU
+function crearMenu(seccion, cantidad, listaMenu){
+    let li = document.createElement('li');
+    li.className="nav-item dropdown";
+    
+    //SI posee SubSecciones
+    if(cantidad > 1){    
+        let a = document.createElement('a');
+        a.className = "nav-link dropdown-toggle"
+        a.dataset.toggle="dropdown";
+        a.innerText = seccion;        
+        li.appendChild(a);
+        
+        let div = document.createElement('div');
+        div.className = "dropdown-menu";
+
+        //Creando SubSecciones
+        for(let j=0; j < listaMenu.length; j++){           
+            if(seccion == listaMenu[j]['Seccion']){                
+                let aDiv = document.createElement('a');
+                aDiv.className="dropdown-item";
+                aDiv.innerText = listaMenu[j]['SubSeccion'];
+                aDiv.id = listaMenu[j]['IdSubSeccion'];
+                aDiv.addEventListener('click', recargarSubseccion);
+                
+                div.appendChild(aDiv);
+                li.appendChild(div);
+            }    
+        }       
+        
+    //NO posee SubSeccion
+    }else{  
+        let a = document.createElement('a');
+        a.className = "nav-link"
+        a.innerText = seccion;        
+        li.appendChild(a);
+        li.addEventListener('click', recargarSeccion);
+    }
+
+    //Agregar Id a Secciones
+    for(let i=0; i < listaMenu.length; i++){
+        if(listaMenu[i]['Seccion'] == seccion){
+            li.id= listaMenu[i]['IdSeccion'];
+            break;
+        }
+    }   
+
+    return li;
 }

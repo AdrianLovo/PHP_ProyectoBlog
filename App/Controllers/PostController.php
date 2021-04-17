@@ -11,25 +11,46 @@
         private $resultadosPorPagina;
         private $error = false;
 
-        function __construct($nPorPagina){
+        function __construct($nPorPagina, $seccion,  $subseccion){
             parent::__construct();
             $this->resultadosPorPagina = $nPorPagina;
             $this->indice = 0;
             $this->paginaActual = 1;
-            $this->calcularPaginas();
+            $this->calcularPaginas($seccion, $subseccion);
         }
 
-        function calcularPaginas(){
-            $query = $this->connect()->query('SELECT COUNT(*) AS total FROM BlogPHP.Post A WHERE A.Estado=1');
-            $this->numeroResultados = $query->fetch(PDO::FETCH_OBJ)->total;
-            $this->totalPaginas = round($this->numeroResultados / $this->resultadosPorPagina);  
+        function calcularPaginas($seccion,  $subseccion){
+            $query = "";
 
-            if(($this->numeroResultados % $this->resultadosPorPagina) > 0 &&
-                ((($this->numeroResultados / $this->resultadosPorPagina) - floor($this->numeroResultados/$this->resultadosPorPagina)) <= 0.5)
-            ){
-                $this->totalPaginas++;
+            if($seccion != ""){
+                if($seccion != 0){
+                    $query = $this->connect()->query("SELECT COUNT(*) AS total FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSeccion=".$seccion);                
+                }else{
+                    $query = $this->connect()->query("SELECT COUNT(*) AS total FROM BlogPHP.Post A WHERE A.Estado=1");               
+                }
             }
-                    
+
+            if($subseccion != ""){
+                if($subseccion != 0){
+                    $query = $this->connect()->query("SELECT COUNT(*) AS total FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSubSeccion=".$subseccion);                
+                }
+            }
+            
+            $this->numeroResultados = $query->fetch(PDO::FETCH_OBJ)->total;
+            
+            //TIene mas de un resultado
+            if($this->numeroResultados > 0){
+
+                $this->totalPaginas = round($this->numeroResultados / $this->resultadosPorPagina);  
+
+                if(($this->numeroResultados % $this->resultadosPorPagina) > 0 &&
+                    ((($this->numeroResultados / $this->resultadosPorPagina) - floor($this->numeroResultados/$this->resultadosPorPagina)) <= 0.5)
+                ){
+                    $this->totalPaginas++;
+                }
+
+            }
+
 
             if(isset($_GET['pagina'])){                
                 //Validar que pagina sea un numero
@@ -51,11 +72,26 @@
             }
         }
 
-        function listarPost(){
+        function listarPost($seccion,  $subseccion){
             $arrayDeObjetos = array();
-
             if(!$this->error){
-                $query = $this->connect()->prepare('SELECT A.IdPost, A.Titulo, A.Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1  LIMIT :pos, :n');
+               
+                $query = "";
+                if($seccion != ""){
+                    if($seccion != 0){
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSeccion=".$seccion." LIMIT :pos, :n");
+                    }else{
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1  LIMIT :pos, :n");
+                    }
+                }     
+                
+                if($subseccion != ""){
+                    if($subseccion != 0){
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSubSeccion=".$subseccion." LIMIT :pos, :n");
+                    }
+                }     
+                
+
                 $query->execute(['pos' => $this->indice, 'n' => $this->resultadosPorPagina]);
 
                 foreach($query as $post){
@@ -69,7 +105,8 @@
                     ];
 					array_push($arrayDeObjetos, $tmp);
                 }
-            }
+            }           
+
             echo json_encode($arrayDeObjetos);
         }
 
@@ -93,18 +130,20 @@
 
 
     $seccion = isset($_POST['seccion']) ? $_POST['seccion'] : null;
+    $subseccion = isset($_POST['subseccion']) ? $_POST['subseccion'] : null;
     $metodo = isset($_POST['metodo']) ? $_POST['metodo'] : null;
     $pagina = isset($_POST['pagina']) ? $_POST['pagina'] : null;
     $numeroPorPagina = isset($_POST['numeroPorPagina']) ? $_POST['numeroPorPagina'] : null;
 
    
+   
     if($metodo === "Paginas"){
-         $cards = new PostController($numeroPorPagina);
-         echo($cards->getTotalPaginas());
+        $paginas = new PostController($numeroPorPagina, $seccion, $subseccion);
+        echo($paginas->getTotalPaginas());
     }
 
     if($metodo === "Post"){
-        $cards = new PostController($numeroPorPagina);
-        $cards->setIndice( ($pagina-1) * $numeroPorPagina);
-        $cards->listarPost();        
+        $post = new PostController($numeroPorPagina, $seccion, $subseccion);
+        $post->setIndice( ($pagina-1) * $numeroPorPagina);
+        $post->listarPost($seccion, $subseccion);        
     }

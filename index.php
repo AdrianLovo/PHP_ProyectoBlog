@@ -77,7 +77,6 @@
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
 
     <!--Controller-->
-    <script type="module" src="App/js/indexMenu.js"></script>
     <script type="module" src="App/js/index.js"></script>
    
 
