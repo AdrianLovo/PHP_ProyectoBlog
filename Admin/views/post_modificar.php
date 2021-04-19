@@ -112,13 +112,21 @@
                             <option value="1">Publicado</option>
                         </select>
                     </div>                           
-                </div>                                                       
+                </div>  
+                
+                <div class="form-row">
+                    <div class="form-group col-md-10 offset-md-1">
+                        <input type="text" name="ImagenAnterior" id="ImagenAnterior" style="display:">
+                    </div>
+                </div>                                                     
                 
                 <div class="form-row">
                     <div class="form-group col-md-10 offset-md-1">
                         <textarea id="ta-1" name="ta-1"></textarea> 
                     </div> 
                 </div>
+
+                
 
                 <div class="form-row">
                     <div class="form-group col-md-8 offset-md-1">

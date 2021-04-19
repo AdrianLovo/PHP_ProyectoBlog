@@ -22,73 +22,24 @@
     <!--Menu Principal-->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
         <a id="user" class="navbar-brand" href="index.php">Inicio</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
             <span class="navbar-toggler-icon"></span>
         </button>
   
-        <div class="collapse navbar-collapse" id="navb">
-            <ul class="navbar-nav mr-auto">                
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">  
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="Navb">
+                        
+                    </a>
+                </li>
                 
-                
-                <!-- Audiovisual -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Audiovisual
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Fotoperiodismo</a>
-                        <a class="dropdown-item" href="#">Infografías</a>
-                        <a class="dropdown-item" href="#">Podcast</a>
-                    </div>
-                </li>
-                <!-- Articulos -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Articulos
-                    </a>
-                    <div class="dropdown-menu">                        
-                        <a class="dropdown-item" href="#">Política</a>
-                        <a class="dropdown-item" href="#">Sociedad</a>
-                        <a class="dropdown-item" href="#">Tecnología</a>                        
-                        <a class="dropdown-item" href="#">Reconstrucción de investigaciones</a>                        
-                        <a class="dropdown-item" href="#">Colaboraciones</a>                        
-                    </div>
-                </li>
-                <!-- Cultura -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Cultura
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Libros</a>
-                        <a class="dropdown-item" href="#">Cine</a>
-                        <a class="dropdown-item" href="#">Historia</a>
-                        <a class="dropdown-item" href="#">Filosofía</a>
-                    </div>
-                </li>
-                <!-- Escritos -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Escritos
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Cuentos</a>
-                        <a class="dropdown-item" href="#">Poemas</a>
-                        <a class="dropdown-item" href="#">Aforismos</a>
-                        <a class="dropdown-item" href="#">Experiencias</a>
-                    </div>
-                </li>
-                 <!-- Escritos -->
-                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbardrop">
-                        Ensayos
-                    </a>
-                </li>
             </ul>
         </div>  
-            <!--<form class="form-inline my-2 my-lg-0 text-white">
+            <form class="form-inline my-2 my-lg-0 text-white" id="Email">
                 LOGO
-            </form>-->
+            </form>
+            <img id="Avatar" src="" class="avatarBarra" title="">
         </div>
     </nav>
 
@@ -97,19 +48,33 @@
         <!--Header Principal-->  
         <div class="p-md-3 text-dark bg-light text-justify">
             <div class="col-sm-12 col-md-5 cl-lg-12 offset-md-3">
-                <h1 id="Titulo" class="font-italic "></h1>
-                <p id="Descripcion"></p>            
-                <input type="text" value="<?php echo($IdPost); ?>" class="">
+                <h1 id="Titulo" class="font-italic"></h1>
+                <p id="Descripcion"></p>                 
+                <input id="IdPost" type="text" value="<?php echo($IdPost); ?>" class="hide">
             </div>
+        </div>       
+
+        <div class="container">
+            <img src="" class="img-fluid alignCenter mt-1" alt="..." id="ImagenPortada" style="max-width:1200px">
         </div>
     </div>
     
     
     <!--Contendor Principal-->
-    <div class="container" style="margin-top: 10px">
+    <div class="container" style="margin-top: 10px" id="Contenido">     
+
 
     </div>
 
+    <div class="container">
+        <blockquote class="blockquote text-right">
+            <p class="blockquote-footer"><cite title="Source Title" id="Seccion"></cite></p>
+        </blockquote>
+        <blockquote class="blockquote text-right">
+            <footer class="blockquote-footer">Publicado: <cite title="Source Title" id="Fecha"></cite></footer>
+        </blockquote>
+        
+    </div>
    
     <!--CSS Main-->
     <link rel="stylesheet" href="/Resources/css/style.css">
@@ -120,7 +85,7 @@
     <script src="/Resources/sweet/sweetalert2.min.js"></script>
 
     <!--Controller-->
-    <!-- <script type="module" src="App/js/post.js"></script> -->
+    <script type="module" src="App/js/post.js"></script>
    
 
 </body>

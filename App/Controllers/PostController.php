@@ -38,9 +38,8 @@
             
             $this->numeroResultados = $query->fetch(PDO::FETCH_OBJ)->total;
             
-            //TIene mas de un resultado
+            //Tiene mas de un resultado
             if($this->numeroResultados > 0){
-
                 $this->totalPaginas = round($this->numeroResultados / $this->resultadosPorPagina);  
 
                 if(($this->numeroResultados % $this->resultadosPorPagina) > 0 &&
@@ -48,9 +47,7 @@
                 ){
                     $this->totalPaginas++;
                 }
-
             }
-
 
             if(isset($_GET['pagina'])){                
                 //Validar que pagina sea un numero
@@ -79,19 +76,17 @@
                 $query = "";
                 if($seccion != ""){
                     if($seccion != 0){
-                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSeccion=".$seccion." LIMIT :pos, :n");
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha, B.Imagen Avatar, B.Email  FROM BlogPHP.Post A INNER JOIN BlogPHP.Usuario B ON B.IdUsuario = A.IdUsuario WHERE A.Estado=1 AND A.IdSeccion=".$seccion." LIMIT :pos, :n");
                     }else{
-                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1  LIMIT :pos, :n");
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha, B.Imagen Avatar, B.Email  FROM BlogPHP.Post A INNER JOIN BlogPHP.Usuario B ON B.IdUsuario = A.IdUsuario WHERE A.Estado=1  LIMIT :pos, :n");
                     }
                 }     
                 
                 if($subseccion != ""){
                     if($subseccion != 0){
-                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha FROM BlogPHP.Post A WHERE A.Estado=1 AND A.IdSubSeccion=".$subseccion." LIMIT :pos, :n");
+                        $query = $this->connect()->prepare("SELECT A.IdPost, A.Titulo, CASE WHEN LENGTH(A.Descripcion) >= 180 THEN CONCAT(SUBSTRING(A.Descripcion, 1, 180),'...') WHEN LENGTH(A.Descripcion) < 180 THEN A.Descripcion END Descripcion, A.ImagenPortada, A.Fecha, B.Imagen Avatar, B.Email  FROM BlogPHP.Post A INNER JOIN BlogPHP.Usuario B ON B.IdUsuario = A.IdUsuario WHERE A.Estado=1 AND A.IdSubSeccion=".$subseccion." LIMIT :pos, :n");
                     }
                 }     
-                
-
                 $query->execute(['pos' => $this->indice, 'n' => $this->resultadosPorPagina]);
 
                 foreach($query as $post){
@@ -101,7 +96,9 @@
                         "Descripcion" => $post['Descripcion'],
                         "ImagenPortada" => $post['ImagenPortada'],
                         "Fecha" => $post['Fecha'],
-                        "Titulo" => $post['Titulo']
+                        "Titulo" => $post['Titulo'],
+                        "Avatar" => $post['Avatar'],
+                        "Email" => $post['Email']
                     ];
 					array_push($arrayDeObjetos, $tmp);
                 }
@@ -147,3 +144,6 @@
         $post->setIndice( ($pagina-1) * $numeroPorPagina);
         $post->listarPost($seccion, $subseccion);        
     }
+
+    
+  

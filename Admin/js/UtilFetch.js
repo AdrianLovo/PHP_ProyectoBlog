@@ -35,7 +35,7 @@ export async function eliminarFetch(ruta, columna, id){
             body: data
         });
         let respuesta = await response.text();
-        //console.log(respuesta);
+        console.log(respuesta);
         
         if(respuesta.length > 0){
             mensaje('Registro Eliminado', 'success'); 

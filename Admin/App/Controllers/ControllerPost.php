@@ -22,7 +22,7 @@
 
         public function Eliminar(){
             $IdPost = isset($_POST['IdPost']) ? $_POST['IdPost'] : null;
-            $post = new Post($IdPost, null, null, null, null, null, null, null, null, null, null, null);        
+            $post = new Post($IdPost, null, null, null, null, null, null, null, null, null, null, null, null);        
             echo($this->daoPost->eliminar($post));
         }
 
@@ -55,7 +55,7 @@
 
         public function Modificar(){            
             $IdUsuario = $_SESSION['IdUsuario'];
-            $Imagen = "";
+            $ImagenAnterior = isset($_POST['ImagenAnterior']) ? $_POST['ImagenAnterior'] : null; 
             $IdPost = isset($_POST['IdPost']) ? $_POST['IdPost'] : null;        
             $Titulo = isset($_POST['titulo']) ? $_POST['titulo'] : null;            
             $fecha =  $fecha = date('Y-m-d H:i:s');          
@@ -68,7 +68,7 @@
             $NombreSubSeccion = isset($_POST['InputSubseccion']) ? $_POST['InputSubseccion'] : null;  
             $nombre = isset($_FILES['imagen']['name']) ? $_FILES['imagen']['name'] : null;
             $nombreTemp = isset($_FILES['imagen']['tmp_name']) ? $_FILES['imagen']['tmp_name'] : null;
-            $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : "/Resources/img/default.png";            
+            $destino = $nombre != "" ? "../../../public/img/".date('YmdHis').$nombre : $ImagenAnterior;            
                
             $post = new Post($IdPost, $Titulo, $Descripcion, $destino, $Contenido, $fecha, $IdUsuario, $Seccion, $Subseccion, null, $NombreSeccion, $NombreSubSeccion, $Estado);     
             $filas = $this->daoPost->modificar($post);   

@@ -72,3 +72,25 @@ export async function listarFetch(ruta, metodo){
         return null;	
     }
 } 
+
+export async function buscarFetch(ruta, metodo, IdPost){
+    const data = new FormData();
+    data.append('metodo', metodo);
+    data.append('IdPost', IdPost);
+    
+    try{
+        let response = await fetch(ruta, {
+            method: 'POST',
+            body: data
+        });
+        let respuesta = await response.json();
+        //console.log(respuesta);
+        
+        if(respuesta.length > 0){
+            return respuesta;
+        }
+    }catch(error){
+        mensaje('Error para conectarse al servidor', 'error');  
+        return null;	
+    }
+} 

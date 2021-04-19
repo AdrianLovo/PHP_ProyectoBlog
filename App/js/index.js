@@ -14,14 +14,13 @@ let SUBSECCION_ACTUAL='';
 (async function() {
     cargarMenu();
     
-    let pagina = 1;
     let divPaginas = document.getElementById('divPaginas');
     let divPost = document.getElementById('divPost');  
     let loading = document.getElementById('loading');
     
-    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, pagina);    
+    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);    
     TOTALPAGINAS = totalPaginas;
-    mostrarPaginado(divPaginas, totalPaginas, pagina, SECCION_ACTUAL, SUBSECCION_ACTUAL);
+    mostrarPaginado(divPaginas, totalPaginas, 1, SECCION_ACTUAL, SUBSECCION_ACTUAL);
 
 })();
 
@@ -141,21 +140,39 @@ function mostrarPost(totalPost, divPost){
         let p = document.createElement('p');
         let pTime = document.createElement('p');
         let small = document.createElement('small');
+        let avatar = document.createElement('img');
         
-        divBody.className = "card-body";
-        
+        divBody.className = "card-body";        
         p.className = "card-text";
         p.innerText = totalPost[i]["Descripcion"]; 
-        p.style.cursor="pointer";
-        
+        p.style.cursor="pointer";        
         h5.className = "card-title";
         h5.innerText = totalPost[i]["Titulo"];
-        h5.style.cursor="pointer";
-        
-        pTime.className = "card-text";
+        h5.style.cursor="pointer";        
+        pTime.className = "card-text";        
         small.className = "text-muted";
-        small.innerText = "Created at: " + totalPost[i]["Fecha"];
-                
+        
+        let table = document.createElement('table');
+        let trUno = document.createElement('tr');
+        let trDos = document.createElement('tr');        
+        let tdUno = document.createElement('td');
+        let tdDos = document.createElement('td');
+        let tdTres = document.createElement('td');
+        tdUno.appendChild(avatar);
+        tdUno.rowSpan=2;
+        tdDos.innerText =totalPost[i]["Email"];
+        tdTres.innerText=convertirFecha(totalPost[i]["Fecha"]);
+        trUno.appendChild(tdUno);
+        trUno.appendChild(tdDos);
+        trDos.appendChild(tdTres);        
+        table.appendChild(trUno);
+        table.appendChild(trDos) ;
+        small.appendChild(table);
+
+        avatar.src=totalPost[i]["Avatar"];
+        avatar.className="avatar";
+        avatar.title=totalPost[i]["Email"];
+        
         pTime.appendChild(small);
         divBody.appendChild(h5);
         divBody.appendChild(p);
@@ -163,6 +180,7 @@ function mostrarPost(totalPost, divPost){
         
         let img = document.createElement('img');
         let divImg = document.createElement('div');
+
         divImg.className = "container alignCenter mt-1";
         divImg.style.cursor="pointer";
         img.className="row justify-content-center"
@@ -170,13 +188,14 @@ function mostrarPost(totalPost, divPost){
         img.style.minWidth="270px";
         img.alt = totalPost[i]["Titulo"];
         img.src = totalPost[i]["ImagenPortada"];
-        divImg.appendChild(img);
 
+        divImg.appendChild(img);
         div.appendChild(divImg);
         div.appendChild(divBody);
+
+
         contenedor.appendChild(div);
-    }
-   
+    }   
     divPost.append(contenedor);
     loading.style.display="none";
 }
@@ -184,7 +203,7 @@ function mostrarPost(totalPost, divPost){
 //CAMBIO PAGINA CLICK
 function cambioPagina(){
     reiniciarPaginado(divPaginas);
-    mostrarPaginado(divPaginas, TOTALPAGINAS, this.id, '', '');
+    mostrarPaginado(divPaginas, TOTALPAGINAS, this.id, SECCION_ACTUAL, SUBSECCION_ACTUAL);
 }
 
 //CAMBIO PAGINA SIGUIENTE
@@ -218,18 +237,6 @@ function reiniciarPost(){
     loading.style.display="inline";    
 }
 
-//RECARGAR POSTS POR SUBSECCION
-async function recargarSubseccion(){
-    SECCION_ACTUAL = "";
-    SUBSECCION_ACTUAL= this.id;
-
-    reiniciarPaginado(divPaginas);
-    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);
-    TOTALPAGINAS = totalPaginas;
-    mostrarPaginado(divPaginas, TOTALPAGINAS, 1, SECCION_ACTUAL, SUBSECCION_ACTUAL);
-    //mostrarPaginado(divPaginas, totalPaginas, pagina, SECCION_ACTUAL, SUBSECCION_ACTUAL);
-}
-
 //RECARGAR POST POR SECCION
 async function recargarSeccion(){
     SECCION_ACTUAL = this.id;
@@ -239,6 +246,17 @@ async function recargarSeccion(){
     let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);    
     TOTALPAGINAS = totalPaginas;
     mostrarPaginado(divPaginas, TOTALPAGINAS, SECCION_ACTUAL, SECCION_ACTUAL, SUBSECCION_ACTUAL);
+}
+
+//RECARGAR POSTS POR SUBSECCION
+async function recargarSubseccion(){
+    SECCION_ACTUAL = "";
+    SUBSECCION_ACTUAL= this.id;
+
+    reiniciarPaginado(divPaginas);
+    let totalPaginas = await listarPaginasFetch('../App/Controllers/PostController.php', 'Paginas', SECCION_ACTUAL, SUBSECCION_ACTUAL, NUMEROPORPAGINA, 1);
+    TOTALPAGINAS = totalPaginas;
+    mostrarPaginado(divPaginas, TOTALPAGINAS, 1, SECCION_ACTUAL, SUBSECCION_ACTUAL);
 }
 
 //REDIRECCIONAR POST
@@ -321,4 +339,15 @@ function crearMenu(seccion, cantidad, listaMenu){
     }   
 
     return li;
+}
+
+
+
+/********************************************FUNCIONES UTILIDAD*******************************************/
+function convertirFecha(date){
+    let meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    let dia =(new Date(date).getDate());
+    let mes =(new Date(date).getMonth());
+    let anio =(new Date(date).getFullYear());
+    return dia +" "+ meses[mes]+" "+anio;
 }

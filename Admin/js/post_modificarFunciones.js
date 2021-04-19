@@ -7,12 +7,13 @@ export async function cargarPost(frm, ruta, filtro, parametro, summernot){
     if(lista.length > 0){
         frmPost[2].value = lista[0]['NombreSeccion'];
         frmPost[3].value = lista[0]['NombreSubSeccion']
-        frmPost[4].value = lista[0]['Titulo'];     
+        frmPost[4].value = lista[0]['Titulo'];       
         frmPost[6].value = lista[0]['Descripcion'];   
         frmPost[7].value = lista[0]['IdSeccion'];    
         frmPost[8].value = lista[0]['IdSubSeccion'];
         frmPost[9].value = lista[0]['Estado'];
-        frmPost[10].value = lista[0]['Contenido'];
+        frmPost[10].value = lista[0]['ImagenPortada'];
+        frmPost[11].value = lista[0]['Contenido'];
         summernot.code(lista[0]['Contenido']);
     } 
 }
